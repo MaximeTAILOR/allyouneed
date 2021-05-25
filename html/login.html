@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style/style.css">
+  <title>Login</title>
+</head>
+
+<body>
+  <div>
+    <h1>Connexion au site</h1>
+    <form action="./login.php" method=post>
+      <label for="mail">Adresse mail :</label>
+      <input type="text" id="mail" name="mail" placeholder="Adresse mail"><br><br>
+
+      <label for="mdp">Mot de passe :</label>
+      <input type="password" id="mdp" name="mdp" placeholder="Mot de passe"><br><br>
+
+      <input type="submit" id='envoyer' value="Envoyer">
+    </form>
+    <a href="new_cust.html">Nouveau client</a>
+    <br>
+    <a href="new_comp.html">Nouvelle compagnie</a>
+    <br>
+    <a href="new_admin.html">Nouvel admin</a>
+  </div>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script src="../script/script_login.js"></script>
+</body>
+</html>

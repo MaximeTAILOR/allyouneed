@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style/style.css">
+  <title>Register_New_Company</title>
+</head>
+
+<body>
+    <div>
+        <h1>Creation du compte</h1>
+        <form action="../php/new_comp.php" method=post>
+            <h2>Informations personnelles</h2>
+
+            <label for="prenom">Prenom :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="prenom"><br><br>
+
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="nom"><br><br>
+
+            <label for="telephone">Telephone :</label>
+            <input type="text" id="telephone" name="telephone" placeholder="33638xxxxxx"><br><br>
+
+            <label for="poste">Poste occupé :</label>
+            <input type="text" id="poste" name="poste" placeholder="poste occupé"><br><br>
+
+            <label for="mail">Adresse mail :</label>
+            <input type="text" id="mail" name="mail" placeholder="adresse mail"><br><br>
+
+            <label for="verifMail">Vérification adresse mail :</label>
+            <input type="text" id="verifMail" name="verifMail" placeholder="confirmation de l'adresse mail"><br><br>
+
+            <h2>Information entreprise</h2>
+
+            <label for="siret">Siret :</label>
+            <input type="text" id="siret" name="siret" placeholder="xxxxxxxxxxxxxx"><br>
+            <small>Remplir le siret remplira automatiquement les autres champs.</small><br><br>
+
+            <label for="siren">Siren :</label>
+            <input type="text" id="siren" name="siren" placeholder="xxxxxxxxx"><br><br>
+
+            <label for="ape">Code APE :</label>
+            <input type="text" id="ape" name="ape" placeholder="xx.xxx"><br><br>
+
+            <label for="nomEntreprise">Nom de l'entreprise :</label>
+            <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="nom de l'entreprise"><br><br>
+
+            <h2>Sécurité</h2>
+
+            <label for="mdp">Mot de passe :</label>
+            <input type="password" id="mdp" name="mdp" placeholder="mot de passe"><br><br>
+
+            <label for="verifMdp">Vérification mot de passe :</label>
+            <input type="password" id="verifMdp" name="verifMdp" placeholder="confimation du mot de passe"><br><br>
+
+            <input type="submit" id='envoyer' value="Envoyer">
+        </form>
+        <a href="login.html">Retours a la connexion</a>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="../script/script_new_comp.js"></script>
+</body>
+</html>

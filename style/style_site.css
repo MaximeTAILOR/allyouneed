@@ -1,0 +1,132 @@
+body {
+    background-color: rgb(21, 41, 41);
+    font-family: sans-serif;
+}
+
+a {
+  display: block;
+  color: white;
+  text-align: center;
+}
+
+table {
+    border: 1px solid #383838;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    width: 16%;
+    color: white;
+    border: 1px solid #383838;
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+
+tr {
+    background-color: #1f1f1f;
+    border: 1px solid #383838;
+}
+
+tr:nth-child(even){
+    background-color: #181818;
+}
+
+tr:hover {
+    background-color: black;
+}
+
+#en-tete{
+    background-color: #3d3d3d;
+}
+
+/*Style lié au popup*/
+.fermeture_pop-up {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top:0;
+    padding-top: 50px;
+    width: 100%;
+    height: 100%;
+    margin-top: -10px;
+    margin-left: -10px;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+.pop-up {
+  background-color: #1f1f1f;
+  color: white;
+  width: 500px;
+  margin: auto;
+  margin-top: 5%;
+  padding: 20px;
+  box-shadow: 10px 5px 5px rgb(12, 12, 12);
+}
+
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+}
+  
+.close:hover{
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Style de l'en-tête*/
+.redirection a{
+    display: block;
+    color: white;
+    text-align: center; 
+    text-decoration: none;
+    background-color: #1f1f1f;
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+
+.redirection a:hover{
+    color: white;
+    background-color: black;
+}
+
+.redirection td {
+    border: 0px;
+    padding: 0px;
+}
+
+
+/*Style de la navbar*/
+header {
+ width: 100%;
+}
+
+ul {
+    list-style-type: none;
+    margin-bottom: 15px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+li {
+ float: left;
+}
+
+li a {
+display: block;
+color: white;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+background-color: #111;
+}
