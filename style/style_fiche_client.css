@@ -1,0 +1,367 @@
+/*style des elements de base*/
+body {
+  background-color: #181818;
+  font-family: sans-serif;
+  height: 100%;
+}
+
+input{
+  margin: 5px;
+  border-color: silver;
+  background-color: #181818;
+  color: white;
+  border-radius: 4px;
+}
+
+#compteRendu, #avis{
+  margin: 5px;
+}
+
+textarea {
+  border-color: silver;
+  background-color: #181818;
+  color: white;
+  border-radius: 4px;
+  width: 98%;
+  height: 95%;
+}
+
+img {
+  text-align: center;
+  margin: auto;
+  display: flex;
+  width: 100px;
+	height: 100px;
+}
+
+select {
+  margin: 5px;
+  border-color: silver;
+  background-color: #181818;
+  color: white;
+  border-radius: 4px;
+}
+
+#pourcentage {
+  font-size: 15px;
+  text-align: right;
+  margin: auto;
+  display: block;
+  color: rgb(255, 0, 0);
+}
+
+
+
+
+/*
+Style de la navbar
+*/
+#navbar {
+  overflow: hidden;
+  margin-left: 20px;
+  top: 0;
+}
+
+a {
+  text-decoration: none;
+  display: block;
+  background: linear-gradient(#222222, #181818);
+  border-radius: 10px 10px 0px 0px;
+  text-align: center;
+  float: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: silver;
+}
+
+a:hover {
+  background: #181818;
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgb(190, 56, 3);
+}
+
+
+
+
+/*
+Les informations a venir ne concernent que la page 1
+*/
+
+/*paramétrage de la grid de la page 1*/
+.container1{
+  color: white;
+  padding: 20px;
+  display:grid;
+  height: 100%;
+  grid-template-columns: 4fr 2fr 1fr 0.7fr 1.3fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1.5fr 4fr 4fr;
+  grid-template-areas:
+    "infoCandidat_1 infoCandidat_1 reseaux reseaux photoProfil"
+    "infoCandidat_2 infoCandidat_2 adresse adresse photoProfil"
+    "coordEtEntreprise_1 coordEtEntreprise_1 adresse2 adresse2 photoProfil"
+    "coordEtEntreprise_2 coordEtEntreprise_2 entreprise entreprise entreprise"
+    "environnement environnement environnement environnement environnement"
+    "projets projets projets projets projets"
+    "competances competances competances profilCandidat profilCandidat"
+    "compteRendu compteRendu compteRendu compteRendu compteRendu"
+    "avis date date . finForm";
+}
+
+#infoCandidat_1{grid-area: infoCandidat_1;}
+
+#infoCandidat_2{grid-area: infoCandidat_2;}
+
+#reseaux{grid-area: reseaux;}
+
+#adresse{grid-area: adresse;}
+
+#adresse2{grid-area: adresse2;}
+
+#photoProfil{grid-area: photoProfil;}
+
+#coordEtEntreprise_1{grid-area: coordEtEntreprise_1;}
+
+#coordEtEntreprise_2{grid-area: coordEtEntreprise_2;}
+
+#entreprise{grid-area: entreprise;}
+
+#environnement{grid-area: environnement;}
+
+#projets{grid-area: projets;}
+
+#competances{grid-area: competances;}
+
+#profilCandidat{grid-area: profilCandidat;}
+
+#compteRendu{grid-area: compteRendu;}
+
+#avis{grid-area: avis;}
+
+#date{grid-area: date;}
+
+#finForm{grid-area: finForm;}
+
+
+
+
+/*dimenssion des input*/
+#infoCandidat_1 input, #infoCandidat_2 input{
+  width: 29%;
+}
+
+#coordEtEntreprise_1 #portable, #coordEtEntreprise_2 #mail{
+  width: 29%;
+}
+
+#coordEtEntreprise_1 #derniereEntreprise, #coordEtEntreprise_2 #entrepriseSouhaitees{
+  width: 50%;
+}
+
+#adresse input {
+  width: 87%;
+}
+
+#adresse2 input {
+  width: 40%;
+}
+
+#entreprise input {
+  width: 44%;
+}
+
+#environnement input, #projets input {
+  width: 48%;
+}
+
+#competances {
+  display: flex;
+}
+
+#competances input {
+  width: 22%;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+#profilCandidat select {
+  width: 90%;
+}
+
+
+
+
+
+/*réseaux sociaux*/
+.fa-discord {
+  color: rgb(114, 137, 218);
+  cursor: pointer;
+}
+
+.fa-linkedin{
+  color: #0072b1;
+  cursor: pointer;
+}
+
+.fa-instagram{
+  color: rgb(193,53,132);
+  cursor: pointer;
+}
+
+.fa-whatsapp{
+  color: #25D366;
+  cursor: pointer;
+}
+
+#reseaux{
+  padding: 5px;
+  font-size: 20px;
+}
+
+
+
+/*Bouton de choix homme femme*/
+.homme, .femme, .homme input, .femme input, .homme label, .femme label{
+  cursor: pointer;
+  display: inline;
+}
+
+
+
+
+
+/*
+Les informations a venir ne concernent que la page 2
+*/
+
+/*paramétrage de la grid de la page 1*/
+.container2{
+  color: white;
+  padding: 20px;
+  display:none;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 
+    "possibilitesDeDeplacement possibilitesDeDeplacement"
+    ". finForm";
+}
+
+#possibilitesDeDeplacement{grid-area: finForm;}
+
+#finForm{grid-area: finForm;}
+
+
+
+
+/*elements de fin de formulaire*/
+
+#displayProgressBar{
+  margin: 10px;
+}
+
+#progressBar{
+  background-color: green;
+  width: 0%;
+  height: 10px;
+  margin-top: -10px;
+}
+
+#progressBarFull{
+  background-color: rgb(99, 99, 99);
+  width: 100%;
+  height: 10px;
+}
+
+#notation{
+  margin: 10px
+}
+
+#finForm {
+  position:relative;
+  margin-right: 2px;
+}
+
+#envoyer {
+  position:absolute;
+  bottom:0;
+  right:0;
+  margin-right: 10px;
+  height: 30px;
+  width: 100px;
+  border-radius: 4px;
+  background-color: rgb(58, 0, 192);
+  border-color: rgb(58, 0, 192);
+}
+
+#envoyer:hover{
+  background-color: rgb(47, 0, 156);
+  border-color: rgb(47, 0, 156);
+}
+
+
+
+
+
+/*Gestion du système de notation*/
+.check{
+  color: orange;
+}
+
+.un-check{
+  color: black;
+}
+
+
+
+
+
+
+
+
+/*Style lié au pop-up*/
+.fermeture_pop-up {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top:0;
+  padding-top: 50px;
+  width: 100%;
+  height: 100%;
+  margin-top: -10px;
+  margin-left: -10px;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.pop-up {
+  background-color: #1f1f1f;
+  color: white;
+  width: 500px;
+  margin: auto;
+  margin-top: 5%;
+  padding: 20px;
+  box-shadow: 10px 5px 5px rgb(12, 12, 12);
+}
+
+
+
+  /* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+}
+
+.close:hover{
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.linkedin, .instagram, .discord, .whatsapp{
+  display: none;
+  width: 80%;
+}

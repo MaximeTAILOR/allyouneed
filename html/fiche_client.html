@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style/style_fiche_client.css">
+  <title>fiche client</title>
+  <script src="https://kit.fontawesome.com/38280f8a96.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!--Page navbaar-->
+  <div id="navbar">
+    <a href="#" id="identite">Identité</a>
+    <a href="#" id="projet">Projet</a>
+    <a href="#" id="entretiens">Entretiens</a>
+    <a href="#" id="process">Process</a>
+  </div>
+
+  <!--Page 1-->
+  <div class="container1">
+    <div id="infoCandidat_1">
+      <input type="text" id="nom" name="nom" placeholder="NOM">
+
+      <input type="text" id="posteActuel" name="posteActuel" placeholder="POSTE ACTUEL">
+
+      <input type="text" id="salireActuel" name="prenom" placeholder="SALAIRE">
+    </div>
+
+    <div id="infoCandidat_2">
+      <input type="text" id="prenom" name="prenom" placeholder="PRENOM">
+
+      <input type="text" id="posteSouhaite" name="posteSouhaite" placeholder="POSTE SOUHAITE">
+
+      <input type="text" id="salaireSouhaite" name="salaireSouhaite" placeholder="SALAIRE SOUHAITE">
+    </div>
+
+    <div id="reseaux">
+      <i class="fab fa-linkedin"></i>
+      <i class="fab fa-instagram"></i>
+      <i class="fab fa-discord"></i>
+      <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div id="adresse">
+      <input type="text" id="adressePartielle" name="adressePartielle" placeholder="ADRESSE">
+    </div>
+
+    <div id="adresse2">
+      <input type="text" id="codePost" name="codePost" placeholder="CP">
+
+      <input type="text" id="ville" name="ville" placeholder="VILLE">
+    </div>
+
+    <div id="photoProfil">
+      <img src="../img/man.jpg"></img>
+      <div>
+        <div class="homme">
+          <input type="radio" id="homme" name="sexe" checked>
+          <label for="sexe">Homme</label>
+        </div>
+
+        <div class="femme">
+          <input type="radio" id="femme" name="sexe">
+          <label for="sexe">Femme</label>
+        </div>
+      </div>
+    </div>
+
+    <div id="coordEtEntreprise_1">
+      <input type="text" id="portable" name="portable" placeholder="PORTABLE">
+
+      <input type="text" id="derniereEntreprise" name="derniereEntreprise" placeholder="DERNIERE ENTREPRISE">
+    </div>
+
+    <div id="coordEtEntreprise_2">
+      <input type="text" id="mail" name="mail" placeholder="MAIL">
+
+      <input type="text" id="entrepriseSouhaitees" name="entrepriseSouhaitees" placeholder="ENTREPRISES SOUHAITÉES">
+    </div>
+        
+    <div id="entreprise">
+      <input type="text" id="typeEntreprise" name="typeEntreprise" placeholder="TYPE D'ENTREPRISE">
+
+      <input type="text" id="zoneDeTravail" name="zoneDeTravail" placeholder="ZONE DE TRAVAIL">
+    </div>
+
+    <div id="environnement">
+      <input type="text" id="environnementTechActuel" name="environnementTechActuel" placeholder="ENVIRONNEMENT TECHNIQUE ACTUEL">
+
+      <input type="text" id="environnementTechVoulu" name="environnementTechVoulu" placeholder="ENVIRONNEMENT TECHNIQUE SOUHAITÉ">
+    </div>
+        
+    <div id="projets">
+      <input type="text" id="plusGrosProjet" name="plusGrosProjet" placeholder="LES PLUS GROS PROJETS">
+
+      <input type="text" id="projetsSouhaités" name="projetsSouhaités" placeholder="LES PROJETS SOUHAITÉS">
+    </div>
+
+    <div id="competances">
+      <input type="text" id="langues" name="langues" placeholder="LANGUES">
+
+      <input type="text" id="siteWeb" name="siteWeb" placeholder="SITE WEB">
+
+      <input type="text" id="portfolio" name="portfolio" placeholder="PORTFOLIO">
+
+      <input type="text" id="CV" name="CV" placeholder="CV">
+    </div>
+
+    <div id="profilCandidat">
+      <select name="statutCandidat" id="statutCandidat">
+        <option value="">STATUT DU CANDIDAT</option>
+        <option value="disponibleImediatement">Disponible imédiatement</option>
+        <option value="rechercheActive">Recherche active</option>
+        <option value="veille">Veille</option>
+        <option value="veilleActive">Veille active</option>
+        <option value="veille3-6">Veille 3 à 6 mois</option>
+        <option value="veille6-12">Veille 6 à 12 mois</option>
+      </select>
+
+      <select name="typeDeContrat" id="typeDeContrat">
+        <option value="">TYPE DE CONTRAT</option>
+        <option value="cdi">CDI</option>
+        <option value="cdd">CDD</option>
+        <option value="freelance">FREELANCE</option>
+      </select>
+    </div>
+
+    <div id="compteRendu">
+      <textarea id="compteRenduAgent" name="compteRendu">COMPTE RENDU D'ENTRETIENS</textarea>
+    </div>
+
+    <div id="avis">
+      <textarea id="avisAgent" name="avisAgent">AVIS DE L'AGENT</textarea>
+    </div>
+
+    <div id="date">
+      <input type="text" id="dateDuJour" name="date" value="JJ/MM/AAAA" disabled>
+    </div>
+
+    <div id="finForm">
+      <div id="displayProgressBar">
+        Etat du formulaire
+        <div id="progressBarFull"></div>
+        <div id="progressBar"></div>
+        <p id="pourcentage">XXX%</p>
+      </div>
+
+      <div id="notation">
+        Avis sur le profil<br>
+        <div>
+          <i id="1" class="fas fa-star check"></i>
+          <i id="2" class="fas fa-star un-check"></i>
+          <i id="3" class="fas fa-star un-check"></i>
+          <i id="4" class="fas fa-star un-check"></i>
+          <i id="5" class="fas fa-star un-check"></i>
+          <p id="note" style="display: none;">1</p>
+        </div>
+      </div>
+
+      <input type="submit" id='envoyer' value="enregistrer">
+    </div>
+  </div>
+
+
+
+
+  <!--Page 2-->
+  <div class="container2" style="display: none;">
+    <div id="possibilitesDeDeplacement">
+      <select name="mobilite" id="mobilite">
+        <option value="">MOBILITE</option>
+        <option value="10">10km</option>
+        <option value="20">20km</option>
+        <option value="30">30km</option>
+        <option value="40">40km</option>
+        <option value="50">50km</option>
+        <option value="60">60km</option>
+      </select>
+
+      <input type="text" id="region" name="region" placeholder="REGION">
+
+      <input type="text" id="ville" name="ville" placeholder="VILLE">
+
+      <input type="text" id="posteActuel" name="posteActuel" placeholder="POSTE ACTUEL">
+    </div>
+  </div>
+
+  <!--Fenetre pop up-->
+  <div class="fermeture_pop-up">
+    <div class="pop-up">
+        <span class="close">x</span>
+        <label class="linkedin" for="linkedin">Linkedin :</label>
+        <input class="linkedin" type="text" id="linkedin" name="linkedin">
+        <label class="instagram" for="instagram">Instagram :</label>
+        <input class="instagram" type="text" id="instagram" name="instagram">
+        <label class="discord" for="discord">Discord :</label>
+        <input class="discord" type="text" id="discord" name="discord">
+        <label class="whatsapp" for="whatsapp">WhatsApp :</label>
+        <input class="whatsapp" type="text" id="whatsapp" name="whatsapp">
+    </div>
+  </div>
+
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script src="../script/scripts_fiche_client/script_fiche_client.js"></script>
+  <script defer src="../script/scripts_fiche_client/script_sauvegarde_en_local.js"></script>
+</body>
+</html>
