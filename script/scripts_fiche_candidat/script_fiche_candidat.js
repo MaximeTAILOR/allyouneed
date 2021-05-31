@@ -1,23 +1,23 @@
 //navbar______________________________________________________________
-$('#entreprise').on('click', (e) => {
+$('#identite').on('click', (e) => {
     e.preventDefault();
     changerDePage($('.container1'))
 });
 
 
-$('#contacts').on('click', (e) => {
+$('#projet').on('click', (e) => {
     e.preventDefault();
     changerDePage($('.container2'))
 });
 
 
-$('#missions').on('click', (e) => {
+$('#entretiens').on('click', (e) => {
     e.preventDefault();
     changerDePage($('.container3'))
 });
 
 
-$('#ca').on('click', (e) => {
+$('#process').on('click', (e) => {
     e.preventDefault();
     changerDePage($('.container4'))
 });
@@ -51,6 +51,61 @@ function changerDePage(pageAOuvrir){
 
 
 
+
+
+//Page 1______________________________________________________________
+/*
+*Change la pdp en fonction de si c'est un homme ou une femme
+*/
+$('.homme').on('click', (event) => {
+    event.stopPropagation();
+    $('img').attr('src', '../img/man.jpg');
+    $('#homme').prop('checked', true);
+    $('#femme').prop('checked', false);
+});
+
+$('.femme').on('click', (event) => {
+    event.stopPropagation();
+    $('img').attr('src', '../img/women.jpg');
+    $('#homme').prop('checked', false);
+    $('#femme').prop('checked', true);
+});
+
+
+/*
+Fonctions liées au pop-up
+Tout les labels sont sur une même fenêtre
+On affiche et efface les labels en fonction de où on clique et ensuite on affiche la fenêtre
+*/
+//fonctions
+function affichePopup (elementClique) { 
+    $('.fermeture_pop-up').toggle();
+    $('.' + elementClique).css('display', 'block');
+}
+
+function effacePopup () {
+    $('.fermeture_pop-up').toggle();
+    $('.linkedin').css('display', 'none');
+    $('.instagram').css('display', 'none');
+    $('.discord').css('display', 'none');
+    $('.whatsapp').css('display', 'none');
+}
+
+//Création des evenements
+$('.fermeture_pop-up').on('click', () => {effacePopup()})
+$('.close').on('click', () => {effacePopup()})
+
+//Pour ne pas fermer la popup en cliquant n'importe où dessus
+$('.pop-up').on('click', (event) => {event.stopPropagation()})
+
+$(".fa-linkedin").on('click', () => {affichePopup("linkedin")});
+$(".fa-instagram").on('click', () => {affichePopup("instagram")});
+$(".fa-discord").on('click', () => {affichePopup("discord")});
+$(".fa-whatsapp").on('click', () => {affichePopup("whatsapp")});
+
+
+
+
 /*
 * Met automatiquement la date
 */
@@ -75,7 +130,11 @@ function updateBar(){
     let nbMaxInput=0;
     let nbValidInput=0;
     for (input of listInputs){
-        if (input.getAttribute('id') != "envoyer"){
+        if (input.getAttribute('id') != "envoyer"
+            && input.getAttribute('id') != "homme"
+            && input.getAttribute('id') != "femme"
+            && input.getAttribute('id') != "veutUneFormation"
+            && input.getAttribute('id') != "listeFormationSouhaite"){
             nbMaxInput++;
             if(input.value != ""){
                 nbValidInput++;
@@ -87,7 +146,7 @@ function updateBar(){
 
     for (textarea of listTextarea){
         nbMaxInput++;
-        if (textarea.value != "SUIVIT APPRECIER"){
+        if (textarea.value != "COMPTE RENDU D'ENTRETIENS" && textarea.value != "AVIS DE L'AGENT"){
             nbValidInput++;
         } 
     }
@@ -148,3 +207,10 @@ $("i").on("click", () => {
 })
 
 initNotation()
+
+/*
+Pour afficher ou cacher la liste des formations
+*/
+$('#veutUneFormation').on('click', () => {
+    $('#listeFormationSouhaite').toggle();
+})

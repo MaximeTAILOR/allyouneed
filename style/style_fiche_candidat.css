@@ -21,10 +21,17 @@ textarea {
   border-color: silver;
   background-color: #181818;
   color: white;
-  margin: 5px;
   border-radius: 4px;
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
+  width: 98%;
+  height: 95%;
+}
+
+img {
+  text-align: center;
+  margin: auto;
+  display: flex;
+  width: 100px;
+	height: 100px;
 }
 
 select {
@@ -42,44 +49,6 @@ select {
   display: block;
   color: rgb(255, 0, 0);
 }
-
-
-
-
-/*
-Style des tableaux
-*/
-table {
-  border: 1px solid #383838;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-td {
-  width: 16%;
-  color: white;
-  border: 1px solid #383838;
-  padding-top: 5px;
-  padding-bottom: 5px
-}
-
-tr {
-  background-color: #1f1f1f;
-  border: 1px solid #383838;
-}
-
-tr:nth-child(even){
-  background-color: #181818;
-}
-
-tr:hover {
-  background-color: black;
-}
-
-.en-tete{
-  background-color: #3d3d3d;
-}
-
 
 
 
@@ -127,19 +96,49 @@ Les informations a venir ne concernent que la page 1
   padding: 20px;
   display:grid;
   height: 100%;
-  grid-template-columns: 6fr 1.5fr 1.5fr;
-  grid-template-rows: 45px 45px 180px;
+  grid-template-columns: 4fr 2fr 1fr 0.5fr 1.5fr;
+  grid-template-rows: 45px 45px 45px 45px 45px 45px 67px 180px 180px;/*1fr 1fr 1fr 1fr 1fr 1fr 1.5fr 4fr 4fr;*/
   grid-template-areas:
-    "informationsPrincipales informationsPrincipales informationsPrincipales"
-    "informationEntreprise informationEntreprise origine"
-    ". date finForm";
+    "infoCandidat_1 infoCandidat_1 reseaux reseaux photoProfil"
+    "infoCandidat_2 infoCandidat_2 adresse adresse photoProfil"
+    "coordEtEntreprise_1 coordEtEntreprise_1 adresse2 adresse2 photoProfil"
+    "coordEtEntreprise_2 coordEtEntreprise_2 entreprise entreprise entreprise"
+    "environnement environnement environnement environnement environnement"
+    "projets projets projets projets projets"
+    "competances competances competances profilCandidat profilCandidat"
+    "compteRendu compteRendu compteRendu compteRendu compteRendu"
+    "avis date date . finForm";
 }
 
-#informationsPrincipales{grid-area: informationsPrincipales;}
+#infoCandidat_1{grid-area: infoCandidat_1;}
 
-#informationEntreprise{grid-area: informationEntreprise;}
+#infoCandidat_2{grid-area: infoCandidat_2;}
 
-#origine{grid-area: origine;}
+#reseaux{grid-area: reseaux;}
+
+#adresse{grid-area: adresse;}
+
+#adresse2{grid-area: adresse2;}
+
+#photoProfil{grid-area: photoProfil;}
+
+#coordEtEntreprise_1{grid-area: coordEtEntreprise_1;}
+
+#coordEtEntreprise_2{grid-area: coordEtEntreprise_2;}
+
+#entreprise{grid-area: entreprise;}
+
+#environnement{grid-area: environnement;}
+
+#projets{grid-area: projets;}
+
+#competances{grid-area: competances;}
+
+#profilCandidat{grid-area: profilCandidat;}
+
+#compteRendu{grid-area: compteRendu;}
+
+#avis{grid-area: avis;}
 
 #date{grid-area: date;}
 
@@ -149,18 +148,89 @@ Les informations a venir ne concernent que la page 1
 
 
 /*dimention des input*/
-#informationsPrincipales input{
-  width: 48%;
-}
-
-#informationEntreprise input{
+#infoCandidat_1 input, #infoCandidat_2 input{
   width: 29%;
 }
 
-#origine select {
-  width: 95%;
+#coordEtEntreprise_2 #mail{
+  width: 29%;
 }
 
+#coordEtEntreprise_2 #entrepriseSouhaitees{
+  width: 50%;
+}
+
+#coordEtEntreprise_1 input {
+  width: 29%;
+}
+
+#adresse input {
+  width: 87%;
+}
+
+#adresse2 input {
+  width: 40%;
+}
+
+#entreprise input {
+  width: 44%;
+}
+
+#environnement input, #projets input {
+  width: 48%;
+}
+
+#competances {
+  display: flex;
+}
+
+#competances input {
+  width: 22%;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+#profilCandidat select {
+  width: 90%;
+}
+
+
+
+
+
+/*réseaux sociaux*/
+.fa-discord {
+  color: rgb(114, 137, 218);
+  cursor: pointer;
+}
+
+.fa-linkedin{
+  color: #0072b1;
+  cursor: pointer;
+}
+
+.fa-instagram{
+  color: rgb(193,53,132);
+  cursor: pointer;
+}
+
+.fa-whatsapp{
+  color: #25D366;
+  cursor: pointer;
+}
+
+#reseaux{
+  padding: 5px;
+  font-size: 20px;
+}
+
+
+
+/*Bouton de choix homme femme*/
+.homme, .femme, .homme input, .femme input, .homme label, .femme label{
+  cursor: pointer;
+  display: inline;
+}
 
 
 
@@ -177,102 +247,26 @@ Les informations a venir ne concernent que la page 2
   display:none;
   height: 100%;
   grid-template-columns: 7.5fr 1.5fr;
-  grid-template-rows: 1fr 45px 180px;/*1fr 2fr 1fr 4fr;*/
+  grid-template-rows: 45px 90px 45px 180px;/*1fr 2fr 1fr 4fr;*/
   grid-template-areas: 
-    "tableContact tableContact"
-    "ajouterContact ajouterContact"
+    "possibilitesDeDeplacement possibilitesDeDeplacement"
+    "formationSouhaites formationSouhaites"
+    ". ."
     ". finForm";
 }
 
 /*
 Disposition des elements sur la page
 */
-#tableContact{grid-area: tableContact;}
+#possibilitesDeDeplacement{grid-area: possibilitesDeDeplacement;}
 
-#ajouterContact{grid-area: ajouterContact;}
+#finForm{grid-area: finForm;}
+
+#formationSouhaites{grid-area: formationSouhaites;}
 
 /*
 Taille des inputs
 */
-#tableContact input{
-  width: calc(100% - 18px);
-}
-
-#ajouterContact {
-  height: 30px;
-  width: 150px;
-  border-radius: 4px;
-  margin-top: 5px;
-  background-color: rgb(100, 100, 100);
-  border-color: rgb(100, 100, 100);
-  color: silver;
-}
-
-#ajouterContact:hover {
-  background-color: rgb(80, 80, 80);
-  border-color: rgb(80, 80, 80);
-}
-
-
-.remove {
-  width: 10px;
-}
-
-
-
-
-
-/*
-Les informations a venir ne concernent que la page 3
-*/
-
-/*paramétrage de la grid de la page 3*/
-.container3{
-  color: white;
-  padding: 20px;
-  display:none;
-  height: 100%;
-  grid-template-columns: 7.5fr 1.5fr;
-  grid-template-rows: 1fr 180px;
-  grid-template-areas: 
-    "tableMission tableMission"
-    ". finForm";
-}
-
-/*
-Disposition des elements sur la page
-*/
-#tableMission{grid-area: tableMission;}
-
-
-
-
-
-/*
-Les informations a venir ne concernent que la page 4
-*/
-
-/*paramétrage de la grid de la page 4*/
-.container4{
-  color: white;
-  padding: 20px;
-  display:none;
-  height: 100%;
-  grid-template-columns: 7.5fr 1.5fr;
-  grid-template-rows: 1fr 180px;
-  grid-template-areas: 
-    "tableCA tableCA"
-    "textCA finForm";
-}
-
-/*
-Disposition des elements sur la page
-*/
-#tableCA{grid-area: tableCA;}
-
-#textCA{grid-area: textCA;}
-
-
 
 
 
@@ -382,4 +376,9 @@ Disposition des elements sur la page
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.linkedin, .instagram, .discord, .whatsapp{
+  display: none;
+  width: 80%;
 }

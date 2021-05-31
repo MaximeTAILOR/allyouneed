@@ -12,132 +12,39 @@
 <body>
   <!--Page navbaar-->
   <div id="navbar">
-    <a href="#" id="identite">Identité</a>
-    <a href="#" id="projet">Projet</a>
-    <a href="#" id="entretiens">Entretiens</a>
-    <a href="#" id="process">Process</a>
+    <a href="#" id="entreprise">Entreprise</a>
+    <a href="#" id="contacts">Contacts</a>
+    <a href="#" id="missions">Missions</a>
+    <a href="#" id="ca">Chiffre d'affaire</a>
   </div>
 
   <!--Page 1-->
   <div class="container1">
-    <div id="infoCandidat_1">
-      <input type="text" id="nom" name="nom" placeholder="NOM">
-
-      <input type="text" id="posteActuel" name="posteActuel" placeholder="POSTE ACTUEL">
-
-      <input type="text" id="salireActuel" name="prenom" placeholder="SALAIRE">
+    <div id="informationsPrincipales">
+      <input type="text" id="siret" name="siret" placeholder="SIRET">
+      <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="NOM ENTREPRISE">
     </div>
 
-    <div id="infoCandidat_2">
-      <input type="text" id="prenom" name="prenom" placeholder="PRENOM">
-
-      <input type="text" id="posteSouhaite" name="posteSouhaite" placeholder="POSTE SOUHAITE">
-
-      <input type="text" id="salaireSouhaite" name="salaireSouhaite" placeholder="SALAIRE SOUHAITE">
+    <div id="informationEntreprise">
+      <input type="text" id="siren" name="siren" placeholder="SIREN">
+      <input type="text" id="raisonSociale" name="raisonSociale" placeholder="RAISON SOCIALE">
+      <input type="text" id="codeAPE" name="codeAPE" placeholder="CODE APE">
     </div>
 
-    <div id="reseaux">
-      <i class="fab fa-linkedin"></i>
-      <i class="fab fa-instagram"></i>
-      <i class="fab fa-discord"></i>
-      <i class="fab fa-whatsapp"></i>
-    </div>
-
-    <div id="adresse">
-      <input type="text" id="adressePartielle" name="adressePartielle" placeholder="ADRESSE">
-    </div>
-
-    <div id="adresse2">
-      <input type="text" id="codePost" name="codePost" placeholder="CP">
-
-      <input type="text" id="ville" name="ville" placeholder="VILLE">
-    </div>
-
-    <div id="photoProfil">
-      <img src="../img/man.jpg"></img>
-      <div>
-        <div class="homme">
-          <input type="radio" id="homme" name="sexe" checked>
-          <label for="sexe">Homme</label>
-        </div>
-
-        <div class="femme">
-          <input type="radio" id="femme" name="sexe">
-          <label for="sexe">Femme</label>
-        </div>
-      </div>
-    </div>
-
-    <div id="coordEtEntreprise_1">
-      <input type="text" id="portable" name="portable" placeholder="PORTABLE">
-
-      <input type="text" id="derniereEntreprise" name="derniereEntreprise" placeholder="DERNIERE ENTREPRISE">
-    </div>
-
-    <div id="coordEtEntreprise_2">
-      <input type="text" id="mail" name="mail" placeholder="MAIL">
-
-      <input type="text" id="entrepriseSouhaitees" name="entrepriseSouhaitees" placeholder="ENTREPRISES SOUHAITÉES">
-    </div>
-        
-    <div id="entreprise">
-      <input type="text" id="typeEntreprise" name="typeEntreprise" placeholder="TYPE D'ENTREPRISE">
-
-      <input type="text" id="zoneDeTravail" name="zoneDeTravail" placeholder="ZONE DE TRAVAIL">
-    </div>
-
-    <div id="environnement">
-      <input type="text" id="environnementTechActuel" name="environnementTechActuel" placeholder="ENVIRONNEMENT TECHNIQUE ACTUEL">
-
-      <input type="text" id="environnementTechVoulu" name="environnementTechVoulu" placeholder="ENVIRONNEMENT TECHNIQUE SOUHAITÉ">
-    </div>
-        
-    <div id="projets">
-      <input type="text" id="plusGrosProjet" name="plusGrosProjet" placeholder="LES PLUS GROS PROJETS">
-
-      <input type="text" id="projetsSouhaités" name="projetsSouhaités" placeholder="LES PROJETS SOUHAITÉS">
-    </div>
-
-    <div id="competances">
-      <input type="text" id="langues" name="langues" placeholder="LANGUES">
-
-      <input type="text" id="siteWeb" name="siteWeb" placeholder="SITE WEB">
-
-      <input type="text" id="portfolio" name="portfolio" placeholder="PORTFOLIO">
-
-      <input type="text" id="CV" name="CV" placeholder="CV">
-    </div>
-
-    <div id="profilCandidat">
-      <select name="statutCandidat" id="statutCandidat">
-        <option value="">STATUT DU CANDIDAT</option>
-        <option value="disponibleImediatement">Disponible imédiatement</option>
-        <option value="rechercheActive">Recherche active</option>
-        <option value="veille">Veille</option>
-        <option value="veilleActive">Veille active</option>
-        <option value="veille3-6">Veille 3 à 6 mois</option>
-        <option value="veille6-12">Veille 6 à 12 mois</option>
+    <div id="origine">
+      <select name="origineDuContact" id="origineDuContact">
+        <option value="">ORIGINE DU CONTACT</option>
+        <option value="recommandation">recommandation</option>
+        <option value="prospection">prospection</option>
+        <option value="direct">direct</option>
+        <option value="ancien candidat">ancien candidat</option>
       </select>
-
-      <select name="typeDeContrat" id="typeDeContrat">
-        <option value="">TYPE DE CONTRAT</option>
-        <option value="cdi">CDI</option>
-        <option value="cdd">CDD</option>
-        <option value="freelance">FREELANCE</option>
-      </select>
-    </div>
-
-    <div id="compteRendu">
-      <textarea id="compteRenduAgent" name="compteRendu">COMPTE RENDU D'ENTRETIENS</textarea>
-    </div>
-
-    <div id="avis">
-      <textarea id="avisAgent" name="avisAgent">AVIS DE L'AGENT</textarea>
     </div>
 
     <div id="date">
       <input type="text" id="dateDuJour" name="date" value="JJ/MM/AAAA" disabled>
     </div>
+    
 
     <div id="finForm">
       <div id="displayProgressBar">
@@ -148,7 +55,7 @@
       </div>
 
       <div id="notation">
-        Avis sur le profil<br>
+        Avis sur l'entreprise<br>
         <div>
           <i id="1" class="fas fa-star check"></i>
           <i id="2" class="fas fa-star un-check"></i>
@@ -158,7 +65,6 @@
           <p id="note" style="display: none;">1</p>
         </div>
       </div>
-
       <input type="submit" id='envoyer' value="enregistrer">
     </div>
   </div>
@@ -168,24 +74,92 @@
 
   <!--Page 2-->
   <div class="container2" style="display: none;">
-    <div id="possibilitesDeDeplacement">
-      <select name="mobilite" id="mobilite">
-        <option value="">MOBILITE</option>
-        <option value="10">10km</option>
-        <option value="20">20km</option>
-        <option value="30">30km</option>
-        <option value="40">40km</option>
-        <option value="50">50km</option>
-        <option value="60">60km</option>
-      </select>
-
-      <input type="text" id="region" name="region" placeholder="REGION">
-
-      <input type="text" id="ville" name="ville" placeholder="VILLE">
-
-      <input type="text" id="posteActuel" name="posteActuel" placeholder="POSTE ACTUEL">
-    </div>
+    <table id="tableContact">
+      <tr class="en-tete">
+        <td class="remove">-</td>
+        <td>Nom</td>
+        <td>Prenom</td>
+        <td>Fonction</td>
+        <td>Mail</td>
+        <td>Telephone</td>
+        <td>Suivit aprécier</td>
+      </tr>
+      <tr id="contact_1">
+        <td class="remove"></td>
+        <td><input type="text" class="nom" name="nom" placeholder="NOM"></td>
+        <td><input type="text" class="prenom" name="prenom" placeholder="PRENOM"></td>
+        <td><input type="text" class="fonction" name="fonction" placeholder="FONCTION"></td>
+        <td><input type="text" class="mail" name="mail" placeholder="MAIL"></td>
+        <td><input type="text" class="telephone" name="telephone" placeholder="TELEPHONE"></td>
+        <td><textarea class="suivitApprecier" name="suivitApprecier">SUIVIT APPRECIER</textarea></td>
+      </tr>
+    </table>
+    <button id='ajouterContact'>Ajouter un contact</button>
   </div>
+
+
+
+
+
+
+  <!--Page 3-->
+  <div class="container3" style="display: none;">
+    <table id="tableMission">
+      <tr>
+        <td>Poste</td>
+        <td>Manager</td>
+        <td>Nb de candidats présentés</td>
+        <td>Date d'ouverture</td>
+        <td>Etat</td>
+      </tr>
+      <tr>
+        <td>Beta testeur</td>
+        <td>Jhon Doe</td>
+        <td>3</td>
+        <td>20/05/2021</td>
+        <td><span class="etat 20/05/2021">XXj</span></td>
+      </tr>
+    </table>
+  </div>
+
+
+
+
+
+
+
+  <!--Page 4-->
+  <div class="container4" style="display: none;">
+    <table id="tableCA">
+      <tr>
+        <td>Poste</td>
+        <td>Salaire</td>
+        <td>Pourcentage accordé</td>
+        <td>CA prévisionnel</td>
+      </tr>
+      <tr>
+        <td>Programmeur</td>
+        <td>45000</td>
+        <td>20</td>
+        <td>XXXX€</td>
+      </tr>
+      <tr>
+        <td>Beta testeur</td>
+        <td>40000</td>
+        <td>10</td>
+        <td>XXXX€</td>
+      </tr>
+    </table>
+
+    <p id="textCA">
+      Total CA : <span id="totalCA">XXXXX€</span>
+    </p>
+  </div>
+
+
+
+
+
 
   <!--Fenetre pop up-->
   <div class="fermeture_pop-up">
