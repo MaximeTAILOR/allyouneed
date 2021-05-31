@@ -12,10 +12,7 @@ function creationSauvegarde(){
     for (input of listInputs){
         if (input.getAttribute('id') != "envoyer"
             && input.getAttribute('id') != "dateDuJour") {
-            if (input.value != ""
-                && input.getAttribute('id') != "homme"
-                && input.getAttribute('id') != "femme"
-                && input.getAttribute('id') != "veutUneFormation") {
+            if (input.value != "") {
 
                 data[input.getAttribute('id')] = input.value;
             }
@@ -24,7 +21,7 @@ function creationSauvegarde(){
 
     let listTextarea = document.querySelectorAll('textarea');
     for (textarea of listTextarea){
-        if (textarea.value != "COMPTE RENDU D'ENTRETIENS" && textarea.value != "AVIS DE L'AGENT"){
+        if (textarea.value != "SUIVI APPRECIER"){
             if (textarea.value != ""){
                 data[textarea.getAttribute('id')] = textarea.value;
             }
@@ -40,6 +37,7 @@ function creationSauvegarde(){
 
     data["note"]=document.getElementById("note").textContent;
 
+    console.log(data)
     data = JSON.stringify(data)
     localStorage.setItem("sauvegardeLocaleDuFormClient", data);
 }
@@ -49,8 +47,9 @@ function creationSauvegarde(){
 
 
 function chargementSauvegarde() {
-    if (localStorage.getItem('sauvegardeLocaleDuFormClient') != null) {
+    if (localStorage.getItem('sauvegardeLocaleDuFormClient') != null) {  
         let data = JSON.parse(localStorage.getItem('sauvegardeLocaleDuFormClient'));
+        console.log(data)
 
         let listInputs = document.querySelectorAll('input')
         for (input of listInputs){

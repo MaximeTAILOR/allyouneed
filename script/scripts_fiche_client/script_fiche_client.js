@@ -148,3 +148,18 @@ $("i").on("click", () => {
 })
 
 initNotation()
+
+
+/*
+Calcul des etats des missions
+*/
+let dateDuJour = new Date.now()
+let date
+
+/*
+Calcul des CA
+*/
+
+/*
+Ajout d'une ligne de contact
+*/

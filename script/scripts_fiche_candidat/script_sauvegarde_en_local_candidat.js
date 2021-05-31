@@ -61,8 +61,8 @@ function chargementSauvegarde() {
         for (input of listInputs){
             let id = input.getAttribute('id'); 
             if (id != "envoyer" && id != "date"){
-                if (id != "homme" && id != "femme" && data["id"] != undefined) {
-                    input.value = data[input.getAttribute('id')];
+                if (id != "homme" && id != "femme" && data[id] != undefined) {
+                    input.value = data[id];
                 }
             }
         }
