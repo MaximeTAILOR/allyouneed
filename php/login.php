@@ -162,7 +162,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
             }elseif(mysqli_num_rows($resultat) == 1){  
                 $row = mysqli_fetch_assoc($resultat); 
                 // On va initialiser les variables de la session
-                $_SESSION['id_user'] = $row['id_contact'];
+                $_SESSION['id_user'] = $row['idcontact'];
                 $_SESSION['name_user'] = $row['name_contact'];
                 $_SESSION['fname_user'] = $row['fname_contact'];
                 $_SESSION['mail_user'] = $row['email_contact'];
