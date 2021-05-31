@@ -15,7 +15,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
 
     $dsn = "mysql:host=$db_host;dbname=$db_database";
 
-    $sql = "SELECT * from company where email_intermediaire='" . $_POST['mail'] . "'"; 
+    $sql = "SELECT * from contact where email_contact='" . $_POST['mail'] . "'"; 
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         $table = array(
@@ -146,9 +146,9 @@ if(isset($_POST['mail'], $_POST['mdp'])){
         $pdo = new PDO($dsn, $db_user, $db_password);
         $stmt = $pdo->query($sql);
         $row= $stmt->fetch(PDO::FETCH_ASSOC);
-        $mdp = $row['password_company'];
+        $mdp = $row['password_contact'];
         if(password_verify($_POST['mdp'], $mdp)){
-            $sql = "SELECT * from company where email_intermediaire='" . $_POST['mail'] . "' and password_company='" . $mdp . "'"; // On regarde ds la base de donnés si le mdp correspond  bien avec l'email
+            $sql = "SELECT * from contact where email_contact='" . $_POST['mail'] . "' and password_contact='" . $mdp . "'"; // On regarde ds la base de donnés si le mdp correspond  bien avec l'email
             $resultat = mysqli_query($conn, $sql);
             if($resultat == FALSE){
                 $table = array(
@@ -162,10 +162,10 @@ if(isset($_POST['mail'], $_POST['mdp'])){
             }elseif(mysqli_num_rows($resultat) == 1){  
                 $row = mysqli_fetch_assoc($resultat); 
                 // On va initialiser les variables de la session
-                $_SESSION['id_user'] = $row['id_intermediaire'];
-                $_SESSION['name_user'] = $row['name_intermediaire'];
-                $_SESSION['fname_user'] = $row['fname_intermediaire'];
-                $_SESSION['mail_user'] = $row['email_intermediaire'];
+                $_SESSION['id_user'] = $row['idcontact'];
+                $_SESSION['name_user'] = $row['name_contact'];
+                $_SESSION['fname_user'] = $row['fname_contact'];
+                $_SESSION['mail_user'] = $row['email_contact'];
                 $_SESSION['type'] = "company"; // On détermine le type de l'utilisateur
 
                 $table = array(

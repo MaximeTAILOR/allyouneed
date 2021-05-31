@@ -68,5 +68,12 @@ if ($_SESSION['type'] == "admin"){
         $table_encode = json_encode($table);
         echo $table_encode;
     }
+}else{
+    $table = array(
+        'error'  => false,
+        'message' => 'Vous ne pouvez pas voir les clients en tant qu\'entreprise',
+    );
+    $table_encode = json_encode($table);
+    echo $table_encode;
 }
 ?>

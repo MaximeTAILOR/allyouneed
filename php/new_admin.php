@@ -5,7 +5,7 @@ session_start();
 include './conn_db.php';
 
 if (isset($_POST['mail'],  $_POST['prenom'], $_POST['nom'], $_POST['mdp'])) { // On revérifie que tous les éléments sont bien envoyés
-  $sql = "SELECT * from company where email_intermediaire='" . $_POST['mail'] . "'"; 
+  $sql = "SELECT * from contact where email_contact='" . $_POST['mail'] . "'"; 
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         $table = array(
