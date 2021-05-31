@@ -4,7 +4,7 @@ session_start();
 
 include './conn_db.php';
 
-    $sql = "SELECT * from company where email_intermediaire='" . $_GET['mail'] . "'"; 
+    $sql = "SELECT * from contact where email_contact='" . $_GET['mail'] . "'"; 
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         $table = array(
