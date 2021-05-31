@@ -6,7 +6,7 @@ include './conn_db.php';
 
 if(isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'], $_POST['mail'], $_POST['siret'], $_POST['siren'], $_POST['ape'], $_POST['nomEntreprise'], $_POST['mdp'])){ //on vérifie que tous le éléments sont rensignés
     
-    $sql = "SELECT * from company where email_intermediaire='" . $_POST['mail'] . "'"; 
+    $sql = "SELECT * from contact where email_contact='" . $_POST['mail'] . "'"; 
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         $table = array(
@@ -78,12 +78,22 @@ if(isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'], 
                 $mdp = htmlspecialchars($_POST['mdp']);
                 $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-                $sql = "INSERT INTO company (name_intermediaire, fname_intermediaire, num_intermediaire, job_intermediaire, email_intermediaire, siret_company, siren_company, ape_company, name_company, password_company) values ('" . $nom . "', '" . $prenom . "', '" . $tel . "', '" . $poste . "', '" . $mail . "', '" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $pass_hash . "')";
+                $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "')";
+                $sql2 = "INSERT INTO contact (idcompany, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact) values (LAST_INSERT_ID(), '" . $nom . "', '" . $prenom . "', '" . $tel . "', '" . $poste . "', '" . $mail . "', '" . $pass_hash . "')";
                 $resultat = mysqli_query($conn, $sql);
+                $resultat2 = mysqli_query($conn, $sql2);
                 if($resultat == FALSE){
                     $table = array(
                         'error'  => true,
-                        'message' => 'Erreur d\'execution de la requête',
+                        'message' => 'Erreur d\'execution de la requête' . $sql,
+                    );
+                    
+                    $table_encode = json_encode($table);
+                    echo $table_encode;
+                }elseif($resultat2 == FALSE){
+                    $table = array(
+                        'error'  => true,
+                        'message' => 'Erreur d\'execution de la requête' . $sql,
                     );
                     
                     $table_encode = json_encode($table);
