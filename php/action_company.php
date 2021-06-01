@@ -1,8 +1,8 @@
 <?php
 
 if($_GET['action'] == 'afficher'){
-    $siret = htmlspecialchars($_POST['siret']);
-    $sql = "SELECT * from company where idcompany='" . $idcompany . "'";
+    $siret = htmlspecialchars($_GET['siret']);
+    $sql = "SELECT * from company where idcompany='" . $siret . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
@@ -14,6 +14,7 @@ if($_GET['action'] == 'afficher'){
     }else{
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
+                'id' => $row['idcompany'],
                 'siret' => $row['siret_company'],
                 'siren' => $row['siren_company'],
                 'ape' => $row['ape_company'],
