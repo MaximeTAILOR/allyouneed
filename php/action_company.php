@@ -1,6 +1,7 @@
 <?php
 
 if($_GET['action'] == 'afficher'){
+    $siret = htmlspecialchars($_POST['siret']);
     $sql = "SELECT * from company where idcompany='" . $idcompany . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
