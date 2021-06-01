@@ -56,7 +56,7 @@ table {
 }
 
 td {
-  width: 16%;
+  /*width: 16%;*/
   color: white;
   border: 1px solid #383838;
   padding-top: 5px;
@@ -76,12 +76,22 @@ tr:hover {
   background-color: black;
 }
 
-.en-tete{
+.en-tete, .en-tete:hover{
   background-color: #3d3d3d;
 }
 
+.retirerElement, .retirerMission{
+  background-color: rgb(196, 0, 0);
+  border-color: rgb(196, 0, 0);
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+}
 
-
+.retirerElement:hover, .retirerMission:hover{
+  background-color: rgb(150, 0, 0);
+  border-color: rgb(150, 0, 0);
+}
 
 
 /*
@@ -213,9 +223,9 @@ Taille des inputs
   border-color: rgb(80, 80, 80);
 }
 
-
 .remove {
-  width: 10px;
+  width: min-content;
+  text-align: center;
 }
 
 
@@ -236,7 +246,7 @@ Les informations a venir ne concernent que la page 3
   grid-template-rows: 1fr 180px;
   grid-template-areas: 
     "tableMission tableMission"
-    ". finForm";
+    "ajouterMission finForm";
 }
 
 /*
@@ -244,7 +254,23 @@ Disposition des elements sur la page
 */
 #tableMission{grid-area: tableMission;}
 
+#ajouterMission{grid-area: ajouterMission;}
 
+
+#ajouterMission {
+  height: 30px;
+  width: 150px;
+  border-radius: 4px;
+  margin-top: 5px;
+  background-color: rgb(100, 100, 100);
+  border-color: rgb(100, 100, 100);
+  color: silver;
+}
+
+#ajouterMission:hover {
+  background-color: rgb(80, 80, 80);
+  border-color: rgb(80, 80, 80);
+}
 
 
 

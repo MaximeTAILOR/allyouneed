@@ -1,7 +1,7 @@
 $('#envoyer').on('click', (e) => {
     e.preventDefault();
     clearInterval(intervalle);
-    localStorage.removeItem("sauvegardeLocaleDuFormClient");
+    localStorage.removeItem("sauvegardeLocaleDuForm");
 });
 
 
@@ -11,21 +11,12 @@ function creationSauvegarde(){
     let listInputs = document.querySelectorAll('input')
     for (input of listInputs){
         if (input.getAttribute('id') != "envoyer"
-            && input.getAttribute('id') != "dateDuJour") {
+            && input.getAttribute('id') != "dateDuJour"
+            && input.getAttribute('id') != null) {
             if (input.value != "") {
-
                 data[input.getAttribute('id')] = input.value;
             }
         }
-    }
-
-    let listTextarea = document.querySelectorAll('textarea');
-    for (textarea of listTextarea){
-        if (textarea.value != "SUIVI APPRECIER"){
-            if (textarea.value != ""){
-                data[textarea.getAttribute('id')] = textarea.value;
-            }
-        } 
     }
 
     let listSelect = document.querySelectorAll('select');
@@ -35,11 +26,11 @@ function creationSauvegarde(){
         }
     }
 
+
     data["note"]=document.getElementById("note").textContent;
 
-    console.log(data)
     data = JSON.stringify(data)
-    localStorage.setItem("sauvegardeLocaleDuFormClient", data);
+    localStorage.setItem("sauvegardeLocaleDuForm", data);
 }
 
 
@@ -47,25 +38,16 @@ function creationSauvegarde(){
 
 
 function chargementSauvegarde() {
-    if (localStorage.getItem('sauvegardeLocaleDuFormClient') != null) {  
-        let data = JSON.parse(localStorage.getItem('sauvegardeLocaleDuFormClient'));
+    if (localStorage.getItem('sauvegardeLocaleDuForm') != null) {
+        let data = JSON.parse(localStorage.getItem('sauvegardeLocaleDuForm'));
         console.log(data)
 
         let listInputs = document.querySelectorAll('input')
         for (input of listInputs){
-            let id = input.getAttribute('id'); 
-            if (id != "envoyer" && id != "date"){
-                if (data["id"] != undefined) {
-                    input.value = data[input.getAttribute('id')];
-                }
+            let id = input.getAttribute('id');
+            if (id != "envoyer" && data[id] != undefined) {
+                input.value = data[id];
             }
-        }
-    
-        let listTextarea = document.querySelectorAll('textarea');
-        for (textarea of listTextarea){
-            if (data[textarea.getAttribute('id')] != undefined){
-                textarea.value = data[textarea.getAttribute('id')];
-            } 
         }
     
         let listSelect = document.querySelectorAll('select');
@@ -74,8 +56,26 @@ function chargementSauvegarde() {
                 document.getElementById(select.getAttribute('id')).value=data[select.getAttribute('id')];
             }
         }
+    
+        update(data["note"]);
     }
 }
+
+/*
+Fonction pour mettre a jour la photo, les étoies affichés et la bare d'avancement
+*/
+function update(note, estUneFemme) {
+    $('#note').text(note);
+    for (let i = note; i>0; i--){
+        $('#' + i).removeClass('un-check');
+        $('#' + i).addClass('check');
+    }
+}
+
+//La fonction updateBar est dans le script_fiche_client
+//Je peut l'appeller uniquement parce que je sait que ce script est bien charger en premier
+updateBar()
+
 
 
 chargementSauvegarde();

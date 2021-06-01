@@ -57,7 +57,7 @@ function changerDePage(pageAOuvrir){
 
 
 let date = new Date();
-let dateFormulaire = date.getDate() + '/' + date.getMonth() + 1 + '/' + date.getFullYear();
+let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
 
 $('#dateDuJour').val(dateFormulaire);
 
@@ -153,13 +153,131 @@ initNotation()
 /*
 Calcul des etats des missions
 */
-let dateDuJour = new Date.now()
-let date
+for (ligne of $('#tableMission').children().children()){
+    if(ligne.classList != 'en-tete'){
+        let cases = ligne.cells
+        let elementsDate = cases[3].textContent.split('/')
+
+        let dateMJA = new Date(elementsDate[2], elementsDate[1] - 1, elementsDate[0])
+        let dateDuJour = new Date()
+
+        let nbJours = parseInt((dateDuJour - dateMJA)/(1000 * 3600 * 24))
+        
+        
+        cases[4].textContent = nbJours + "J"
+    }
+}
+
+
+
+
+
 
 /*
 Calcul des CA
 */
+let totalCA=0
+//On doit utiliser deux fois .children() parce que le tableau créé automatiquement un div tbody
+//$('#tableCA').children() nous rend donc ce tbody et non les lignes voulues
+
+for (ligne of $('#tableCA').children().children()){
+    if(ligne.classList != 'en-tete'){
+        let cases = ligne.cells
+        cases[3].textContent = cases[1].textContent * (cases[2].textContent / 100)
+        totalCA+=parseInt(cases[3].textContent)
+    }
+}
+$('#textCA').text("Total CA : "+totalCA+"€")
+
+
+
+
+
+
+
+
+
+/*
+Mise a jour des informations quand on rentre le siret
+*/
+const cle = "631cd780-53e6-335c-b1d3-d682fb533507";
+
+$("#siret").keyup(function () { 
+    let siret = document.querySelector("#siret").value;
+    if (siret.length == 14){
+        remplissageAutoSiret (siret);
+    }
+});
+
+
+
+//On fait la requête pour voir si l'entreprise existe bien
+function remplissageAutoSiret (siret){
+    $.ajax({
+        url: "https://api.insee.fr/entreprises/sirene/V3/siret/" + siret,
+        beforeSend: function(xhr) {
+        xhr.setRequestHeader("Authorization", "Bearer " + cle)
+        },
+        success: (data) => {
+            $("#siren").val(data.etablissement.siren)
+            $("#codeAPE").val(data.etablissement.uniteLegale.activitePrincipaleUniteLegale)
+            $("#nomEntreprise").val(data.etablissement.uniteLegale.denominationUniteLegale)
+            $("#catEntreprise").val(data.etablissement.uniteLegale.categorieEntreprise)
+        }
+    });
+}
+
+
+
+
 
 /*
 Ajout d'une ligne de contact
+*/
+$('#ajouterContact').on('click', () => {
+    let strLigne =  '<tr>'
+    strLigne +=     '<td class="remove"><button class="retirerElement">-</button></td>'
+    strLigne +=     '<td><input type="text" class="nom" name="nom" placeholder="NOM"></td>'
+    strLigne +=     '<td><input type="text" class="prenom" name="prenom" placeholder="PRENOM"></td>'
+    strLigne +=     '<td><input type="text" class="fonction" name="fonction" placeholder="FONCTION"></td>'
+    strLigne +=     '<td><input type="text" class="mail" name="mail" placeholder="MAIL"></td>'
+    strLigne +=     '<td><input type="text" class="telephone" name="telephone" placeholder="TELEPHONE"></td>'
+    strLigne +=     '<td><textarea class="suiviApprecier" name="suiviApprecier">SUIVI APPRECIER</textarea></td>'
+    strLigne +=     '</tr>'
+    let ligne = $(strLigne)
+    ligne.appendTo($('#tableContact'))
+
+    $(".retirerElement").on('click', (e) => {
+        e.target.parentElement.parentElement.remove()
+    })
+})
+
+
+
+
+
+/*
+Fonctions liées au pop-up
+Tout les labels sont sur une même fenêtre
+On affiche et efface les labels en fonction de où on clique et ensuite on affiche la fenêtre
+*/
+//fonctions
+/*
+function affichePopup () { 
+    $('.fermeture_pop-up').toggle();
+}
+
+function effacePopup () {
+    $('.fermeture_pop-up').toggle();
+}
+
+//Création des evenements
+$('.fermeture_pop-up').on('click', () => {effacePopup()})
+$('.close').on('click', () => {effacePopup()})
+
+//Pour ne pas fermer la popup en cliquant n'importe où dessus
+$('.pop-up').on('click', (event) => {event.stopPropagation()})
+
+$("#ajouterContact").on('click', () => {affichePopup()});
+$('#ajouterMission').on('click', () => {affichePopup()});
 */

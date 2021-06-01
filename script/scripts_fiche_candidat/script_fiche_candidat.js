@@ -112,7 +112,7 @@ $(".fa-whatsapp").on('click', () => {affichePopup("whatsapp")});
 
 
 let date = new Date();
-let dateFormulaire = date.getDate() + '/' + date.getMonth() + 1 + '/' + date.getFullYear();
+let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
 
 $('#dateDuJour').val(dateFormulaire);
 

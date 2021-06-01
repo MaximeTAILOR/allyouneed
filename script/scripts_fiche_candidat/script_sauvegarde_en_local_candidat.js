@@ -60,7 +60,7 @@ function chargementSauvegarde() {
         let listInputs = document.querySelectorAll('input')
         for (input of listInputs){
             let id = input.getAttribute('id'); 
-            if (id != "envoyer" && id != "date"){
+            if (id != "envoyer"){
                 if (id != "homme" && id != "femme" && data[id] != undefined) {
                     input.value = data[id];
                 }

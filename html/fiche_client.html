@@ -27,7 +27,7 @@
 
     <div id="informationEntreprise">
       <input type="text" id="siren" name="siren" placeholder="SIREN">
-      <input type="text" id="raisonSociale" name="raisonSociale" placeholder="RAISON SOCIALE">
+      <input type="text" id="catEntreprise" name="catEntreprise" placeholder="CATEGORIE DE L'ENTREPRISE">
       <input type="text" id="codeAPE" name="codeAPE" placeholder="CODE APE">
     </div>
 
@@ -84,8 +84,8 @@
         <td>Telephone</td>
         <td>Suivit aprécier</td>
       </tr>
-      <tr id="contact_1">
-        <td class="remove"></td>
+      <tr>
+        <td class="remove"><button class="retirerElement">-</button></td>
         <td><input type="text" class="nom" name="nom" placeholder="NOM"></td>
         <td><input type="text" class="prenom" name="prenom" placeholder="PRENOM"></td>
         <td><input type="text" class="fonction" name="fonction" placeholder="FONCTION"></td>
@@ -105,7 +105,8 @@
   <!--Page 3-->
   <div class="container3" style="display: none;">
     <table id="tableMission">
-      <tr>
+      <tr class="en-tete">
+        <td class="remove">-</td>
         <td>Poste</td>
         <td>Manager</td>
         <td>Nb de candidats présentés</td>
@@ -113,13 +114,15 @@
         <td>Etat</td>
       </tr>
       <tr>
+        <td class="remove"><button class="retirerMission">-</button></td>
         <td>Beta testeur</td>
         <td>Jhon Doe</td>
         <td>3</td>
         <td>20/05/2021</td>
-        <td><span class="etat">XXj</span></td>
+        <td>XXj</td>
       </tr>
     </table>
+    <button id='ajouterMission'>Ajouter une mission</button>
   </div>
 
 
@@ -131,7 +134,7 @@
   <!--Page 4-->
   <div class="container4" style="display: none;">
     <table id="tableCA">
-      <tr>
+      <tr class="en-tete">
         <td>Poste</td>
         <td>Salaire</td>
         <td>Pourcentage accordé</td>
