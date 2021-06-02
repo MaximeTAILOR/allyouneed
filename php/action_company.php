@@ -26,15 +26,10 @@ if($_GET['action'] == 'afficher'){
                 'ape' => $row['ape_company'],
                 'name' => $row['name_company'],
                 'type' => $row['type_company'],
-                /*'suspect' => $row['suspect_company'],
-                'prospect' => $row['prospect_company'],
-                'analyse' => $row['analyse_company'],
-                'negociation' => $row['negociations_company'],
-                'closing' => $row['closing_company'],
-                'order' => $row['order_company'],*/
                 'date' => $row['date_company'],
                 'origin' => $row['origin_company'],
-                'grade' =>$row['grade_company']
+                'grade' =>$row['grade_company'],
+                'spanco' => $row['spanco_company']
             ));
         }
         echo json_encode($table);
@@ -65,8 +60,9 @@ if($_GET['action'] == 'afficher'){
         $date = $_GET['date'];
         $origin = $_GET['origin'];
         $grade = $_GET['grade'];
+        $spanco = 0;
 
-        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, type_company, date_company, origin_company, grade_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $type . "', '" . $date . "', '" . $origin . "', '" . $grade . "')";
+        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, type_company, date_company, origin_company, grade_company, spanco_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $type . "', '" . $date . "', '" . $origin . "', '" . $grade . "', '" . $spanco . "',)";
         $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
@@ -96,8 +92,9 @@ if($_GET['action'] == 'afficher'){
     $date = $_GET['date'];
     $origin = $_GET['origin'];
     $grade = $_GET['grade'];
+    $spanco = $_GET['spanco'];
 
-    $sql = "UPDATE company SET siret_company='" . $siret . "', siren_company='" . $siren . "', ape_company='" . $ape . "', name_company='" . $entreprise . "', type_company='" . $type . "', date_company='" . $date . "', origin_company='" . $origin . "', grade_company='" . $grade . "' WHERE siret_company='" . $siret . "'";
+    $sql = "UPDATE company SET siret_company='" . $siret . "', siren_company='" . $siren . "', ape_company='" . $ape . "', name_company='" . $entreprise . "', type_company='" . $type . "', date_company='" . $date . "', origin_company='" . $origin . "', grade_company='" . $grade . "', spanco_company='" . $spanco . "' WHERE siret_company='" . $siret . "'";
     $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
