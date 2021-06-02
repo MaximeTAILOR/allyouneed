@@ -56,16 +56,6 @@ function changerDePage(pageAOuvrir){
 
 
 
-/*
-* Met automatiquement la date
-*/
-
-let date = new Date();
-let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
-
-$('#dateDuJour').val(dateFormulaire);
-
-
 
 
 
@@ -166,21 +156,23 @@ initNotation()
 /*
 Calcul des etats des missions
 */
-for (ligne of $('#tableMission').children().children()){
-    if(ligne.classList != 'en-tete'){
-        let cases = ligne.cells
-        let elementsDate = cases[4].textContent.split('/')
+function calculEtatMission(){
+    for (ligne of $('#tableMission').children().children()){
+        if(ligne.classList != 'en-tete'){
+            let cases = ligne.cells
+            let elementsDate = cases[4].children[0].value.split('/')
 
-        let dateMJA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
-        let dateDuJour = new Date()
+            let dateMJA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
+            let dateDuJour = new Date()
 
-        let nbJours = parseInt((dateDuJour - dateMJA)/(1000 * 3600 * 24))
-        
-        
-        cases[5].textContent = nbJours + "J"
+
+            let nbJours = parseInt((dateDuJour - dateMJA)/(1000 * 3600 * 24))
+            
+            
+            cases[5].textContent = nbJours + "J"
+        }
     }
 }
-
 
 
 
@@ -250,7 +242,9 @@ function remplissageAutoSiret (siret){
 /*
 Ajout d'une ligne de contact
 */
-$('#ajouterContact').on('click', () => {
+$('#ajouterContact').on('click', () => {nouvelleLigneContact()})
+
+function nouvelleLigneContact(){
     let strLigne =  '<tr>'
     strLigne +=     '<td class="remove"><button class="retirerElement">-</button></td>'
     strLigne +=     '<td><input type="text" class="nom" name="nom" placeholder="NOM"></td>'
@@ -266,7 +260,118 @@ $('#ajouterContact').on('click', () => {
     $(".retirerElement").on('click', (e) => {
         e.target.parentElement.parentElement.remove()
     })
-})
+}
+
+
+
+
+
+
+
+/*
+Ajout d'une ligne de mission
+*/
+$('#ajouterMission').on('click', () => {nouvelleLigneMission()})
+
+
+function nouvelleLigneMission(){
+    let date = new Date();
+    let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
+
+    let strLigne =  '<tr>'
+    strLigne +=     '<td class="remove"><button class="retirerMission">-</button></td>'
+    strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE"></td>'
+    strLigne +=     '<td><input type="text" class="manager" name="manager" placeholder="MANAGER"></td>'
+    strLigne +=     '<td><input type="text" class="nbCandidatsPresentes" name="nbCandidatsPresentes" placeholder="NOMBRE DE CANDIDATS PRESENTES" value="0"></td>'
+    strLigne +=     '<td><input type="text" class="dateOuverture" name="dateOuverture" placeholder="JJ/MM/AAAA" value=' + dateFormulaire + '></td>'
+    strLigne +=     '<td>0J</td>'
+    strLigne +=     '</tr>'
+    let ligne = $(strLigne)
+    ligne.appendTo($('#tableMission'))
+
+    $(".retirerMission").on('click', (e) => {
+        e.target.parentElement.parentElement.remove()
+    })
+    $('.dateOuverture').on('click', () => {calculEtatMission()})
+}
+
+
+
+/*
+* Met automatiquement la date
+*/
+
+let date = new Date();
+let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
+
+$('#dateDuJour').val(dateFormulaire);
+
+
+
+
+
+
+
+
+
+
+/*
+Fonction pour le chargement du formulaire si jamais on trouve le siret
+(dans l'url)
+On envoie alors une requête et on charge les élements trouvés dans les champs
+
+Ici on parle du chargement de la partie du formulaire qui concerne l'entreprise
+*/
+
+
+if (queryString){
+    let siretUrl = queryString.split('=')[1];
+    
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_company.php',
+        dataType: 'json',
+        data : {
+            siret : siretUrl,
+            action : "afficher",
+        },
+        success: (data) => {
+            if (data.error){
+                alert(data.message);
+            } else {
+                updateAffichage(data[0])
+            }
+        },
+        error: (error) => {
+            alert('Erreur !');
+        }
+    });
+}else {
+    /*
+    Si on ne modifie pas de formulaires, alorson initialise pour la création
+    */
+    let date = new Date();
+    let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
+    $('#dateDuJour').val(dateFormulaire);
+
+
+    nouvelleLigneMission()
+    nouvelleLigneContact()
+}
+
+
+
+function updateAffichage(data){
+    console.log(data)
+    $('#siret').val(         data["siret"])
+    $('#siren').val(         data["siren"])
+    $('#catEntreprise').val( data["type"])
+    $('#nomEntreprise').val( data["name"])
+    $('#codeAPE').val(       data["ape"])
+}
+
+
+calculEtatMission()
 
 
 
@@ -316,42 +421,3 @@ $('#envoyer').on('click', (e) => {
 
 
 
-/*
-Fonction pour le chargement du formulaire si jamais on trouve le siret
-(dans l'url)
-On envoie alors une requête et on charge les élements trouvés dans les champs
-*/
-
-
-if (queryString){
-    let siretUrl = queryString.split('=')[1];
-    
-    $.ajax({
-        type: 'GET',
-        url: '../php/action_company.php',
-        dataType: 'json',
-        data : {
-            siret : siretUrl,
-            action : "afficher",
-        },
-        success: (data) => {
-            if (data.error){
-                alert(data.message);
-            } else {
-                updateAffichage(data[0])
-            }
-        },
-        error: (error) => {
-            alert('Erreur !');
-        }
-    });
-}
-
-function updateAffichage(data){
-    console.log(data)
-    $('#siret').val(         data["siret"])
-    $('#siren').val(         data["siren"])
-    $('#catEntreprise').val( data["type"])
-    $('#nomEntreprise').val( data["name"])
-    $('#codeAPE').val(       data["ape"])
-}
