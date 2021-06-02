@@ -5,7 +5,7 @@ session_start();
 include './conn_db.php';
 
 if($_GET['action'] == 'afficher'){
-    $sql = "SELECT * from contact where idcompany='" . $GET['idcompany'] . "'";
+    $sql = "SELECT * from contact where siret_company='" . $GET['siret_company'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
@@ -19,6 +19,7 @@ if($_GET['action'] == 'afficher'){
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
                 'idcontact' => $row['idcontact'],
+                'siret' => $row['siret_company'],
                 'name' => $row['name_contact'],
                 'fname' => $row['fname_contact'],
                 'num' => $row['num_contact'],
@@ -47,6 +48,7 @@ if($_GET['action'] == 'afficher'){
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }else{
+        $siret = htmlspecialchars($_GET['siret']);
         $name = htmlspecialchars($_GET['nom']);
         $fname = htmlspecialchars($_GET['prenom']);
         $num = htmlspecialchars($_GET['num']);
@@ -56,7 +58,7 @@ if($_GET['action'] == 'afficher'){
         $mdp = htmlspecialchars($_POST['mdp']);
         $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO contact (name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $approach . "')";
+        $sql = "INSERT INTO contact (siret_company, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('". $siret . "', '" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $approach . "')";
         $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
@@ -79,6 +81,7 @@ if($_GET['action'] == 'afficher'){
 
 }elseif($_GET['action'] == 'modifier'){
     $idcontact = $_GET['idcontact'];
+    $siret = $_GET['siret'];
     $name = htmlspecialchars($_GET['nom']);
     $fname = htmlspecialchars($_GET['prenom']);
     $num = htmlspecialchars($_GET['num']);
