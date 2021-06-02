@@ -79,7 +79,7 @@ if(isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'], 
                 $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
                 $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "')";
-                $sql2 = "INSERT INTO contact (idcompany, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact) values (LAST_INSERT_ID(), '" . $nom . "', '" . $prenom . "', '" . $tel . "', '" . $poste . "', '" . $mail . "', '" . $pass_hash . "')";
+                $sql2 = "INSERT INTO contact (siret_company, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact) values ($siret, '" . $nom . "', '" . $prenom . "', '" . $tel . "', '" . $poste . "', '" . $mail . "', '" . $pass_hash . "')";
                 $resultat = mysqli_query($conn, $sql);
                 $resultat2 = mysqli_query($conn, $sql2);
                 if($resultat == FALSE){

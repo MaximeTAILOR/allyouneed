@@ -5,7 +5,7 @@ session_start();
 include './conn_db.php';
 
 if($_GET['action'] == 'afficher'){
-    $sql = "SELECT * from revenue where idcompany='" . $GET['idcompany'] . "'";
+    $sql = "SELECT * from revenue where siret_company='" . $GET['siret'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(

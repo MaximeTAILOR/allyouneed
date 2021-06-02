@@ -5,7 +5,7 @@ session_start();
 include './conn_db.php';
 
 if($_GET['action'] == 'afficher'){
-    $sql = "SELECT * from contact where siret_company='" . $GET['siret_company'] . "'";
+    $sql = "SELECT * from contact where siret_company='" . $GET['siret'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
