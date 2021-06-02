@@ -130,3 +130,25 @@ text-decoration: none;
 li a:hover {
 background-color: #111;
 }
+
+#finSondage {
+    color: white;
+    text-align: center;
+}
+
+#logo {
+    margin-left: 21px;
+}
+
+#arrow {
+    margin-left: 45%;
+}
+
+#titles > td {
+    text-align: center;
+}
+
+#date {
+    text-align: center;
+    font-family: Helvetica;
+}

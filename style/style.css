@@ -69,3 +69,17 @@ a{
 #envoyer:hover, a:hover{
   background-color: #3a3a3a;
 }
+
+#form {
+  background-color: #181818;
+  color: white;
+  width: 500px;
+  margin: auto;
+  margin-top: 5%;
+  padding: 20px;
+  box-shadow: 10px 5px 5px rgb(12, 12, 12);
+}
+
+#timer {
+  display: none;
+}
