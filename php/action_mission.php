@@ -12,7 +12,7 @@ if($_GET['action'] == 'afficher'){
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }else{
         $table = array();
@@ -29,7 +29,7 @@ if($_GET['action'] == 'afficher'){
                 'turnover' => $row['turnover_mission'],
             ));
         }
-        echo json_encode($table);
+        echo json_encode(utf8ize($table));
     }
 }elseif($_GET['action'] == 'ajouter'){
         $manager = htmlspecialchars($_GET['manager']);
@@ -49,7 +49,7 @@ if($_GET['action'] == 'afficher'){
                 'message' => 'Erreur d\'execution de la requête' . $sql,
             );
             
-            $table_encode = json_encode($table);
+            $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
         }else{
             $table = array(
@@ -57,7 +57,7 @@ if($_GET['action'] == 'afficher'){
                 'message' => 'Le contact a été ajouté',
             );
             
-            $table_encode = json_encode($table);
+            $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
         }
 
@@ -79,7 +79,7 @@ if($_GET['action'] == 'afficher'){
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
         
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }else{
         $table = array(
@@ -87,7 +87,7 @@ if($_GET['action'] == 'afficher'){
             'message' => 'Le contact a été modifié',
         );
         
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
 
@@ -99,7 +99,7 @@ if($_GET['action'] == 'afficher'){
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
         
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }else{
         $table = array(
@@ -107,7 +107,7 @@ if($_GET['action'] == 'afficher'){
             'message' => 'Le contact a été supprimé',
         );
         
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
 }

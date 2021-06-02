@@ -12,7 +12,7 @@ if($_GET['action'] == 'afficher'){
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }else{
         $table = array();
@@ -27,7 +27,7 @@ if($_GET['action'] == 'afficher'){
                 'approach' => $row['approach_contact'],
             ));
         }
-        echo json_encode($table);
+        echo json_encode(utf8ize($table));
     }
 }elseif($_GET['action'] == 'ajouter'){
     $sql = "SELECT * from contact where email_contact='" . $_GET['email'] . "'"; 
@@ -37,14 +37,14 @@ if($_GET['action'] == 'afficher'){
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }elseif (mysqli_num_rows($resultat) == 1) {
         $table = array(
             'error'  => true,
             'message' => 'Le contact existe déjà dans la base de données',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }else{
         $name = htmlspecialchars($_GET['nom']);
@@ -64,7 +64,7 @@ if($_GET['action'] == 'afficher'){
                 'message' => 'Erreur d\'execution de la requête' . $sql,
             );
             
-            $table_encode = json_encode($table);
+            $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
         }else{
             $table = array(
@@ -72,7 +72,7 @@ if($_GET['action'] == 'afficher'){
                 'message' => 'Le contact a été ajouté',
             );
             
-            $table_encode = json_encode($table);
+            $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
         }
     }
@@ -96,7 +96,7 @@ if($_GET['action'] == 'afficher'){
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
 
     }elseif (mysqli_num_rows($resultat) >= 1) {
@@ -105,7 +105,7 @@ if($_GET['action'] == 'afficher'){
             'error'  => true,
             'message' => 'L\'addresse mail est déjà utilisée' . $sql,
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
 
     }else{
@@ -118,7 +118,7 @@ if($_GET['action'] == 'afficher'){
                 'message' => 'Erreur d\'execution de la requête' . $sql,
             );
             
-            $table_encode = json_encode($table);
+            $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
         }else{
             $table = array(
@@ -126,7 +126,7 @@ if($_GET['action'] == 'afficher'){
                 'message' => 'Le contact a été modifié',
             );
             
-            $table_encode = json_encode($table);
+            $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
         }
     }
@@ -138,7 +138,7 @@ if($_GET['action'] == 'afficher'){
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
         
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }else{
         $table = array(
@@ -146,7 +146,7 @@ if($_GET['action'] == 'afficher'){
             'message' => 'Le contact a été supprimé',
         );
         
-        $table_encode = json_encode($table);
+        $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
 }
