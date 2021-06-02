@@ -58,7 +58,7 @@ if($_GET['action'] == 'afficher'){
         $entreprise = htmlspecialchars($_GET['nomEntreprise']);
         $type = htmlspecialchars($_GET['type']);
 
-        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, legal_entity, type_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $type . "')";
+        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, type_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $type . "')";
         $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
