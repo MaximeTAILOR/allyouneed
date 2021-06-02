@@ -40,7 +40,6 @@ function creationSauvegarde(){
 function chargementSauvegarde() {
     if (localStorage.getItem('sauvegardeLocaleDuForm') != null) {
         let data = JSON.parse(localStorage.getItem('sauvegardeLocaleDuForm'));
-        console.log(data)
 
         let listInputs = document.querySelectorAll('input')
         for (input of listInputs){

@@ -1,3 +1,7 @@
+//constantes pour tout le programe
+const queryString = window.location.search;
+
+
 //navbar______________________________________________________________
 $('#entreprise').on('click', (e) => {
     e.preventDefault();
@@ -51,15 +55,21 @@ function changerDePage(pageAOuvrir){
 
 
 
+
 /*
 * Met automatiquement la date
 */
-
 
 let date = new Date();
 let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
 
 $('#dateDuJour').val(dateFormulaire);
+
+
+
+
+
+
 
 
 //Fin form______________________________________________________________
@@ -116,6 +126,9 @@ $('textarea').change(() => {updateBar()});
 $('select').change(() => {updateBar()});
 
 updateBar()
+
+
+
 
 
 
@@ -231,6 +244,9 @@ function remplissageAutoSiret (siret){
 
 
 
+
+
+
 /*
 Ajout d'une ligne de contact
 */
@@ -256,31 +272,6 @@ $('#ajouterContact').on('click', () => {
 
 
 
-/*
-Fonctions liées au pop-up
-Tout les labels sont sur une même fenêtre
-On affiche et efface les labels en fonction de où on clique et ensuite on affiche la fenêtre
-*/
-//fonctions
-/*
-function affichePopup () { 
-    $('.fermeture_pop-up').toggle();
-}
-
-function effacePopup () {
-    $('.fermeture_pop-up').toggle();
-}
-
-//Création des evenements
-$('.fermeture_pop-up').on('click', () => {effacePopup()})
-$('.close').on('click', () => {effacePopup()})
-
-//Pour ne pas fermer la popup en cliquant n'importe où dessus
-$('.pop-up').on('click', (event) => {event.stopPropagation()})
-
-$("#ajouterContact").on('click', () => {affichePopup()});
-$('#ajouterMission').on('click', () => {affichePopup()});
-*/
 
 
 
@@ -288,10 +279,17 @@ $('#ajouterMission').on('click', () => {affichePopup()});
 Fonctions concernant l'envoie du formulaire pour inscription dans la bd
 */
 
+
+
 $('#envoyer').on('click', (e) => {
     e.preventDefault();
+    if (!queryString){
+        var actionSurClient = "ajouter";
+    } else {
+        var actionSurClient = "modifier";
+    }
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: '../php/action_company.php',
         dataType: 'json',
         data : {
@@ -299,11 +297,10 @@ $('#envoyer').on('click', (e) => {
             siren : document.querySelector("#siren").value,
             ape : document.querySelector("#codeAPE").value,
             nomEntreprise : document.querySelector("#nomEntreprise").value,
-            raison : document.querySelector("#catEntreprise").value,
-            action : "ajouter"
+            type : document.querySelector("#catEntreprise").value,
+            action : actionSurClient,
         },
         success: (data) => {
-            console.log(data);
             if (data.error){
                 alert(data.message);
             } else {
@@ -311,8 +308,50 @@ $('#envoyer').on('click', (e) => {
             }
         },
         error: (error) => {
-            console.log(error)
             alert('Erreur !');
         }
-      });
+    });
 })
+
+
+
+
+/*
+Fonction pour le chargement du formulaire si jamais on trouve le siret
+(dans l'url)
+On envoie alors une requête et on charge les élements trouvés dans les champs
+*/
+
+
+if (queryString){
+    let siretUrl = queryString.split('=')[1];
+    
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_company.php',
+        dataType: 'json',
+        data : {
+            siret : siretUrl,
+            action : "afficher",
+        },
+        success: (data) => {
+            if (data.error){
+                alert(data.message);
+            } else {
+                updateAffichage(data[0])
+            }
+        },
+        error: (error) => {
+            alert('Erreur !');
+        }
+    });
+}
+
+function updateAffichage(data){
+    console.log(data)
+    $('#siret').val(         data["siret"])
+    $('#siren').val(         data["siren"])
+    $('#catEntreprise').val( data["type"])
+    $('#nomEntreprise').val( data["name"])
+    $('#codeAPE').val(       data["ape"])
+}
