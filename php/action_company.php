@@ -17,6 +17,7 @@ if($_GET['action'] == 'afficher'){
         echo $table_encode;
     }else{
         $table = array();
+        
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
                 'id' => $row['idcompany'],
@@ -27,8 +28,8 @@ if($_GET['action'] == 'afficher'){
                 'type' => $row['type_company'],
                 'suspect' => $row['suspect_company'],
                 'prospect' => $row['prospect_company'],
-                'analyse' => $row['anayse_company'],
-                'negociation' => $row['negociation_company'],
+                'analyse' => $row['analyse_company'],
+                'negociation' => $row['negociations_company'],
                 'closing' => $row['closing_company'],
                 'order' => $row['order_company'],
             ));
@@ -48,7 +49,7 @@ if($_GET['action'] == 'afficher'){
     }elseif (mysqli_num_rows($resultat) == 1) {
         $table = array(
             'error'  => true,
-            'message' => 'L\entreprise existe déjà dans la base de données',
+            'message' => "L'entreprise existe déjà dans la base de données",
         );
         $table_encode = json_encode($table);
         echo $table_encode;
@@ -64,7 +65,7 @@ if($_GET['action'] == 'afficher'){
         if($resultat == FALSE){
             $table = array(
                 'error'  => true,
-                'message' => 'Erreur d\'execution de la requête' . $sql,
+                'message' => 'Erreur d\'execution de la requête ' . $sql,
             );
             
             $table_encode = json_encode($table);
