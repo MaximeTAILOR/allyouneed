@@ -16,6 +16,7 @@ if($_GET['action'] == 'afficher'){
         $table_encode = json_encode($table);
         echo $table_encode;
     }else{
+        $table = array();
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
                 'id' => $row['idcompany'],
@@ -86,7 +87,7 @@ if($_GET['action'] == 'afficher'){
     $entreprise = htmlspecialchars($_GET['nomEntreprise']);
     $type = htmlspecialchars($_GET['type']);
 
-    $sql = "UPDATE company SET siret_company='" . $siret . "', siren_company='" . $sirent . "', ape_company='" . $ape . "', name_company='" . $entreprise . "', type_company='" . $type . "' WHERE siret_company='" . $siret . "'";
+    $sql = "UPDATE company SET siret_company='" . $siret . "', siren_company='" . $siren . "', ape_company='" . $ape . "', name_company='" . $entreprise . "', type_company='" . $type . "' WHERE siret_company='" . $siret . "'";
     $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
