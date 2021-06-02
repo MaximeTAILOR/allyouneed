@@ -154,6 +154,7 @@ if($_GET['action'] == 'afficher'){
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
+    
 }elseif($_GET['action'] == 'supprimer'){
     $sql = "DELETE FROM contact WHERE idcontact='" . $_GET['idcontact'] . "'";
     if($resultat == FALSE){
