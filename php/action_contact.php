@@ -83,7 +83,7 @@ if($_GET['action'] == 'afficher'){
     }else{
         $table = array(
             'error'  => true,
-            'message' => 'Le client n\'appartient à aucune entreprise' . $sql,
+            'message' => 'Le contact n\'appartient à aucune entreprise' . $sql,
         );
         
         $table_encode = json_encode(utf8ize($table));
@@ -148,13 +148,13 @@ if($_GET['action'] == 'afficher'){
     }else{
         $table = array(
             'error'  => true,
-            'message' => 'Le client n\'appartient à aucune entreprise' . $sql,
+            'message' => 'Le contact n\'appartient à aucune entreprise' . $sql,
         );
         
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
-    
+
 }elseif($_GET['action'] == 'supprimer'){
     $sql = "DELETE FROM contact WHERE idcontact='" . $_GET['idcontact'] . "'";
     if($resultat == FALSE){
