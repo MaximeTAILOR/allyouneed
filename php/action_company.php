@@ -6,7 +6,7 @@ include './conn_db.php';
 
 if($_GET['action'] == 'afficher'){
     $siret = htmlspecialchars($_GET['siret']);
-    $sql = "SELECT * from company where idcompany='" . $siret . "'";
+    $sql = "SELECT * from company where siret_company='" . $siret . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
