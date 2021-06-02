@@ -23,7 +23,7 @@ if($_GET['action'] == 'afficher'){
                 'num' => $row['num_contact'],
                 'job' => $row['job_contact'],
                 'email' => $row['email_contact'],
-                'suivi' => $row['approach_contact'],
+                'approach' => $row['approach_contact'],
             ));
         }
         echo json_encode($table);
@@ -51,11 +51,11 @@ if($_GET['action'] == 'afficher'){
         $num = htmlspecialchars($_GET['num']);
         $job = htmlspecialchars($_GET['job']);
         $email = htmlspecialchars($_GET['email']);
-        $suivi = htmlspecialchars($_GET['suivi']);
+        $approach = htmlspecialchars($_GET['approach']);
         $mdp = htmlspecialchars($_POST['mdp']);
         $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO contact (name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $suivi . "')";
+        $sql = "INSERT INTO contact (name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $approach . "')";
         $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
@@ -82,11 +82,11 @@ if($_GET['action'] == 'afficher'){
     $num = htmlspecialchars($_GET['num']);
     $job = htmlspecialchars($_GET['job']);
     $email = htmlspecialchars($_GET['email']);
-    $suivi = htmlspecialchars($_GET['suivi']);
+    $approach = htmlspecialchars($_GET['approach']);
     $mdp = htmlspecialchars($_POST['mdp']);
     $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-    $sql = "UPDATE contact SET name_contact='" . $name . "', fname_contact='" . $fname . "', num_contact='" . $num . "', job_contact='" . $job . "', email_contact='" . $contact . "', password_contact='" . $pass_hash . "', approach_contact='" . $suivi . "' WHERE idcontact='" . $_GET['idcontact'] . "'";
+    $sql = "UPDATE contact SET name_contact='" . $name . "', fname_contact='" . $fname . "', num_contact='" . $num . "', job_contact='" . $job . "', email_contact='" . $contact . "', password_contact='" . $pass_hash . "', approach_contact='" . $approach . "' WHERE idcontact='" . $_GET['idcontact'] . "'";
     $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
