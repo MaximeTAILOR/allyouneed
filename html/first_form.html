@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style/style.css">
+        <title>Sondage</title>
+    </head>
+    <body>
+        <h1>Sondage de satisfaction d'intégration dans l'entreprise</h1>
+        <div id='form'>
+            
+            <form action="./form.php" method=post></form>
+            
+            <label for="satisfaction">Comment s'est passé votre intégration au sein de l'entreprise ?</label><br>
+            <select name="satisfaction" id="satisfaction">
+            <option value="Très bien">Très bien </option>
+            <option value="Bien">Bien </option>
+            <option value="Modéré">Modéré </option>
+            <option value="Non satisfait">Non satisfait </option>
+            <option value="Ne souhaite pas répondre" selected="selected">Ne souhaite pas répondre</option>
+            </select> <br>
+
+            <label for="satisfaction">Avez-vous reçu le matériel nécessaire afin d'être opérationnel ?</label><br>
+            <select name="satisfaction" id="materiel">
+            <option value="Oui">Oui, j'ai le nécessaire </option>
+            <option value="Partiellement">Partiellement </option>
+            <option value="Non">Non, je n'ai pas reçu le matériel </option>
+            <option value="Ne souhaite pas répondre" selected="selected">Ne souhaite pas répondre</option>
+            </select> <br>
+
+            <label for="satisfaction">Votre début dans notre entreprise correspond-t-il à vos attentes ?</label><br>
+            <select name="satisfaction" id="satisfaction2">
+            <option value="Très bien">Très bien </option>
+            <option value="Bien">Bien </option>
+            <option value="Modéré">Modéré </option>
+            <option value="Non satisfait">Non satisfait </option>
+            <option value="Ne souhaite pas répondre" selected="selected">Ne souhaite pas répondre</option>
+            </select>
+
+            <input type="submit" id='envoyer' value="Envoyer">
+            </form>
+
+        </div>
+        <div id="timer">00 : 00</div>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <script src="../script/script_first_form.js"></script>
+    </body>
+</html>
