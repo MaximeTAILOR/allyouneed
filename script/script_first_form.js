@@ -1,5 +1,5 @@
 if (localStorage.getItem('survey') == "yes") {
-  document.location.href = "./remerciement.html";
+  document.location.href = "./end_form.html";
 }
 
 $(document).ready(function(){
@@ -50,7 +50,7 @@ $('#envoyer').click((event) => {
               } else {
                   alert(data.message);
                   localStorage.setItem('survey', "yes");
-                  document.location.href="./remerciement.html";
+                  document.location.href="./end_form.html";
               }
                 
             },
