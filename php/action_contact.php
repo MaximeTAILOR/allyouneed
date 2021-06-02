@@ -1,5 +1,9 @@
 <?php
 
+session_start();
+
+include './conn_db.php';
+
 if($_GET['action'] == 'afficher'){
     $sql = "SELECT * from contact where idcompany='" . $GET['idcompany'] . "'";
     $resultat = mysqli_query($conn, $sql);
