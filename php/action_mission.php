@@ -3,6 +3,7 @@
 session_start();
 
 include './conn_db.php';
+include './utf8.php';
 
 if($_GET['action'] == 'afficher'){
     $sql = "SELECT * from mission where siret_company='" . $GET['siret'] . "'";
