@@ -156,15 +156,15 @@ Calcul des etats des missions
 for (ligne of $('#tableMission').children().children()){
     if(ligne.classList != 'en-tete'){
         let cases = ligne.cells
-        let elementsDate = cases[3].textContent.split('/')
+        let elementsDate = cases[4].textContent.split('/')
 
-        let dateMJA = new Date(elementsDate[2], elementsDate[1] - 1, elementsDate[0])
+        let dateMJA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
         let dateDuJour = new Date()
 
         let nbJours = parseInt((dateDuJour - dateMJA)/(1000 * 3600 * 24))
         
         
-        cases[4].textContent = nbJours + "J"
+        cases[5].textContent = nbJours + "J"
     }
 }
 
@@ -281,3 +281,38 @@ $('.pop-up').on('click', (event) => {event.stopPropagation()})
 $("#ajouterContact").on('click', () => {affichePopup()});
 $('#ajouterMission').on('click', () => {affichePopup()});
 */
+
+
+
+/*
+Fonctions concernant l'envoie du formulaire pour inscription dans la bd
+*/
+
+$('#envoyer').on('click', (e) => {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '../php/action_company.php',
+        dataType: 'json',
+        data : {
+            siret : document.querySelector("#siret").value,
+            siren : document.querySelector("#siren").value,
+            ape : document.querySelector("#codeAPE").value,
+            nomEntreprise : document.querySelector("#nomEntreprise").value,
+            raison : document.querySelector("#catEntreprise").value,
+            action : "ajouter"
+        },
+        success: (data) => {
+            console.log(data);
+            if (data.error){
+                alert(data.message);
+            } else {
+                alert("Entreprise ajoutée / modifiée !");
+            }
+        },
+        error: (error) => {
+            console.log(error)
+            alert('Erreur !');
+        }
+      });
+})

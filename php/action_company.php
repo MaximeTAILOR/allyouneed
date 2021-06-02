@@ -1,7 +1,8 @@
 <?php
+include './conn_db.php';
 
-if($_GET['action'] == 'afficher'){
-    $siret = htmlspecialchars($_GET['siret']);
+if($_POST['action'] == 'afficher'){
+    $siret = htmlspecialchars($_POST['siret']);
     $sql = "SELECT * from company where idcompany='" . $siret . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
@@ -30,13 +31,13 @@ if($_GET['action'] == 'afficher'){
         }
         echo json_encode($table);
     }
-}elseif($_GET['action'] == 'ajouter'){
-    $sql = "SELECT * from company where sirt_company='" . $_POST['siret'] . "'"; 
+}elseif($_POST['action'] == 'ajouter'){
+    $sql = "SELECT * from company where siret_company='" . $_POST['siret'] . "'"; 
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         $table = array(
             'error'  => true,
-            'message' => 'Erreur d\'execution de la requête',
+            'message' => 'Erreur dans la vérification de la selection',
         );
         $table_encode = json_encode($table);
         echo $table_encode;
@@ -54,12 +55,12 @@ if($_GET['action'] == 'afficher'){
         $entreprise = htmlspecialchars($_POST['nomEntreprise']);
         $entity = htmlspecialchars($_POST['raison']);
 
-        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $entity . "')";
+        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, ) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $entity . "')";
         $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
                 'error'  => true,
-                'message' => 'Erreur d\'execution de la requête' . $sql,
+                'message' => 'Erreur d\'execution de la requête ' . $sql,
             );
             
             $table_encode = json_encode($table);
@@ -75,7 +76,7 @@ if($_GET['action'] == 'afficher'){
         }
     }
 
-}elseif($_GET['action'] == 'modifier'){
+}elseif($_POST['action'] == 'modifier'){
     $siret = htmlspecialchars($_POST['siret']);
     $siren = htmlspecialchars($_POST['siren']);
     $ape = htmlspecialchars($_POST['ape']);
@@ -101,7 +102,7 @@ if($_GET['action'] == 'afficher'){
             $table_encode = json_encode($table);
             echo $table_encode;
         }
-}elseif($_GET['action'] == 'supprimer'){
+}elseif($_POST['action'] == 'supprimer'){
     $siret = htmlspecialchars($_POST['siret']);
     $sql = "DELETE FROM company WHERE siret_company='" . $siret . "'";
     if($resultat == FALSE){

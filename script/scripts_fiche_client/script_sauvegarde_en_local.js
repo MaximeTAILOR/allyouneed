@@ -64,7 +64,7 @@ function chargementSauvegarde() {
 /*
 Fonction pour mettre a jour la photo, les étoies affichés et la bare d'avancement
 */
-function update(note, estUneFemme) {
+function update(note) {
     $('#note').text(note);
     for (let i = note; i>0; i--){
         $('#' + i).removeClass('un-check');
