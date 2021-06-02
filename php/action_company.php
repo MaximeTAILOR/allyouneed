@@ -57,7 +57,6 @@ if($_GET['action'] == 'afficher'){
         $siren = htmlspecialchars($_GET['siren']);
         $ape = htmlspecialchars($_GET['ape']);
         $entreprise = htmlspecialchars($_GET['nomEntreprise']);
-        $entity = htmlspecialchars($_GET['raison']);
         $type = htmlspecialchars($_GET['type']);
 
         $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, legal_entity, type_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $entity . "', '" . $type . "')";
@@ -86,10 +85,9 @@ if($_GET['action'] == 'afficher'){
     $siren = htmlspecialchars($_GET['siren']);
     $ape = htmlspecialchars($_GET['ape']);
     $entreprise = htmlspecialchars($_GET['nomEntreprise']);
-    $entity = htmlspecialchars($_GET['raison']);
     $type = htmlspecialchars($_GET['type']);
 
-    $sql = "UPDATE company SET siret_company='" . $siret . "', siren_company='" . $sirent . "', ape_company='" . $ape . "', name_entreprise='" . $entreprise . "', legal_entity='" . $entity . "', type_company='" . $type . "' WHERE siret_company='" . $siret . "'";
+    $sql = "UPDATE company SET siret_company='" . $siret . "', siren_company='" . $sirent . "', ape_company='" . $ape . "', name_company='" . $entreprise . "', legal_entity='" . $entity . "', type_company='" . $type . "' WHERE siret_company='" . $siret . "'";
     $resultat = mysqli_query($conn, $sql);
         if($resultat == FALSE){
             $table = array(
