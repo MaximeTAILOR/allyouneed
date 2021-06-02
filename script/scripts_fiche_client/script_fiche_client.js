@@ -51,6 +51,7 @@ function changerDePage(pageAOuvrir){
         $("i").off("mouseover");
         setTimeout(() => {initNotation()}, 2000)
     })
+    initEnvoyer()
 }
 
 
@@ -386,8 +387,8 @@ Fonctions concernant l'envoie du formulaire pour inscription dans la bd
 
 
 
-$('#envoyer').on('click', (e) => {
-    e.preventDefault();
+//Formulaire de l'entreprise
+function envoyerEntreprise(){
     if (!queryString){
         var actionSurClient = "ajouter";
     } else {
@@ -416,8 +417,69 @@ $('#envoyer').on('click', (e) => {
             alert('Erreur !');
         }
     });
-})
+}
 
 
 
 
+
+
+function envoyerContacts(){
+    //Formulaire du contact
+    for (ligne of $('#tableContact').children().children()){
+        if(ligne.classList != 'en-tete'){
+            let cases = ligne.cells
+            data = {
+                siret : document.querySelector("#siret").value,
+                nom : cases[1].children[0].value,
+                prenom : cases[2].children[0].value,
+                num : cases[5].children[0].value,
+                job : cases[3].children[0].value,
+                email : cases[4].children[0].value,
+                action : "ajouter",
+            }
+            if (cases[6].children[0].value == "SUIVI APPRECIER"){
+                data["approach"] = ""
+            } else {
+                data["approach"] = cases[6].children[0].value
+            }
+            requeteContact(data)
+        }
+    }
+}
+
+
+function requeteContact(dataContact){
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_contact.php',
+        dataType: 'json',
+        data : dataContact,
+        success: (data) => {
+            if (data.error){
+                alert(data.message);
+            } else {
+                alert("Contact ajouté / modifié !");
+            }
+        },
+        error: (error) => {
+            console.log(error)
+            alert('Erreur !');
+        }
+    });
+}
+
+
+
+
+
+function initEnvoyer() {
+    $('#envoyer').on('click', (e) => {
+        e.preventDefault()
+        console.log("fonction lancée")
+        //envoyerEntreprise()
+        envoyerContacts()
+    });
+}
+
+initEnvoyer()

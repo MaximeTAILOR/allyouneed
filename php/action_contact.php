@@ -56,7 +56,7 @@ if($_GET['action'] == 'afficher'){
         $job = htmlspecialchars($_GET['job']);
         $email = htmlspecialchars($_GET['email']);
         $approach = htmlspecialchars($_GET['approach']);
-        $mdp = htmlspecialchars($_POST['mdp']);
+        $mdp = 'Test.123';
         $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO contact (siret_company, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('". $siret . "', '" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $approach . "')";
