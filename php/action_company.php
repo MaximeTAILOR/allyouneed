@@ -26,6 +26,12 @@ if($_GET['action'] == 'afficher'){
                 'ape' => $row['ape_company'],
                 'name' => $row['name_company'],
                 'type' => $row['type_company'],
+                /*'suspect' => $row['suspect_company'],
+                'prospect' => $row['prospect_company'],
+                'analyse' => $row['analyse_company'],
+                'negociation' => $row['negociations_company'],
+                'closing' => $row['closing_company'],
+                'order' => $row['order_company'],*/
                 'date' => $row['date_company'],
                 'origin' => $row['origin_company'],
                 'grade' =>$row['grade_company']
