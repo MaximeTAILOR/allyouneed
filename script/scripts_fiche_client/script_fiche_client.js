@@ -323,11 +323,45 @@ On envoie alors une requête et on charge les élements trouvés dans les champs
 
 Ici on parle du chargement de la partie du formulaire qui concerne l'entreprise
 */
-
-
 if (queryString){
     let siretUrl = queryString.split('=')[1];
     
+    updateEntrepriseInfo(siretUrl)
+
+    updateContactsInfo(siretUrl)
+
+    //Update des informations sur les mission
+    calculEtatMission()
+}else {
+    /*
+    Si on ne modifie pas de formulaires, alorson initialise pour la création
+    */
+    let date = new Date();
+    let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
+    $('#dateDuJour').val(dateFormulaire);
+
+
+    nouvelleLigneMission()
+    nouvelleLigneContact()
+}
+
+
+
+
+function updateAffichage(data){
+    $('#siret').val(         data["siret"])
+    $('#siren').val(         data["siren"])
+    $('#catEntreprise').val( data["type"])
+    $('#nomEntreprise').val( data["name"])
+    $('#codeAPE').val(       data["ape"])
+}
+
+
+
+
+
+
+function updateEntrepriseInfo(siretUrl){
     $.ajax({
         type: 'GET',
         url: '../php/action_company.php',
@@ -347,32 +381,53 @@ if (queryString){
             alert('Erreur !');
         }
     });
-}else {
-    /*
-    Si on ne modifie pas de formulaires, alorson initialise pour la création
-    */
-    let date = new Date();
-    let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
-    $('#dateDuJour').val(dateFormulaire);
-
-
-    nouvelleLigneMission()
-    nouvelleLigneContact()
 }
 
 
 
-function updateAffichage(data){
-    console.log(data)
-    $('#siret').val(         data["siret"])
-    $('#siren').val(         data["siren"])
-    $('#catEntreprise').val( data["type"])
-    $('#nomEntreprise').val( data["name"])
-    $('#codeAPE').val(       data["ape"])
+
+
+
+function updateContactsInfo(siretUrl){
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_contact.php',
+        dataType: 'json',
+        data : {
+            siret : siretUrl,
+            action : "afficher",
+        },
+        success: (data) => {
+            if (data.error){
+                alert(data.message);
+            } else{
+                for (contacts of data){
+                    let strLigne =  '<tr>'
+                    strLigne +=     '<td class="remove"><button class="retirerElement '+ contacts.idcontact +' ">-</button></td>'
+                    strLigne +=     '<td><input type="text" class="nom" name="nom" placeholder="NOM" value = "' + contacts.name + '"></td>'
+                    strLigne +=     '<td><input type="text" class="prenom" name="prenom" placeholder="PRENOM" value = "' + contacts.fname + '"></td>'
+                    strLigne +=     '<td><input type="text" class="fonction" name="fonction" placeholder="FONCTION" value = "' + contacts.job + '"></td>'
+                    strLigne +=     '<td><input type="text" class="mail" name="mail" placeholder="MAIL" value = "' + contacts.email + '"></td>'
+                    strLigne +=     '<td><input type="text" class="telephone" name="telephone" placeholder="TELEPHONE" value = "' + contacts.num + '"></td>'
+                    strLigne +=     '<td><textarea class="suiviApprecier" name="suiviApprecier">' + contacts.approach + '</textarea></td>'
+                    strLigne +=     '</tr>'
+                    let ligne = $(strLigne)
+                    ligne.appendTo($('#tableContact'))
+                }
+
+                $(".retirerElement").on('click', (e) => {
+                    e.target.parentElement.parentElement.remove()
+                })
+            }
+        },
+        error: (error) => {
+            alert('Erreur !');
+        }
+    });
 }
 
 
-calculEtatMission()
+
 
 
 
@@ -426,24 +481,49 @@ function envoyerEntreprise(){
 
 function envoyerContacts(){
     //Formulaire du contact
-    for (ligne of $('#tableContact').children().children()){
-        if(ligne.classList != 'en-tete'){
-            let cases = ligne.cells
-            data = {
-                siret : document.querySelector("#siret").value,
-                nom : cases[1].children[0].value,
-                prenom : cases[2].children[0].value,
-                num : cases[5].children[0].value,
-                job : cases[3].children[0].value,
-                email : cases[4].children[0].value,
-                action : "ajouter",
+    if (document.querySelector("#siret").value == ""){
+        alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
+    } else {
+        for (ligne of $('#tableContact').children().children()){
+            if(ligne.classList != 'en-tete'){
+                let cases = ligne.cells
+                let idCont = cases[0].children[0].classList[1]
+                console.log(idCont)
+
+
+                if(idCont == undefined){
+                    //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
+                    data = {
+                        siret : document.querySelector("#siret").value,
+                        nom : cases[1].children[0].value,
+                        prenom : cases[2].children[0].value,
+                        num : cases[5].children[0].value,
+                        job : cases[3].children[0].value,
+                        email : cases[4].children[0].value,
+                        action : "ajouter",
+                    }
+                } else {
+                    //Si on ne troruve pas le dit id alors, on parle d'un ajout
+                    data = {
+                        idcontact : idCont,
+                        siret : document.querySelector("#siret").value,
+                        nom : cases[1].children[0].value,
+                        prenom : cases[2].children[0].value,
+                        num : cases[5].children[0].value,
+                        job : cases[3].children[0].value,
+                        email : cases[4].children[0].value,
+                        action : "modifier",
+                    }
+                }
+                
+                if (cases[6].children[0].value == "SUIVI APPRECIER"){
+                    data["approach"] = ""
+                } else {
+                    data["approach"] = cases[6].children[0].value
+                }
+
+                requeteContact(data)
             }
-            if (cases[6].children[0].value == "SUIVI APPRECIER"){
-                data["approach"] = ""
-            } else {
-                data["approach"] = cases[6].children[0].value
-            }
-            requeteContact(data)
         }
     }
 }
@@ -458,12 +538,9 @@ function requeteContact(dataContact){
         success: (data) => {
             if (data.error){
                 alert(data.message);
-            } else {
-                alert("Contact ajouté / modifié !");
             }
         },
         error: (error) => {
-            console.log(error)
             alert('Erreur !');
         }
     });
@@ -476,7 +553,6 @@ function requeteContact(dataContact){
 function initEnvoyer() {
     $('#envoyer').on('click', (e) => {
         e.preventDefault()
-        console.log("fonction lancée")
         //envoyerEntreprise()
         envoyerContacts()
     });
