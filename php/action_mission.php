@@ -56,7 +56,7 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => false,
-            'message' => 'Le contact a été ajouté',
+            'message' => 'La misison a été ajoutée',
         );
 
         $table_encode = json_encode(utf8ize($table));
@@ -86,7 +86,7 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => false,
-            'message' => 'Le contact a été modifié',
+            'message' => 'La mission a été modifiée',
         );
 
         $table_encode = json_encode(utf8ize($table));
@@ -106,7 +106,7 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => false,
-            'message' => 'Le contact a été supprimé',
+            'message' => 'La mission a été supprimée',
         );
 
         $table_encode = json_encode(utf8ize($table));

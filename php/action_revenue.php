@@ -20,6 +20,7 @@ if ($_GET['action'] == 'afficher') {
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
                 'idrevenue' => $row['idrevenue'],
+                'siret' => $row['siret_company'],
                 'salary' => $row['salary_revenue'],
                 'percentage' => $row['percentage_revenue'],
                 'turnover' => $row['turnover_revenue'],
@@ -29,12 +30,13 @@ if ($_GET['action'] == 'afficher') {
         echo json_encode(utf8ize($table));
     }
 } elseif ($_GET['action'] == 'ajouter') {
+    $siret = htmlspecialchars($_GET['siret']);
     $salary = htmlspecialchars($_GET['salary']);
     $percentage = htmlspecialchars($_GET['percentage']);
     $turnover = htmlspecialchars($_GET['turnover']);
     $total = htmlspecialchars($_GET['total']);
 
-    $sql = "INSERT INTO revenue (salary_revenue, percentage_revenue, turnover_revenue, total_revenue) values ('" . $salary . "', '" . $percentage . "', '" . $turnover . "', '" . $total . "')";
+    $sql = "INSERT INTO revenue (siret_company, salary_revenue, percentage_revenue, turnover_revenue, total_revenue) values ('" . $siret . "', '" . $salary . "', '" . $percentage . "', '" . $turnover . "', '" . $total . "')";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
@@ -47,13 +49,13 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => false,
-            'message' => 'Le contact a été ajouté',
+            'message' => 'Le CA a été ajouté',
         );
-
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'modifier') {
+    $idrevenue = htmlspecialchars($_GET['idrevenue']);
     $salary = htmlspecialchars($_GET['salary']);
     $percentage = htmlspecialchars($_GET['percentage']);
     $turnover = htmlspecialchars($_GET['turnover']);
@@ -72,7 +74,7 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => false,
-            'message' => 'Le contact a été modifié',
+            'message' => 'Le CA a été modifié',
         );
 
         $table_encode = json_encode(utf8ize($table));
@@ -80,6 +82,7 @@ if ($_GET['action'] == 'afficher') {
     }
 } elseif ($_GET['action'] == 'supprimer') {
     $sql = "DELETE FROM revenue WHERE idrevenue='" . $_GET['idrevenue'] . "'";
+    $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
@@ -91,7 +94,7 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => false,
-            'message' => 'Le contact a été supprimé',
+            'message' => 'Le CA a été supprimé',
         );
 
         $table_encode = json_encode(utf8ize($table));
