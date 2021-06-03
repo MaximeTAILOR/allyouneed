@@ -6,7 +6,7 @@ include './conn_db.php';
 include './utf8.php';
 
 if ($_GET['action'] == 'afficher') {
-    $sql = "SELECT * from contact where siret_company='" . $GET['siret'] . "'";
+    $sql = "SELECT * from contact where siret_company='" . $_GET['siret'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
@@ -102,7 +102,7 @@ if ($_GET['action'] == 'afficher') {
         $mdp = 'Test.123';
         $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-        $sql = "SELECT * FROM contact where idcontact!='" . $idcontact . "' and email = '" . $email . "'";
+        $sql = "SELECT * FROM contact where idcontact!='" . $idcontact . "' and email_contact = '" . $email . "'";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
 
@@ -153,6 +153,7 @@ if ($_GET['action'] == 'afficher') {
     }
 } elseif ($_GET['action'] == 'supprimer') {
     $sql = "DELETE FROM contact WHERE idcontact='" . $_GET['idcontact'] . "'";
+    $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
