@@ -6,7 +6,7 @@ include './conn_db.php';
 include './utf8.php';
 
 if ($_GET['action'] == 'afficher') {
-    $sql = "SELECT * from contact where siret_company='" . $GET['siret'] . "'";
+    $sql = "SELECT * from contact where siret_company='" . $_GET['siret'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
