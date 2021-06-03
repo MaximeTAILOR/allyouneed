@@ -97,7 +97,8 @@ if ($_GET['action'] == 'afficher') {
     $ape = htmlspecialchars($_GET['ape']);
     $entreprise = htmlspecialchars($_GET['nomEntreprise']);
     $type = htmlspecialchars($_GET['type']);
-    $date = $_GET['date'];
+    $date = date_create($_GET['date']);
+    $date = date_format($date, 'Y-m-d');
     $origin = $_GET['origin'];
     $grade = $_GET['grade'];
     $spanco = $_GET['spanco'];

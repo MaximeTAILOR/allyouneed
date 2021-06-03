@@ -1,7 +1,6 @@
 //constantes pour tout le programe
 var queryString = window.location.search;
 
-
 /*
 Ajout d'une ligne de contact
 */
@@ -40,9 +39,7 @@ if (queryString){
     let siretUrl = queryString.split('=')[1];
     updateContactsInfo(siretUrl)
 }else {
-    /*
-    Si on ne modifie pas de formulaires, alorson initialise pour la création
-    */
+    //Si on ne modifie pas de formulaires, alors on initialise pour la création
     nouvelleLigneContact()
 }
 
@@ -64,6 +61,9 @@ function updateContactsInfo(siretUrl){
             if (data.error){
                 alert(data.message);
             } else{
+                if (data.length == 0){
+                    nouvelleLigneContact();
+                }
                 for (contacts of data){
                     let strLigne =  '<tr>'
                     strLigne +=     '<td class="remove"><button class="retirerElement '+ contacts.idcontact +' ">-</button></td>'

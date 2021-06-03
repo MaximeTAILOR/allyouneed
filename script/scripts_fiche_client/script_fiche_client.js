@@ -232,11 +232,29 @@ if (queryString){
 
 
 function updateAffichage(data){
-    $('#siret').val(         data["siret"])
-    $('#siren').val(         data["siren"])
-    $('#catEntreprise').val( data["type"])
-    $('#nomEntreprise').val( data["name"])
-    $('#codeAPE').val(       data["ape"])
+    $('#siret').val(            data["siret"])
+    $('#siren').val(            data["siren"])
+    $('#catEntreprise').val(    data["type"])
+    $('#nomEntreprise').val(    data["name"])
+    $('#codeAPE').val(          data["ape"])
+    $('#origineDuContact').val( data["origin"])
+    $('#note').text(            data["grade"])
+    
+
+    //affichage de la date
+    let elementsDate = data["date"].split('-')
+    for (index in elementsDate){
+        elementsDate[index] = parseInt(elementsDate[index])
+    }
+    let dateFormulaire = elementsDate[0] + '/' + elementsDate[1] + '/' + elementsDate[2];
+    $('#dateDuJour').val(dateFormulaire);
+
+    //update l'affichage de note
+    note = $('#note').text();
+    for (let i = note; i>0; i--){
+        $('#' + i).removeClass('un-check');
+        $('#' + i).addClass('check');
+    }
 }
 
 
@@ -275,6 +293,9 @@ Fonctions concernant l'envoie du formulaire pour inscription dans la bd
 
 //Formulaire de l'entreprise
 function envoyerEntreprise(){
+    elementDate = document.querySelector("#dateDuJour").value.split('/')
+    datePhp=elementDate[0] + '-' + elementDate[1] + '-' + elementDate[2]
+
     if (!queryString){
         var actionSurClient = "ajouter";
     } else {
@@ -285,12 +306,16 @@ function envoyerEntreprise(){
         url: '../php/action_company.php',
         dataType: 'json',
         data : {
-            siret : document.querySelector("#siret").value,
-            siren : document.querySelector("#siren").value,
-            ape : document.querySelector("#codeAPE").value,
+            siret :         document.querySelector("#siret").value,
+            siren :         document.querySelector("#siren").value,
+            ape :           document.querySelector("#codeAPE").value,
             nomEntreprise : document.querySelector("#nomEntreprise").value,
-            type : document.querySelector("#catEntreprise").value,
-            action : actionSurClient,
+            type :          document.querySelector("#catEntreprise").value,
+            date :          datePhp,
+            origin :        document.querySelector("#origineDuContact").value,
+            grade :         $('#note').text(),
+            action :        actionSurClient,
+            spanco :        "",
         },
         success: (data) => {
             if (data.error){
@@ -313,7 +338,7 @@ Il est important que celle ci soit chargée en dernier
 function initEnvoyer() {
     $('#envoyer').on('click', (e) => {
         e.preventDefault()
-        //envoyerEntreprise()
+        envoyerEntreprise()
         envoyerContacts()
     });
 }
