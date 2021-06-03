@@ -5,8 +5,8 @@ session_start();
 include './conn_db.php';
 include './utf8.php';
 
-if($_GET['action'] == 'afficher'){
-    $sql = "SELECT * from mission where siret_company='" . $GET['siret'] . "'";
+if ($_GET['action'] == 'afficher') {
+    $sql = "SELECT * from mission where siret_company='" . $_GET['siret'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
@@ -15,7 +15,7 @@ if($_GET['action'] == 'afficher'){
         );
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
-    }else{
+    } else {
         $table = array();
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
@@ -32,7 +32,7 @@ if($_GET['action'] == 'afficher'){
         }
         echo json_encode(utf8ize($table));
     }
-}elseif($_GET['action'] == 'ajouter'){
+} elseif ($_GET['action'] == 'ajouter') {
     $siret = htmlspecialchars($_GET['siret']);
     $manager = htmlspecialchars($_GET['manager']);
     $post = htmlspecialchars($_GET['post']);
@@ -40,78 +40,76 @@ if($_GET['action'] == 'afficher'){
     $meeting = htmlspecialchars($_GET['meeting']);
     $endorsed = htmlspecialchars($_GET['endorsed']);
     $opendate = htmlspecialchars($_GET['opendate']);
-    $enddate = htmlspecialchars($_POST['enddate']);
-    $turnover = htmlspecialchars($_POST['turnover']);
+    $enddate = htmlspecialchars($_GET['enddate']);
+    $turnover = htmlspecialchars($_GET['turnover']);
 
     $sql = "INSERT INTO mission (siret_company, manager_mission, post_mission, current_mission, meeting_mission, endorsed_mission, opendate_mission, enddate_mission, turnover_mission) values ('" . $siret . "', '" . $manager . "', '" . $post . "', '" . $current . "', '" . $meeting . "', '" . $endorsed . "', '" . $opendate . "', '" . $enddate . "', '" . $turnover . "')";
     $resultat = mysqli_query($conn, $sql);
-    if($resultat == FALSE){
+    if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
-        
+
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
-    }else{
+    } else {
         $table = array(
             'error'  => false,
             'message' => 'Le contact a été ajouté',
         );
-        
+
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
-
-}elseif($_GET['action'] == 'modifier'){
+} elseif ($_GET['action'] == 'modifier') {
+    $idmission = htmlspecialchars($_GET['idmission']);
     $manager = htmlspecialchars($_GET['manager']);
     $post = htmlspecialchars($_GET['post']);
     $current = htmlspecialchars($_GET['current']);
     $meeting = htmlspecialchars($_GET['meeting']);
     $endorsed = htmlspecialchars($_GET['endorsed']);
     $opendate = htmlspecialchars($_GET['opendate']);
-    $enddate = htmlspecialchars($_POST['enddate']);
-    $turnover = htmlspecialchars($_POST['turnover']);
+    $enddate = htmlspecialchars($_GET['enddate']);
+    $turnover = htmlspecialchars($_GET['turnover']);
 
-    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "' WHERE idmission='" . $idmission . "'";
+    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "' WHERE idmission= . $idmission";
     $resultat = mysqli_query($conn, $sql);
-    if($resultat == FALSE){
+    if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
-        
+
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
-    }else{
+    } else {
         $table = array(
             'error'  => false,
             'message' => 'Le contact a été modifié',
         );
-        
+
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
-
-}elseif($_GET['action'] == 'supprimer'){
+} elseif ($_GET['action'] == 'supprimer') {
     $sql = "DELETE FROM mission WHERE idmission='" . $_GET['idmission'] . "'";
-    if($resultat == FALSE){
+    $resultat = mysqli_query($conn, $sql);
+    if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
-        
+
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
-    }else{
+    } else {
         $table = array(
             'error'  => false,
             'message' => 'Le contact a été supprimé',
         );
-        
+
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
     }
 }
-
-?>
