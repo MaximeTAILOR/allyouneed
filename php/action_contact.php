@@ -57,7 +57,7 @@ if ($_GET['action'] == 'afficher') {
             $job = htmlspecialchars($_GET['job']);
             $email = htmlspecialchars($_GET['email']);
             $approach = htmlspecialchars($_GET['approach']);
-            $mdp = htmlspecialchars($_POST['mdp']);
+            $mdp = htmlspecialchars('Epsi.123');
             $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
             $sql = "INSERT INTO contact (siret_company, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('" . $siret . "', '" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $approach . "')";
@@ -83,7 +83,7 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => true,
-            'message' => 'Le contact n\'appartient à aucune entreprise' . $sql,
+            'message' => 'Le contact n\'appartient à aucune entreprise',
         );
 
         $table_encode = json_encode(utf8ize($table));
@@ -99,16 +99,16 @@ if ($_GET['action'] == 'afficher') {
         $job = htmlspecialchars($_GET['job']);
         $email = htmlspecialchars($_GET['email']);
         $approach = htmlspecialchars($_GET['approach']);
-        $mdp = htmlspecialchars($_POST['mdp']);
+        $mdp = 'Test.123';
         $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-        $sql = "SELECT * FROM contact where idcontact!='" . $idcontact . "'";
+        $sql = "SELECT * FROM contact where idcontact!='" . $idcontact . "' and email = '" . $email . "'";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
 
             $table = array(
                 'error'  => true,
-                'message' => 'Erreur d\'execution de la requête' . $sql,
+                'message' => 'Erreur d\'execution de la requête ' . $sql,
             );
             $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
@@ -116,7 +116,7 @@ if ($_GET['action'] == 'afficher') {
 
             $table = array(
                 'error'  => true,
-                'message' => 'L\'addresse mail est déjà utilisée' . $sql,
+                'message' => 'L\'addresse mail est déjà utilisée',
             );
             $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
