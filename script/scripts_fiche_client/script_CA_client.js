@@ -10,19 +10,22 @@ function nouvelleLigneCA(){
     let strLigne =  '<tr>'
     strLigne +=     '<td class="remove"><button class="retirerCA">-</button></td>'
     strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE"></td>'
-    strLigne +=     '<td><input type="text" class="salaire" name="salaire" placeholder="SALAIRE" value=0></td>'
-    strLigne +=     '<td><input type="text" class="partAccordee" name="partAccordee" placeholder="PART ACCORDEE" value=0></td>'
-    strLigne +=     '<td>XXXX€</td>'
+    strLigne +=     '<td><input type="text" class="salaire valeuModifiee" name="salaire" placeholder="SALAIRE" value=0></td>'
+    strLigne +=     '<td><input type="text" class="partAccordee valeuModifiee" name="partAccordee" placeholder="PART ACCORDEE" value=0></td>'
+    strLigne +=     '<td>0</td>'
     strLigne +=     '</tr>'
     let ligne = $(strLigne)
     ligne.appendTo($('#tableCA'))
 
     $(".retirerCA").on('click', (e) => {
-        deleteContact(e.target.classList[1])
         e.target.parentElement.parentElement.remove()
     })
+    initActualisationCA()
 }
 
+function initActualisationCA() {
+    $('.valeuModifiee').on('keyup', () => {calculCA()})
+}
 
 
 
@@ -30,21 +33,20 @@ function nouvelleLigneCA(){
 /*
 Calcul des CA
 */
-let totalCA=0
-//On doit utiliser deux fois .children() parce que le tableau créé automatiquement un div tbody
-//$('#tableCA').children() nous rend donc ce tbody et non les lignes voulues
+function calculCA(){
+    let totalCA=0
+    //On doit utiliser deux fois .children() parce que le tableau créé automatiquement un div tbody
+    //$('#tableCA').children() nous rend donc ce tbody et non les lignes voulues
 
-for (ligne of $('#tableCA').children().children()){
-    if(ligne.classList != 'en-tete'){
-        let cases = ligne.cells
-        cases[4].textContent = cases[2].textContent * (cases[3].textContent / 100)
-        totalCA+=parseInt(cases[4].textContent)
+    for (ligne of $('#tableCA').children().children()){
+        if(ligne.classList != 'en-tete'){
+            let cases = ligne.cells
+            cases[4].textContent = cases[2].children[0].value * (cases[3].children[0].value / 100)
+            totalCA+=parseInt(cases[4].textContent)
+        }
     }
+    $('#totalCA').text(totalCA)
 }
-$('#textCA').text("Total CA : "+totalCA+"€")
-
-
-
 
 
 
@@ -55,24 +57,25 @@ On envoie alors une requête et on charge les élements trouvés dans les champs
 
 Ici on parle du chargement de la partie du formulaire qui concerne les contacts
 */
-/*
+
 if (queryString){
     let siretUrl = queryString.split('=')[1];
-    updateContactsInfo(siretUrl)
-}else {
-    //Si on ne modifie pas de formulaires, alors on initialise pour la création
-    nouvelleLigneContact()
+    updateCAInfo(siretUrl)
+} else {
+    calculCA()
+    nouvelleLigneCA()
 }
 
 
 
 
 
-//Fonction qui permet d'afficher les différents contacts
-function updateContactsInfo(siretUrl){
+
+//Fonction qui permet d'afficher les différents CA
+function updateCAInfo(siretUrl){
     $.ajax({
         type: 'GET',
-        url: '../php/action_contact.php',
+        url: '../php/action_revenue.php',
         dataType: 'json',
         data : {
             siret : siretUrl,
@@ -85,24 +88,27 @@ function updateContactsInfo(siretUrl){
                 if (data.length == 0){
                     nouvelleLigneContact();
                 }
-                for (contacts of data){
+                for (revenuCA of data){
                     let strLigne =  '<tr>'
-                    strLigne +=     '<td class="remove"><button class="retirerElement '+ contacts.idcontact +' ">-</button></td>'
-                    strLigne +=     '<td><input type="text" class="nom" name="nom" placeholder="NOM" value = "' + contacts.name + '"></td>'
-                    strLigne +=     '<td><input type="text" class="prenom" name="prenom" placeholder="PRENOM" value = "' + contacts.fname + '"></td>'
-                    strLigne +=     '<td><input type="text" class="fonction" name="fonction" placeholder="FONCTION" value = "' + contacts.job + '"></td>'
-                    strLigne +=     '<td><input type="text" class="mail" name="mail" placeholder="MAIL" value = "' + contacts.email + '"></td>'
-                    strLigne +=     '<td><input type="text" class="telephone" name="telephone" placeholder="TELEPHONE" value = "' + contacts.num + '"></td>'
-                    strLigne +=     '<td><textarea class="suiviApprecier" name="suiviApprecier">' + contacts.approach + '</textarea></td>'
+                    strLigne +=     '<td class="remove"><button class="retirerCA '+ revenuCA["idrevenue"] +' ">-</button></td>'
+                    strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE" value='+ revenuCA["post"] +'></td>'
+                    strLigne +=     '<td><input type="text" class="salaire valeuModifiee" name="salaire" placeholder="SALAIRE" value='+ revenuCA["salary"] +'></td>'
+                    strLigne +=     '<td><input type="text" class="partAccordee valeuModifiee" name="partAccordee" placeholder="PART ACCORDEE" value='+ revenuCA["percentage"] +'></td>'
+                    strLigne +=     '<td>'+ revenuCA["turnover"] +'</td>'
                     strLigne +=     '</tr>'
                     let ligne = $(strLigne)
-                    ligne.appendTo($('#tableContact'))
+                    ligne.appendTo($('#tableCA'))
                 }
 
-                $(".retirerElement").on('click', (e) => {
-                    deleteContact(e.target.classList[1])
+                //Initialisation des boutons et appel de quelques fonctions
+                $(".retirerCA").on('click', (e) => {
+                    deleteCA(e.target.classList[1])
                     e.target.parentElement.parentElement.remove()
                 })
+
+                initActualisationCA()
+                calculCA()
+                nouvelleLigneCA()
             }
         },
         error: (error) => {
@@ -121,43 +127,36 @@ function envoyerCA(){
     if (document.querySelector("#siret").value == ""){
         alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
     } else {
-        for (ligne of $('#tableContact').children().children()){
+        for (ligne of $('#tableCA').children().children()){
             if(ligne.classList != 'en-tete'){
                 let cases = ligne.cells
-                let idCont = cases[0].children[0].classList[1]
+                let idCA = cases[0].children[0].classList[1]
 
-                if(idCont == undefined){
+                if(idCA == undefined){
                     //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
                     data = {
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
-                        action : "ajouter",
+                        siret       : document.querySelector("#siret").value,
+                        post        : cases[1].children[0].value,
+                        salary      : cases[2].children[0].value,
+                        percentage  : cases[3].children[0].value,
+                        turnover    : cases[4].textContent,
+                        total       : $('#totalCA').text(), 
+                        action      : "ajouter",
                     }
                 } else {
                     //Si on ne troruve pas le dit id alors, on parle d'un ajout
                     data = {
-                        idcontact : idCont,
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
+                        idrevenue : idCA,
+                        post        : cases[1].children[0].value,
+                        salary      : cases[2].children[0].value,
+                        percentage  : cases[3].children[0].value,
+                        turnover    : cases[4].textContent,
+                        total       : $('#totalCA').text(), 
                         action : "modifier",
                     }
                 }
-                
-                if (cases[6].children[0].value == "SUIVI APPRECIER"){
-                    data["approach"] = ""
-                } else {
-                    data["approach"] = cases[6].children[0].value
-                }
 
-                requeteContact(data)
+                requeteCA(data)
             }
         }
     }
@@ -165,28 +164,27 @@ function envoyerCA(){
 
 
 
-function deleteContact(idCont){
+function deleteCA(idCA){
     data = {
-        idcontact : idCont,
+        idrevenue : idCA,
         action : "supprimer",
     }
-    requeteContact(data)
+    requeteCA(data)
 }
 
 
 
 
 
-//rq ajax contacts
-function requeteContact(dataContact){
+//rq ajax CA
+function requeteCA(dataCA){
     $.ajax({
         type: 'GET',
-        url: '../php/action_contact.php',
+        url: '../php/action_revenue.php',
         dataType: 'json',
-        data : dataContact,
+        data : dataCA,
         success: (data) => {
             if (data.error){
-                alert(data.message)
             }
         },
         error: (error) => {
@@ -194,4 +192,7 @@ function requeteContact(dataContact){
         }
     });
 }
-*/
+
+
+
+initActualisationCA()

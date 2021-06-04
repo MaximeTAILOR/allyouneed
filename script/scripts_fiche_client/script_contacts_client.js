@@ -39,10 +39,11 @@ Ici on parle du chargement de la partie du formulaire qui concerne les contacts
 if (queryString){
     let siretUrl = queryString.split('=')[1];
     updateContactsInfo(siretUrl)
-}else {
+} else {
     //Si on ne modifie pas de formulaires, alors on initialise pour la création
     nouvelleLigneContact()
 }
+
 
 
 
@@ -62,9 +63,6 @@ function updateContactsInfo(siretUrl){
             if (data.error){
                 alert(data.message);
             } else{
-                if (data.length == 0){
-                    nouvelleLigneContact();
-                }
                 for (contacts of data){
                     let strLigne =  '<tr>'
                     strLigne +=     '<td class="remove"><button class="retirerElement '+ contacts.idcontact +' ">-</button></td>'
@@ -79,10 +77,12 @@ function updateContactsInfo(siretUrl){
                     ligne.appendTo($('#tableContact'))
                 }
 
+                //Initialisation du comportement du bouton + ajout d'une ligne vide
                 $(".retirerElement").on('click', (e) => {
                     deleteContact(e.target.classList[1])
                     e.target.parentElement.parentElement.remove()
                 })
+                nouvelleLigneContact()
             }
         },
         error: (error) => {

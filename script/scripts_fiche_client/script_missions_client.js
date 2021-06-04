@@ -72,10 +72,11 @@ if (queryString){
     updateContactsInfo(siretUrl)
 
     calculEtatMission()
-}else {
+} else {
     //Si on ne modifie pas de formulaires, alors on initialise pour la création
     nouvelleLigneMission()
 }
+
 
 
 
@@ -132,12 +133,13 @@ function updateContactsInfo(siretUrl){
                     $('.dateOuverture').on('click', () => {calculEtatMission()})
                 }
 
-                calculEtatMission()
-
+                //Initialisation du comportement du bouton et appel de quelques fonctions
                 $(".retirerMission").on('click', (e) => {
                     deleteMission(e.target.classList[1])
                     e.target.parentElement.parentElement.remove()
                 })
+                calculEtatMission()
+                nouvelleLigneMission()
             }
         },
         error: (error) => {
