@@ -5,28 +5,37 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../style/style_site.css">
-        <title>index</title>
+        <title>Liste Clients</title>
+        <script src="https://kit.fontawesome.com/38280f8a96.js" crossorigin="anonymous"></script>
     </head>
     <body> 
         <div>
             <table>
                 <tr id="en-tete">
+                    <td class='remove'>-</td>
                     <td>Nom de l'entreprise</td>
-                    <td>APE</td>
-                    <td>Prenom</td>
-                    <td>Nom</td>
-                    <td>addresse Mail</td>
-                    <td>Accéder a la fiche détaillée</td>
+                    <td>Siret</td>
+                    <td>Categorie</td>
+                    <td>Inscrit depuis</td>
+                    <td>Avis</td>
+                    <td>Accéder a la fiche</td>
                 </tr>
             </table>
         </div>
 
+        <button id="nouvelleEntreprise">Nouvelle Entreprise</button>
+
+        <!--
+        On utilise plus la pop-up mais je laisse le code ici pour l'instant des fois qu'on changerai d'avis
+        Si c'est pas le cas, je supprimerai se bout de code
+        
         <div class="fermeture_pop-up">
             <div class="pop-up">
                 <span class="close">x</span>
                 <h2>Bienvenu dans le pop-up!</h2>
             </div>
         </div>
+        -->
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
         <script src="../script/navbar.js"></script>
         <script src="../script/script_list_comp.js"></script>

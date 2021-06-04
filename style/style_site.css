@@ -9,36 +9,76 @@ a {
   text-align: center;
 }
 
+/*
+Style des tableaux
+*/
 table {
     border: 1px solid #383838;
     width: 100%;
     border-collapse: collapse;
-}
-
-td {
-    width: 16%;
+  }
+  
+  td {
+    /*width: 16%;*/
     color: white;
     border: 1px solid #383838;
     padding-top: 5px;
     padding-bottom: 5px
-}
-
-tr {
+  }
+  
+  tr {
     background-color: #1f1f1f;
     border: 1px solid #383838;
-}
-
-tr:nth-child(even){
+  }
+  
+  tr:nth-child(even){
     background-color: #181818;
-}
-
-tr:hover {
+  }
+  
+  tr:hover {
     background-color: black;
-}
-
-#en-tete{
+  }
+  
+  .remove {
+    width: min-content;
+    text-align: center;
+  }
+  
+  #en-tete, #en-tete:hover{
     background-color: #3d3d3d;
-}
+  }
+  
+
+  #nouvelleEntreprise {
+    height: 30px;
+    width: 150px;
+    border-radius: 4px;
+    margin-top: 5px;
+    background-color: rgb(100, 100, 100);
+    border-color: rgb(100, 100, 100);
+    color: silver;
+  }
+  
+  #nouvelleEntreprise {
+    background-color: rgb(80, 80, 80);
+    border-color: rgb(80, 80, 80);
+  }
+
+  .retirerEnt{
+    background-color: rgb(196, 0, 0);
+    border-color: rgb(196, 0, 0);
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+  
+  .retirerEnt:hover{
+    background-color: rgb(150, 0, 0);
+    border-color: rgb(150, 0, 0);
+  }
+
+
+
 
 /*Style lié au popup*/
 .fermeture_pop-up {
@@ -153,3 +193,15 @@ background-color: #111;
     text-align: center;
     font-family: Helvetica;
 }
+
+
+/*
+Style de la notation
+*/
+.check{
+    color: orange;
+  }
+  
+  .un-check{
+    color: black;
+  }

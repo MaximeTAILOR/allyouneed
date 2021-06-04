@@ -3,21 +3,41 @@
  * On prend les données dans la bd avec une rq AJAx
  * Puis on insère les lignes une par une
 */
-//Fonctions
 function remplirTableau(data){
     for (company of data){
-        let html =  $("<tr>");
-        html.html(html.html() + `<td>${company.company}</td>`);
-        html.html(html.html() + `<td>${company.ape}</td>`);
-        html.html(html.html() + `<td>${company.prenom}</td>`);
-        html.html(html.html() + `<td>${company.nom}</td>`);
-        html.html(html.html() + `<td>${company.email}</td>`);
-        html.html(html.html() + `<td><a href="#", class="trigger-popup">Acceder a la fiche complète</a></td>`);
-        html.html(html.html() + "</tr>");
-        $('table').append(html)
+        //Conversion de la date en forma php a la date en forma affiché a l'utilisateur
+        let elementsDate = company["date"].split('-')
+        for (index in elementsDate){
+            elementsDate[index] = parseInt(elementsDate[index])
+            }
+        let dateInsc = elementsDate[2] + '/' + elementsDate[1] + '/' + elementsDate[0];
+
+        
+        //Creation d'une ligne de tableau
+        let strLigne =  '<tr>'
+        strLigne +=     '<td class="remove"><button class="retirerEnt '+ company["idCompany"] +' ">-</button></td>'
+        strLigne +=     '<td>'+ company["name"] +'</td>'
+        strLigne +=     '<td>'+ company["siret"] +'</td>'
+        strLigne +=     '<td>'+ company["type"] +'</td>'
+        strLigne +=     '<td>'+ dateInsc +'</td>'
+        strLigne +=     '<td>'
+            for (let numEtoile=1; numEtoile<6; numEtoile++){
+                let checkStatus = 'un-check'
+                if (numEtoile <= company["grade"]){
+                    checkStatus = 'check'
+                }
+                strLigne+=  '<i class="fas fa-star check ' + checkStatus + '"></i>'
+            }
+        strLigne +=     '</td>'
+        strLigne +=     '<td><a href=./fiche_client.html?siret='+ company["siret"] +'>Fiche detaillée</a></td>'
+        strLigne +=     '</tr>'
+
+        //On ajoute la ligne au tableau
+        $(strLigne).appendTo($('table'))
     }
-    initLiens();
 }
+
+$('#nouvelleEntreprise').on('click', () => {window.location.replace("./fiche_client.html")})
 
 
 
@@ -42,12 +62,24 @@ $.ajax({
 
 
 
-/*
- * Partie interraction avec le tableau 
- * Permet d'accèder a la fiche détaillée en cliquant sur un lien
- * Le fait en lisant les lignes
-*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+On utilise plus la pop-up mais je laisse le code ici pour l'instant des fois qu'on changerai d'avis
+Si c'est pas le cas, je supprimerai se bout de code
+/*
 //fonctions
 function initLiens(){
     $('.trigger-popup').click(function (event) { 
@@ -94,3 +126,4 @@ $('.fermeture_pop-up').click(() => {
 $('.pop-up').click((e) => {
     e.stopPropagation();
 });
+*/
