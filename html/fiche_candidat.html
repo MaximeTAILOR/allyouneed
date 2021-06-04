@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +26,7 @@
 
       <input type="text" id="posteActuel" name="posteActuel" placeholder="POSTE ACTUEL">
 
-      <input type="text" id="salireActuel" name="prenom" placeholder="SALAIRE">
+      <input type="text" id="salaireActuel" name="salaireActuel" placeholder="SALAIRE">
     </div>
 
     <div id="infoCandidat_2">
@@ -72,7 +73,7 @@
       <input type="text" id="portable" name="portable" placeholder="PORTABLE">
 
       <input type="text" id="derniereEntreprise" name="derniereEntreprise" placeholder="DERNIERE ENTREPRISE">
-    
+
       <select name="origineDuContact" id="origineDuContact">
         <option value="">ORIGINE DU CONTACT</option>
         <option value="hellowork">Hellowork</option>
@@ -89,7 +90,7 @@
 
       <input type="text" id="entrepriseSouhaitees" name="entrepriseSouhaitees" placeholder="ENTREPRISES SOUHAITÉES">
     </div>
-        
+
     <div id="entreprise">
       <input type="text" id="typeEntreprise" name="typeEntreprise" placeholder="TYPE D'ENTREPRISE">
 
@@ -97,11 +98,13 @@
     </div>
 
     <div id="environnement">
-      <input type="text" id="environnementTechActuel" name="environnementTechActuel" placeholder="ENVIRONNEMENT TECHNIQUE ACTUEL">
+      <input type="text" id="environnementTechActuel" name="environnementTechActuel"
+        placeholder="ENVIRONNEMENT TECHNIQUE ACTUEL">
 
-      <input type="text" id="environnementTechVoulu" name="environnementTechVoulu" placeholder="ENVIRONNEMENT TECHNIQUE SOUHAITÉ">
+      <input type="text" id="environnementTechVoulu" name="environnementTechVoulu"
+        placeholder="ENVIRONNEMENT TECHNIQUE SOUHAITÉ">
     </div>
-        
+
     <div id="projets">
       <input type="text" id="plusGrosProjet" name="plusGrosProjet" placeholder="LES PLUS GROS PROJETS">
 
@@ -198,8 +201,9 @@
     <div class="formationSouhaites">
       <label for="veutUneFormation">Cocher si le candidat désire une formation</label>
       <input type="checkbox" id="veutUneFormation" name="veutUneFormation">
-      
-      <input type="text" id="listeFormationSouhaite" name="listeFormationSouhaite" placeholder="NOMS DES FORMATIONS SOUHAITES"  style="display: none;">
+
+      <input type="text" id="listeFormationSouhaite" name="listeFormationSouhaite"
+        placeholder="NOMS DES FORMATIONS SOUHAITES" style="display: none;">
     </div>
   </div>
 
@@ -232,15 +236,15 @@
   <!--Fenetre pop up-->
   <div class="fermeture_pop-up">
     <div class="pop-up">
-        <span class="close">x</span>
-        <label class="linkedin" for="linkedin">Linkedin :</label>
-        <input class="linkedin" type="text" id="linkedin" name="linkedin">
-        <label class="instagram" for="instagram">Instagram :</label>
-        <input class="instagram" type="text" id="instagram" name="instagram">
-        <label class="discord" for="discord">Discord :</label>
-        <input class="discord" type="text" id="discord" name="discord">
-        <label class="whatsapp" for="whatsapp">WhatsApp :</label>
-        <input class="whatsapp" type="text" id="whatsapp" name="whatsapp">
+      <span class="close">x</span>
+      <label class="linkedin" for="linkedin">Linkedin :</label>
+      <input class="linkedin" type="text" id="linkedin" name="linkedin">
+      <label class="instagram" for="instagram">Instagram :</label>
+      <input class="instagram" type="text" id="instagram" name="instagram">
+      <label class="discord" for="discord">Discord :</label>
+      <input class="discord" type="text" id="discord" name="discord">
+      <label class="whatsapp" for="whatsapp">WhatsApp :</label>
+      <input class="whatsapp" type="text" id="whatsapp" name="whatsapp">
     </div>
   </div>
 
@@ -250,4 +254,5 @@
   <script src="../script/scripts_fiche_candidat/script_fiche_candidat.js"></script>
   <script defer src="../script/scripts_fiche_candidat/script_sauvegarde_en_local_candidat.js"></script>
 </body>
+
 </html>

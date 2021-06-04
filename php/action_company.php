@@ -5,11 +5,6 @@ session_start();
 include './conn_db.php';
 include './utf8.php';
 
-/*  date = date_create($_GET['date']);
-    $date = date_format($date, 'Y-m-d');
-    echo $date;
-*/
-
 if ($_GET['action'] == 'afficher') {
     $siret = htmlspecialchars($_GET['siret']);
     $sql = "SELECT * from company where siret_company='" . $siret . "'";
