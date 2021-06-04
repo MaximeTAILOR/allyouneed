@@ -26,7 +26,6 @@ function nouvelleLigneMission(){
     ligne.appendTo($('#tableMission'))
 
     $(".retirerMission").on('click', (e) => {
-        deleteMission(e.target.classList[1])
         e.target.parentElement.parentElement.remove()
     })
     $('.dateOuverture').on('click', () => {calculEtatMission()})
@@ -159,51 +158,53 @@ function envoyerMissions(){
     } else {
         for (ligne of $('#tableMission').children().children()){
             if(ligne.classList != 'en-tete'){
-                let cases = ligne.cells
-                let idMiss = cases[0].children[0].classList[1]
+                if(cases[3].children[0].value!="" && cases[2].children[0].value!=""){
+                    let cases = ligne.cells
+                    let idMiss = cases[0].children[0].classList[1]
 
 
-                //Que l'on parle d'ajout ou de modifications, il faut préparer les dates pour le php
-                let elementDate
-                elementDate = cases[1].children[0].value.split('/')
-                let dateOuverture=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
+                    //Que l'on parle d'ajout ou de modifications, il faut préparer les dates pour le php
+                    let elementDate
+                    elementDate = cases[1].children[0].value.split('/')
+                    let dateOuverture=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
 
-                elementDate = cases[7].children[0].value.split('/')
-                let dateSignature=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
+                    elementDate = cases[7].children[0].value.split('/')
+                    let dateSignature=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
 
-                //opendate=2021-5-20&enddate=2021-6-18
-                if(idMiss == undefined){
-                    //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
-                    data = {
-                        siret      : document.querySelector("#siret").value,
-                        manager    : cases[3].children[0].value,
-                        post       : cases[2].children[0].value,
-                        current    : cases[4].children[0].value,
-                        meeting    : cases[5].children[0].value,
-                        endorsed   : cases[6].children[0].value,
-                        opendate   : dateOuverture,
-                        enddate    : dateSignature,
-                        turnover   : cases[8].textContent,
-                        action      : "ajouter",
+                    //opendate=2021-5-20&enddate=2021-6-18
+                    if(idMiss == undefined){
+                        //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
+                        data = {
+                            siret      : document.querySelector("#siret").value,
+                            manager    : cases[3].children[0].value,
+                            post       : cases[2].children[0].value,
+                            current    : cases[4].children[0].value,
+                            meeting    : cases[5].children[0].value,
+                            endorsed   : cases[6].children[0].value,
+                            opendate   : dateOuverture,
+                            enddate    : dateSignature,
+                            turnover   : cases[8].textContent,
+                            action      : "ajouter",
+                        }
+                    } else {
+                        //Si on ne troruve pas le dit id alors, on parle d'un ajout
+                        data = {
+                            idmission : idMiss,
+                            siret      : document.querySelector("#siret").value,
+                            manager    : cases[3].children[0].value,
+                            post       : cases[2].children[0].value,
+                            current    : cases[4].children[0].value,
+                            meeting    : cases[5].children[0].value,
+                            endorsed   : cases[6].children[0].value,
+                            opendate   : dateOuverture,
+                            enddate    : dateSignature,
+                            turnover   : cases[8].textContent,
+                            action : "modifier",
+                        }
                     }
-                } else {
-                    //Si on ne troruve pas le dit id alors, on parle d'un ajout
-                    data = {
-                        idmission : idMiss,
-                        siret      : document.querySelector("#siret").value,
-                        manager    : cases[3].children[0].value,
-                        post       : cases[2].children[0].value,
-                        current    : cases[4].children[0].value,
-                        meeting    : cases[5].children[0].value,
-                        endorsed   : cases[6].children[0].value,
-                        opendate   : dateOuverture,
-                        enddate    : dateSignature,
-                        turnover   : cases[8].textContent,
-                        action : "modifier",
-                    }
+                    
+                    requeteMission(data)
                 }
-                
-                requeteMission(data)
             }
         }
     }
