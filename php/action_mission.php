@@ -73,7 +73,7 @@ if ($_GET['action'] == 'afficher') {
     $enddate = htmlspecialchars($_GET['enddate']);
     $turnover = htmlspecialchars($_GET['turnover']);
 
-    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "' WHERE idmission= . $idmission";
+    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "' WHERE idmission=" . $idmission;
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(

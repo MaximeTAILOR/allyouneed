@@ -1,5 +1,5 @@
 //constantes pour tout le programe
-const queryString = window.location.search;
+var queryString = window.location.search;
 
 
 //navbar______________________________________________________________
@@ -53,11 +53,6 @@ function changerDePage(pageAOuvrir){
     })
     initEnvoyer()
 }
-
-
-
-
-
 
 
 
@@ -123,7 +118,6 @@ updateBar()
 
 
 
-
 /*
 *Système de notation
 *On initialise le les étoiles pour pouvoir noter
@@ -154,51 +148,6 @@ $("i").on("click", () => {
 initNotation()
 
 
-/*
-Calcul des etats des missions
-*/
-function calculEtatMission(){
-    for (ligne of $('#tableMission').children().children()){
-        if(ligne.classList != 'en-tete'){
-            let cases = ligne.cells
-            let elementsDate = cases[4].children[0].value.split('/')
-
-            let dateMJA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
-            let dateDuJour = new Date()
-
-
-            let nbJours = parseInt((dateDuJour - dateMJA)/(1000 * 3600 * 24))
-            
-            
-            cases[5].textContent = nbJours + "J"
-        }
-    }
-}
-
-
-
-
-
-/*
-Calcul des CA
-*/
-let totalCA=0
-//On doit utiliser deux fois .children() parce que le tableau créé automatiquement un div tbody
-//$('#tableCA').children() nous rend donc ce tbody et non les lignes voulues
-
-for (ligne of $('#tableCA').children().children()){
-    if(ligne.classList != 'en-tete'){
-        let cases = ligne.cells
-        cases[3].textContent = cases[1].textContent * (cases[2].textContent / 100)
-        totalCA+=parseInt(cases[3].textContent)
-    }
-}
-$('#textCA').text("Total CA : "+totalCA+"€")
-
-
-
-
-
 
 
 
@@ -214,6 +163,8 @@ $("#siret").keyup(function () {
         remplissageAutoSiret (siret);
     }
 });
+
+
 
 
 
@@ -238,84 +189,6 @@ function remplissageAutoSiret (siret){
 
 
 
-
-
-/*
-Ajout d'une ligne de contact
-*/
-$('#ajouterContact').on('click', () => {nouvelleLigneContact()})
-
-function nouvelleLigneContact(){
-    let strLigne =  '<tr>'
-    strLigne +=     '<td class="remove"><button class="retirerElement">-</button></td>'
-    strLigne +=     '<td><input type="text" class="nom" name="nom" placeholder="NOM"></td>'
-    strLigne +=     '<td><input type="text" class="prenom" name="prenom" placeholder="PRENOM"></td>'
-    strLigne +=     '<td><input type="text" class="fonction" name="fonction" placeholder="FONCTION"></td>'
-    strLigne +=     '<td><input type="text" class="mail" name="mail" placeholder="MAIL"></td>'
-    strLigne +=     '<td><input type="text" class="telephone" name="telephone" placeholder="TELEPHONE"></td>'
-    strLigne +=     '<td><textarea class="suiviApprecier" name="suiviApprecier">SUIVI APPRECIER</textarea></td>'
-    strLigne +=     '</tr>'
-    let ligne = $(strLigne)
-    ligne.appendTo($('#tableContact'))
-
-    $(".retirerElement").on('click', (e) => {
-        e.target.parentElement.parentElement.remove()
-    })
-}
-
-
-
-
-
-
-
-/*
-Ajout d'une ligne de mission
-*/
-$('#ajouterMission').on('click', () => {nouvelleLigneMission()})
-
-
-function nouvelleLigneMission(){
-    let date = new Date();
-    let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
-
-    let strLigne =  '<tr>'
-    strLigne +=     '<td class="remove"><button class="retirerMission">-</button></td>'
-    strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE"></td>'
-    strLigne +=     '<td><input type="text" class="manager" name="manager" placeholder="MANAGER"></td>'
-    strLigne +=     '<td><input type="text" class="nbCandidatsPresentes" name="nbCandidatsPresentes" placeholder="NOMBRE DE CANDIDATS PRESENTES" value="0"></td>'
-    strLigne +=     '<td><input type="text" class="dateOuverture" name="dateOuverture" placeholder="JJ/MM/AAAA" value=' + dateFormulaire + '></td>'
-    strLigne +=     '<td>0J</td>'
-    strLigne +=     '</tr>'
-    let ligne = $(strLigne)
-    ligne.appendTo($('#tableMission'))
-
-    $(".retirerMission").on('click', (e) => {
-        e.target.parentElement.parentElement.remove()
-    })
-    $('.dateOuverture').on('click', () => {calculEtatMission()})
-}
-
-
-
-/*
-* Met automatiquement la date
-*/
-
-let date = new Date();
-let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
-
-$('#dateDuJour').val(dateFormulaire);
-
-
-
-
-
-
-
-
-
-
 /*
 Fonction pour le chargement du formulaire si jamais on trouve le siret
 (dans l'url)
@@ -327,33 +200,40 @@ if (queryString){
     let siretUrl = queryString.split('=')[1];
     
     updateEntrepriseInfo(siretUrl)
-
-    updateContactsInfo(siretUrl)
-
-    //Update des informations sur les mission
-    calculEtatMission()
 }else {
-    /*
-    Si on ne modifie pas de formulaires, alorson initialise pour la création
-    */
+    //Si on ne modifie pas de formulaires, alorson initialise pour la création
     let date = new Date();
     let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
     $('#dateDuJour').val(dateFormulaire);
-
-
-    nouvelleLigneMission()
-    nouvelleLigneContact()
 }
 
 
 
 
 function updateAffichage(data){
-    $('#siret').val(         data["siret"])
-    $('#siren').val(         data["siren"])
-    $('#catEntreprise').val( data["type"])
-    $('#nomEntreprise').val( data["name"])
-    $('#codeAPE').val(       data["ape"])
+    $('#siret').val(            data["siret"])
+    $('#siren').val(            data["siren"])
+    $('#catEntreprise').val(    data["type"])
+    $('#nomEntreprise').val(    data["name"])
+    $('#codeAPE').val(          data["ape"])
+    $('#origineDuContact').val( data["origin"])
+    $('#note').text(            data["grade"])
+    
+
+    //affichage de la date
+    let elementsDate = data["date"].split('-')
+    for (index in elementsDate){
+        elementsDate[index] = parseInt(elementsDate[index])
+    }
+    let dateFormulaire = elementsDate[0] + '/' + elementsDate[1] + '/' + elementsDate[2];
+    $('#dateDuJour').val(dateFormulaire);
+
+    //update l'affichage de note
+    note = $('#note').text();
+    for (let i = note; i>0; i--){
+        $('#' + i).removeClass('un-check');
+        $('#' + i).addClass('check');
+    }
 }
 
 
@@ -385,65 +265,16 @@ function updateEntrepriseInfo(siretUrl){
 
 
 
-
-
-
-function updateContactsInfo(siretUrl){
-    $.ajax({
-        type: 'GET',
-        url: '../php/action_contact.php',
-        dataType: 'json',
-        data : {
-            siret : siretUrl,
-            action : "afficher",
-        },
-        success: (data) => {
-            if (data.error){
-                alert(data.message);
-            } else{
-                for (contacts of data){
-                    let strLigne =  '<tr>'
-                    strLigne +=     '<td class="remove"><button class="retirerElement '+ contacts.idcontact +' ">-</button></td>'
-                    strLigne +=     '<td><input type="text" class="nom" name="nom" placeholder="NOM" value = "' + contacts.name + '"></td>'
-                    strLigne +=     '<td><input type="text" class="prenom" name="prenom" placeholder="PRENOM" value = "' + contacts.fname + '"></td>'
-                    strLigne +=     '<td><input type="text" class="fonction" name="fonction" placeholder="FONCTION" value = "' + contacts.job + '"></td>'
-                    strLigne +=     '<td><input type="text" class="mail" name="mail" placeholder="MAIL" value = "' + contacts.email + '"></td>'
-                    strLigne +=     '<td><input type="text" class="telephone" name="telephone" placeholder="TELEPHONE" value = "' + contacts.num + '"></td>'
-                    strLigne +=     '<td><textarea class="suiviApprecier" name="suiviApprecier">' + contacts.approach + '</textarea></td>'
-                    strLigne +=     '</tr>'
-                    let ligne = $(strLigne)
-                    ligne.appendTo($('#tableContact'))
-                }
-
-                $(".retirerElement").on('click', (e) => {
-                    e.target.parentElement.parentElement.remove()
-                })
-            }
-        },
-        error: (error) => {
-            alert('Erreur !');
-        }
-    });
-}
-
-
-
-
-
-
-
-
-
-
-
 /*
 Fonctions concernant l'envoie du formulaire pour inscription dans la bd
 */
 
 
-
 //Formulaire de l'entreprise
 function envoyerEntreprise(){
+    elementDate = document.querySelector("#dateDuJour").value.split('/')
+    datePhp=elementDate[0] + '-' + elementDate[1] + '-' + elementDate[2]
+
     if (!queryString){
         var actionSurClient = "ajouter";
     } else {
@@ -454,12 +285,16 @@ function envoyerEntreprise(){
         url: '../php/action_company.php',
         dataType: 'json',
         data : {
-            siret : document.querySelector("#siret").value,
-            siren : document.querySelector("#siren").value,
-            ape : document.querySelector("#codeAPE").value,
+            siret :         document.querySelector("#siret").value,
+            siren :         document.querySelector("#siren").value,
+            ape :           document.querySelector("#codeAPE").value,
             nomEntreprise : document.querySelector("#nomEntreprise").value,
-            type : document.querySelector("#catEntreprise").value,
-            action : actionSurClient,
+            type :          document.querySelector("#catEntreprise").value,
+            date :          datePhp,
+            origin :        document.querySelector("#origineDuContact").value,
+            grade :         $('#note').text(),
+            action :        actionSurClient,
+            spanco :        "",
         },
         success: (data) => {
             if (data.error){
@@ -475,86 +310,17 @@ function envoyerEntreprise(){
 }
 
 
-
-
-
-
-function envoyerContacts(){
-    //Formulaire du contact
-    if (document.querySelector("#siret").value == ""){
-        alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
-    } else {
-        for (ligne of $('#tableContact').children().children()){
-            if(ligne.classList != 'en-tete'){
-                let cases = ligne.cells
-                let idCont = cases[0].children[0].classList[1]
-                console.log(idCont)
-
-
-                if(idCont == undefined){
-                    //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
-                    data = {
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
-                        action : "ajouter",
-                    }
-                } else {
-                    //Si on ne troruve pas le dit id alors, on parle d'un ajout
-                    data = {
-                        idcontact : idCont,
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
-                        action : "modifier",
-                    }
-                }
-                
-                if (cases[6].children[0].value == "SUIVI APPRECIER"){
-                    data["approach"] = ""
-                } else {
-                    data["approach"] = cases[6].children[0].value
-                }
-
-                requeteContact(data)
-            }
-        }
-    }
-}
-
-
-function requeteContact(dataContact){
-    $.ajax({
-        type: 'GET',
-        url: '../php/action_contact.php',
-        dataType: 'json',
-        data : dataContact,
-        success: (data) => {
-            if (data.error){
-                alert(data.message);
-            }
-        },
-        error: (error) => {
-            alert('Erreur !');
-        }
-    });
-}
-
-
-
-
-
+/*
+Attention, cette fonction appel des fonction basés sur d'autres feuilles !
+Il est important que celle ci soit chargée en dernier
+*/
 function initEnvoyer() {
     $('#envoyer').on('click', (e) => {
         e.preventDefault()
-        //envoyerEntreprise()
+        envoyerEntreprise()
         envoyerContacts()
+        envoyerMissions()
+        envoyerCA()
     });
 }
 

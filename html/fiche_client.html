@@ -98,10 +98,14 @@
     <table id="tableMission">
       <tr class="en-tete">
         <td class="remove">-</td>
+        <td>Date d'ouverture</td>
         <td>Poste</td>
         <td>Manager</td>
-        <td>Nb de candidats présentés</td>
-        <td>Date d'ouverture</td>
+        <td>Presentés</td>
+        <td>Entretiens</td>
+        <td>Signé</td>
+        <td>Date signature</td>
+        <td>CA</td>
         <td>Etat</td>
       </tr>
     </table>
@@ -118,28 +122,31 @@
   <div class="container4" style="display: none;">
     <table id="tableCA">
       <tr class="en-tete">
+        <td class="remove">-</td>
         <td>Poste</td>
         <td>Salaire</td>
         <td>Pourcentage accordé</td>
         <td>CA prévisionnel</td>
       </tr>
       <tr>
+        <td class="remove"><button class="retirerCA">-</button></td>
         <td>Programmeur</td>
         <td>45000</td>
         <td>20</td>
         <td>XXXX€</td>
       </tr>
       <tr>
+        <td class="remove"><button class="retirerCA">-</button></td>
         <td>Beta testeur</td>
         <td>40000</td>
         <td>10</td>
         <td>XXXX€</td>
       </tr>
     </table>
-
-    <p id="textCA">
-      Total CA : <span id="totalCA">XXXXX€</span>
-    </p>
+    <div id="finTabCA">
+      <button id='ajouterCA'>Ajouter un contrat</button>
+      <p id="textCA">Total CA : <span id="totalCA">XXXXX€</span></p>
+    </div>
   </div>
 
 
@@ -157,7 +164,10 @@
 
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-  <script src="../script/scripts_fiche_client/script_fiche_client.js"></script>
+  <script src='../script/scripts_fiche_client/script_CA_client.js'></script>
+  <script src='../script/scripts_fiche_client/script_contacts_client.js'></script>
+  <script src='../script/scripts_fiche_client/script_missions_client.js'></script>
+  <script defer src="../script/scripts_fiche_client/script_fiche_client.js"></script>
   <!--<script defer src="../script/scripts_fiche_client/script_sauvegarde_en_local.js"></script>-->
 </body>
 </html>

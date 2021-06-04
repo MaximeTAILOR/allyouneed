@@ -43,6 +43,10 @@ select {
   color: rgb(255, 0, 0);
 }
 
+button:hover{
+  cursor: pointer;
+}
+
 
 
 
@@ -76,11 +80,16 @@ tr:hover {
   background-color: black;
 }
 
+.remove {
+  width: min-content;
+  text-align: center;
+}
+
 .en-tete, .en-tete:hover{
   background-color: #3d3d3d;
 }
 
-.retirerElement, .retirerMission{
+.retirerElement, .retirerMission, .retirerCA{
   background-color: rgb(196, 0, 0);
   border-color: rgb(196, 0, 0);
   color: white;
@@ -88,10 +97,28 @@ tr:hover {
   font-size: 15px;
 }
 
-.retirerElement:hover, .retirerMission:hover{
+.retirerElement:hover, .retirerMission:hover, .retirerCA:hover{
   background-color: rgb(150, 0, 0);
   border-color: rgb(150, 0, 0);
 }
+
+
+#ajouterMission, #ajouterContact, #ajouterCA {
+  height: 30px;
+  width: 150px;
+  border-radius: 4px;
+  margin-top: 5px;
+  background-color: rgb(100, 100, 100);
+  border-color: rgb(100, 100, 100);
+  color: silver;
+}
+
+#ajouterMission:hover, #ajouterContact:hover, #ajouterCA {
+  background-color: rgb(80, 80, 80);
+  border-color: rgb(80, 80, 80);
+}
+
+
 
 
 /*
@@ -156,8 +183,6 @@ Les informations a venir ne concernent que la page 1
 #finForm{grid-area: finForm;}
 
 
-
-
 /*dimention des input*/
 #informationsPrincipales input{
   width: 48%;
@@ -170,7 +195,6 @@ Les informations a venir ne concernent que la page 1
 #origine select {
   width: 95%;
 }
-
 
 
 
@@ -208,26 +232,6 @@ Taille des inputs
   width: calc(100% - 18px);
 }
 
-#ajouterContact {
-  height: 30px;
-  width: 150px;
-  border-radius: 4px;
-  margin-top: 5px;
-  background-color: rgb(100, 100, 100);
-  border-color: rgb(100, 100, 100);
-  color: silver;
-}
-
-#ajouterContact:hover {
-  background-color: rgb(80, 80, 80);
-  border-color: rgb(80, 80, 80);
-}
-
-.remove {
-  width: min-content;
-  text-align: center;
-}
-
 
 
 
@@ -257,20 +261,7 @@ Disposition des elements sur la page
 #ajouterMission{grid-area: ajouterMission;}
 
 
-#ajouterMission {
-  height: 30px;
-  width: 150px;
-  border-radius: 4px;
-  margin-top: 5px;
-  background-color: rgb(100, 100, 100);
-  border-color: rgb(100, 100, 100);
-  color: silver;
-}
 
-#ajouterMission:hover {
-  background-color: rgb(80, 80, 80);
-  border-color: rgb(80, 80, 80);
-}
 
 
 
@@ -288,7 +279,7 @@ Les informations a venir ne concernent que la page 4
   grid-template-rows: 1fr 180px;
   grid-template-areas: 
     "tableCA tableCA"
-    "textCA finForm";
+    "finTabCA finForm";
 }
 
 /*
@@ -296,10 +287,9 @@ Disposition des elements sur la page
 */
 #tableCA{grid-area: tableCA;}
 
-#textCA{grid-area: textCA;}
+#textCA{grid-area: finTabCA;}
 
-
-
+#finTabCA{grid-area: finTabCA;}
 
 
 
