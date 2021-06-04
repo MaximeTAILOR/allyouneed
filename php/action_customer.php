@@ -70,7 +70,7 @@ if ($_GET['action'] == 'afficher') {
     } elseif (mysqli_num_rows($resultat) == 1) {
         $table = array(
             'error'  => true,
-            'message' => "L'entreprise existe déjà dans la base de données",
+            'message' => "Le candidat existe déjà dans la base de données",
         );
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
@@ -107,7 +107,7 @@ if ($_GET['action'] == 'afficher') {
         $date = date_format($date, 'Y-m-d');
         $mdp = htmlspecialchars($_GET['password']);
 
-        $sql = "INSERT INTO customer ('name_customer','fname_customer','gender_customer','num_customer','email_customer','job_customer','desired_job','last_company','desired_company','actual_salary','desired_salary','address_customer','postal_customer','city_customer','type_company','work_zone','actual_environnement','desired_environnement','project','desired_project','languages','website','portfolio','cv','status_customer','contract_type','report','thoughts','creation_date','password_customer' ) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "','" . $mdp . "')";
+        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,creation_date,password_customer) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "','" . $mdp . "')";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
             $table = array(
@@ -135,18 +135,18 @@ if ($_GET['action'] == 'afficher') {
     $job = htmlspecialchars($_GET['job']);
     $d_job = htmlspecialchars($_GET['d_job']);
     $company = htmlspecialchars($_GET['company']);
-    $d_company = htmlspecialchars($_GET['dcompany']);
+    $d_company = htmlspecialchars($_GET['d_company']);
     $salary = htmlspecialchars($_GET['salary']);
-    $d_salary = htmlspecialchars($_GET['dsalary']);
+    $d_salary = htmlspecialchars($_GET['d_salary']);
     $address = htmlspecialchars($_GET['address']);
     $postal = htmlspecialchars($_GET['postal']);
     $city = htmlspecialchars($_GET['city']);
     $type_company = htmlspecialchars($_GET['type_company']);
     $zone = htmlspecialchars($_GET['zone']);
     $environnement = htmlspecialchars($_GET['environnement']);
-    $d_environnement = htmlspecialchars($_GET['denvironnement']);
+    $d_environnement = htmlspecialchars($_GET['d_environnement']);
     $project = htmlspecialchars($_GET['project']);
-    $d_project = htmlspecialchars($_GET['dproject']);
+    $d_project = htmlspecialchars($_GET['d_project']);
     $languages = htmlspecialchars($_GET['languages']);
     $website = htmlspecialchars($_GET['website']);
     $portfolio = htmlspecialchars($_GET['portfolio']);
@@ -189,7 +189,7 @@ if ($_GET['action'] == 'afficher') {
         report='" . $report . "',
         thoughts='" . $thoughts . "',
         creation_date='" . $date . "',
-        password_customer='" . $password . "'
+        password_customer='" . $mdp . "'
             WHERE idcustomer='" . $idcustomer . "'";
 
     $resultat = mysqli_query($conn, $sql);
