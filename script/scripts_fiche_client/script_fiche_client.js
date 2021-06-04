@@ -153,27 +153,6 @@ initNotation()
 
 
 /*
-Calcul des CA
-*/
-let totalCA=0
-//On doit utiliser deux fois .children() parce que le tableau créé automatiquement un div tbody
-//$('#tableCA').children() nous rend donc ce tbody et non les lignes voulues
-
-for (ligne of $('#tableCA').children().children()){
-    if(ligne.classList != 'en-tete'){
-        let cases = ligne.cells
-        cases[3].textContent = cases[1].textContent * (cases[2].textContent / 100)
-        totalCA+=parseInt(cases[3].textContent)
-    }
-}
-$('#textCA').text("Total CA : "+totalCA+"€")
-
-
-
-
-
-
-/*
 Mise a jour des informations quand on rentre le siret
 */
 const cle = "631cd780-53e6-335c-b1d3-d682fb533507";
@@ -340,6 +319,8 @@ function initEnvoyer() {
         e.preventDefault()
         envoyerEntreprise()
         envoyerContacts()
+        envoyerMissions()
+        envoyerCA()
     });
 }
 

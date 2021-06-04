@@ -12,16 +12,21 @@ function nouvelleLigneMission(){
 
     let strLigne =  '<tr>'
     strLigne +=     '<td class="remove"><button class="retirerMission">-</button></td>'
+    strLigne +=     '<td><input type="text" class="dateOuverture" name="dateOuverture" placeholder="JJ/MM/AAAA" value=' + dateFormulaire + ' disabled></td>'
     strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE"></td>'
     strLigne +=     '<td><input type="text" class="manager" name="manager" placeholder="MANAGER"></td>'
-    strLigne +=     '<td><input type="text" class="nbCandidatsPresentes" name="nbCandidatsPresentes" placeholder="NOMBRE DE CANDIDATS PRESENTES" value="0"></td>'
-    strLigne +=     '<td><input type="text" class="dateOuverture" name="dateOuverture" placeholder="JJ/MM/AAAA" value=' + dateFormulaire + '></td>'
+    strLigne +=     '<td><input type="text" class="presentes" name="presentes" placeholder="0" value="0"></td>'
+    strLigne +=     '<td><input type="text" class="entretiens" name="entretiens" placeholder="0" value="0"></td>'
+    strLigne +=     '<td><input type="text" class="signer" name="signer" placeholder="0" value="0"></td>'
+    strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value="0/0/0" disabled></td>'
+    strLigne +=     '<td>0</td>'
     strLigne +=     '<td>0J</td>'
     strLigne +=     '</tr>'
     let ligne = $(strLigne)
     ligne.appendTo($('#tableMission'))
 
     $(".retirerMission").on('click', (e) => {
+        deleteMission(e.target.classList[1])
         e.target.parentElement.parentElement.remove()
     })
     $('.dateOuverture').on('click', () => {calculEtatMission()})
@@ -39,16 +44,14 @@ function calculEtatMission(){
     for (ligne of $('#tableMission').children().children()){
         if(ligne.classList != 'en-tete'){
             let cases = ligne.cells
-            let elementsDate = cases[4].children[0].value.split('/')
+            let elementsDate = cases[1].children[0].value.split('/')
 
             let dateMJA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
             let dateDuJour = new Date()
 
-
             let nbJours = parseInt((dateDuJour - dateMJA)/(1000 * 3600 * 24))
             
-            
-            cases[5].textContent = nbJours + "J"
+            cases[9].textContent = nbJours + "J"
         }
     }
 }
@@ -66,6 +69,8 @@ Ici on parle du chargement de la partie du formulaire qui concerne les missions
 if (queryString){
     let siretUrl = queryString.split('=')[1];
 
+    updateContactsInfo(siretUrl)
+
     calculEtatMission()
 }else {
     //Si on ne modifie pas de formulaires, alors on initialise pour la création
@@ -75,12 +80,12 @@ if (queryString){
 
 
 
-/*
+
 //Fonction qui permet d'afficher les différentes missions
 function updateContactsInfo(siretUrl){
     $.ajax({
         type: 'GET',
-        url: '../php/action_missions.php',
+        url: '../php/action_mission.php',
         dataType: 'json',
         data : {
             siret : siretUrl,
@@ -90,26 +95,47 @@ function updateContactsInfo(siretUrl){
             if (data.error){
                 alert(data.message);
             } else{
-                for (contacts of data){
+                for (mission of data){
+                    /*
+                    Traitement sur les dates pour un affichage correct
+                    */
+                    //affichage de la date d'ouverture
+                    let elementsDate = mission["opendate"].split('-')
+                    for (index in elementsDate){
+                        elementsDate[index] = parseInt(elementsDate[index])
+                    }
+                    let dateOuverture = elementsDate[2] + '/' + elementsDate[1] + '/' + elementsDate[0];
+
+                    //affichage de la date de signature
+                    elementsDate = mission["enddate"].split('-')
+                    for (index in elementsDate){
+                        elementsDate[index] = parseInt(elementsDate[index])
+                    }
+                    let dateSignature = elementsDate[2] + '/' + elementsDate[1] + '/' + elementsDate[0];
+
+
                     let strLigne =  '<tr>'
-                    strLigne +=     '<td class="remove"><button class="retirerMission '+ idmission +' ">-</button></td>'
-                    strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE" value=' + contacts.post_mission + '></td>'
-                    strLigne +=     '<td><input type="text" class="manager" name="manager" placeholder="MANAGER" value=' + contacts.manager_mission + '></td>'
-                    strLigne +=     '<td><input type="text" class="nbCandidatsPresentes" name="nbCandidatsPresentes" placeholder="NOMBRE DE CANDIDATS PRESENTES" value=' + contacts. + '></td>'
-                    strLigne +=     '<td><input type="text" class="dateOuverture" name="dateOuverture" placeholder="JJ/MM/AAAA" value=' + contacts. + '></td>'
+                    strLigne +=     '<td class="remove"><button class="retirerMission ' + mission["idmission"] + ' ">-</button></td>'
+                    strLigne +=     '<td><input type="text" class="dateOuverture" name="dateOuverture" placeholder="JJ/MM/AAAA" value=' + dateOuverture + ' disabled></td>'
+                    strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE" value=' + mission["post"] + '></td>'
+                    strLigne +=     '<td><input type="text" class="manager" name="manager" placeholder="MANAGER" value=' + mission["manager"] + '></td>'
+                    strLigne +=     '<td><input type="text" class="presentes" name="presentes" placeholder="0" value=' + mission["current"] + '></td>'
+                    strLigne +=     '<td><input type="text" class="entretiens" name="entretiens" placeholder="0" value=' + mission["meeting"] + '></td>'
+                    strLigne +=     '<td><input type="text" class="signer" name="signer" placeholder="0" value=' + mission["endorsed"] + '></td>'
+                    strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value=' + dateSignature + '></td>'
+                    strLigne +=     '<td>' + mission["turnover"] + '</td>'
                     strLigne +=     '<td>0J</td>'
                     strLigne +=     '</tr>'
                     let ligne = $(strLigne)
                     ligne.appendTo($('#tableMission'))
                 
-                    $(".retirerMission").on('click', (e) => {
-                        e.target.parentElement.parentElement.remove()
-                    })
                     $('.dateOuverture').on('click', () => {calculEtatMission()})
                 }
 
-                $(".retirerElement").on('click', (e) => {
-                    deleteContact(e.target.classList[1])
+                calculEtatMission()
+
+                $(".retirerMission").on('click', (e) => {
+                    deleteMission(e.target.classList[1])
                     e.target.parentElement.parentElement.remove()
                 })
             }
@@ -124,50 +150,58 @@ function updateContactsInfo(siretUrl){
 
 
 
-//Ajouter et modifier des contacts
-function envoyerContacts(){
-    //Formulaire du contact
+//Ajouter et modifier des missions
+function envoyerMissions(){
     if (document.querySelector("#siret").value == ""){
-        alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
+        alert("Les missions doivent appartenir a une entreprise (siret non defini)")
     } else {
-        for (ligne of $('#tableContact').children().children()){
+        for (ligne of $('#tableMission').children().children()){
             if(ligne.classList != 'en-tete'){
                 let cases = ligne.cells
-                let idCont = cases[0].children[0].classList[1]
+                let idMiss = cases[0].children[0].classList[1]
 
 
-                if(idCont == undefined){
+                //Que l'on parle d'ajout ou de modifications, il faut préparer les dates pour le php
+                let elementDate
+                elementDate = cases[1].children[0].value.split('/')
+                let dateOuverture=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
+
+                elementDate = cases[7].children[0].value.split('/')
+                let dateSignature=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
+
+                //opendate=2021-5-20&enddate=2021-6-18
+                if(idMiss == undefined){
                     //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
                     data = {
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
-                        action : "ajouter",
+                        siret      : document.querySelector("#siret").value,
+                        manager    : cases[3].children[0].value,
+                        post       : cases[2].children[0].value,
+                        current    : cases[4].children[0].value,
+                        meeting    : cases[5].children[0].value,
+                        endorsed   : cases[6].children[0].value,
+                        opendate   : dateOuverture,
+                        enddate    : dateSignature,
+                        turnover   : cases[8].textContent,
+                        action      : "ajouter",
                     }
                 } else {
                     //Si on ne troruve pas le dit id alors, on parle d'un ajout
                     data = {
-                        idcontact : idCont,
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
+                        idmission : idMiss,
+                        siret      : document.querySelector("#siret").value,
+                        manager    : cases[3].children[0].value,
+                        post       : cases[2].children[0].value,
+                        current    : cases[4].children[0].value,
+                        meeting    : cases[5].children[0].value,
+                        endorsed   : cases[6].children[0].value,
+                        opendate   : dateOuverture,
+                        enddate    : dateSignature,
+                        turnover   : cases[8].textContent,
                         action : "modifier",
                     }
                 }
                 
-                if (cases[6].children[0].value == "SUIVI APPRECIER"){
-                    data["approach"] = ""
-                } else {
-                    data["approach"] = cases[6].children[0].value
-                }
-
-                requeteContact(data)
+                requeteMission(data)
             }
         }
     }
@@ -175,12 +209,16 @@ function envoyerContacts(){
 
 
 
-function deleteContact(idCont){
+
+
+
+
+function deleteMission(idMiss){
     data = {
-        idcontact : idCont,
+        idmission : idMiss,
         action : "supprimer",
     }
-    requeteContact(data)
+    requeteMission(data)
 }
 
 
@@ -188,15 +226,15 @@ function deleteContact(idCont){
 
 
 //rq ajax contacts
-function requeteContact(dataContact){
+function requeteMission(dataContact){
     $.ajax({
         type: 'GET',
-        url: '../php/action_contact.php',
+        url: '../php/action_mission.php',
         dataType: 'json',
         data : dataContact,
         success: (data) => {
             if (data.error){
-                alert(data.message);
+                alert(data.message)
             }
         },
         error: (error) => {
@@ -204,4 +242,3 @@ function requeteContact(dataContact){
         }
     });
 }
-*/

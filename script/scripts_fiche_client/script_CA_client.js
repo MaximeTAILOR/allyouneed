@@ -2,28 +2,47 @@
 var queryString = window.location.search;
 
 /*
-Ajout d'une ligne de contact
+Ajout d'une ligne de CA
 */
-$('#ajouterContact').on('click', () => {nouvelleLigneContact()})
+$('#ajouterCA').on('click', () => {nouvelleLigneCA()})
 
-function nouvelleLigneContact(){
+function nouvelleLigneCA(){
     let strLigne =  '<tr>'
-    strLigne +=     '<td class="remove"><button class="retirerElement">-</button></td>'
-    strLigne +=     '<td><input type="text" class="nom" name="nom" placeholder="NOM"></td>'
-    strLigne +=     '<td><input type="text" class="prenom" name="prenom" placeholder="PRENOM"></td>'
-    strLigne +=     '<td><input type="text" class="fonction" name="fonction" placeholder="FONCTION"></td>'
-    strLigne +=     '<td><input type="text" class="mail" name="mail" placeholder="MAIL"></td>'
-    strLigne +=     '<td><input type="text" class="telephone" name="telephone" placeholder="TELEPHONE"></td>'
-    strLigne +=     '<td><textarea class="suiviApprecier" name="suiviApprecier">SUIVI APPRECIER</textarea></td>'
+    strLigne +=     '<td class="remove"><button class="retirerCA">-</button></td>'
+    strLigne +=     '<td><input type="text" class="poste" name="poste" placeholder="POSTE"></td>'
+    strLigne +=     '<td><input type="text" class="salaire" name="salaire" placeholder="SALAIRE" value=0></td>'
+    strLigne +=     '<td><input type="text" class="partAccordee" name="partAccordee" placeholder="PART ACCORDEE" value=0></td>'
+    strLigne +=     '<td>XXXX€</td>'
     strLigne +=     '</tr>'
     let ligne = $(strLigne)
-    ligne.appendTo($('#tableContact'))
+    ligne.appendTo($('#tableCA'))
 
-    $(".retirerElement").on('click', (e) => {
+    $(".retirerCA").on('click', (e) => {
         deleteContact(e.target.classList[1])
         e.target.parentElement.parentElement.remove()
     })
 }
+
+
+
+
+
+/*
+Calcul des CA
+*/
+let totalCA=0
+//On doit utiliser deux fois .children() parce que le tableau créé automatiquement un div tbody
+//$('#tableCA').children() nous rend donc ce tbody et non les lignes voulues
+
+for (ligne of $('#tableCA').children().children()){
+    if(ligne.classList != 'en-tete'){
+        let cases = ligne.cells
+        cases[4].textContent = cases[2].textContent * (cases[3].textContent / 100)
+        totalCA+=parseInt(cases[4].textContent)
+    }
+}
+$('#textCA').text("Total CA : "+totalCA+"€")
+
 
 
 
@@ -36,6 +55,7 @@ On envoie alors une requête et on charge les élements trouvés dans les champs
 
 Ici on parle du chargement de la partie du formulaire qui concerne les contacts
 */
+/*
 if (queryString){
     let siretUrl = queryString.split('=')[1];
     updateContactsInfo(siretUrl)
@@ -96,7 +116,7 @@ function updateContactsInfo(siretUrl){
 
 
 //Ajouter et modifier des contacts
-function envoyerContacts(){
+function envoyerCA(){
     //Formulaire du contact
     if (document.querySelector("#siret").value == ""){
         alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
@@ -174,3 +194,4 @@ function requeteContact(dataContact){
         }
     });
 }
+*/
