@@ -21,7 +21,7 @@ if ($_GET['action'] == 'afficher') {
             array_push($table, array(
                 'idrevenue' => $row['idrevenue'],
                 'siret' => $row['siret_company'],
-                'post' => $row['post_revenue'],
+                'post' => $row['job_revenue'],
                 'salary' => $row['salary_revenue'],
                 'percentage' => $row['percentage_revenue'],
                 'turnover' => $row['turnover_revenue'],
@@ -38,7 +38,7 @@ if ($_GET['action'] == 'afficher') {
     $turnover = htmlspecialchars($_GET['turnover']);
     $total = htmlspecialchars($_GET['total']);
 
-    $sql = "INSERT INTO revenue (siret_company, post_revenue, salary_revenue, percentage_revenue, turnover_revenue, total_revenue) values ('" . $siret . "','" . $post . "','" . $salary . "', '" . $percentage . "', '" . $turnover . "', '" . $total . "')";
+    $sql = "INSERT INTO revenue (siret_company, job_revenue, salary_revenue, percentage_revenue, turnover_revenue, total_revenue) values ('" . $siret . "','" . $post . "','" . $salary . "', '" . $percentage . "', '" . $turnover . "', '" . $total . "')";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
@@ -64,7 +64,7 @@ if ($_GET['action'] == 'afficher') {
     $turnover = htmlspecialchars($_GET['turnover']);
     $total = htmlspecialchars($_GET['total']);
 
-    $sql = "UPDATE revenue SET post_revenue='" . $post . "', salary_revenue='" . $salary . "', percentage_revenue='" . $percentage . "', turnover_revenue='" . $turnover . "', total_revenue='" . $total . "' WHERE idrevenue='" . $idrevenue . "'";
+    $sql = "UPDATE revenue SET job_revenue ='" . $post . "', salary_revenue='" . $salary . "', percentage_revenue='" . $percentage . "', turnover_revenue='" . $turnover . "', total_revenue='" . $total . "' WHERE idrevenue='" . $idrevenue . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
