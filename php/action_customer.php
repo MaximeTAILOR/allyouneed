@@ -29,7 +29,7 @@ if ($_GET['action'] == 'afficher') {
                 'portable' => $row['num_customer'],
                 'mail' => $row['email_customer'],
                 'posteActuel' => $row['job_customer'],
-                'posteSouhaité' => $row['desired_job'],
+                'posteSouhaite' => $row['desired_job'],
                 'derniereEntreprise' => $row['last_company'],
                 'entrepriseSouhaitees' => $row['desired_company'],
                 'salaireActuel' => $row['actual_salary'],
@@ -37,24 +37,30 @@ if ($_GET['action'] == 'afficher') {
                 'adressePartielle' => $row['address_customer'],
                 'codePost' => $row['postal_customer'],
                 'ville' => $row['city_customer'],
+                'region' => $row['district_customer'],
                 'typeEntreprise' => $row['type_company'],
                 'zoneDeTravail' => $row['work_zone'],
                 'environnementTechActuel' => $row['actual_environnement'],
                 'environnementTechVoulu' => $row['desired_environnement'],
                 'plusGrosProjet' => $row['project'],
-                'projetsSouhaités' => $row['desired_project'],
+                'projetsSouhaites' => $row['desired_project'],
                 'langues' => $row['languages'],
                 'siteWeb' => $row['website'],
                 'portfolio' => $row['portfolio'],
                 'CV' => $row['cv'],
-                'statusCandidat' => $row['status_customer'],
+                'statutCandidat' => $row['status_customer'],
                 'typeDeContrat' => $row['contract_type'],
                 'compteRenduAgent' => $row['report'],
                 'avisAgent' => $row['thoughts'],
                 'dateDuJour' => $date,
                 'mdp' => $row['password_customer'],
                 'veutUneFormation' => $row['formation'],
-                'listeFormationsSouhaitees' => $row['list_formations']
+                'listeFormationsSouhaitees' => $row['list_formations'],
+                'origine' => $row['origin_customer'],
+                'linkedin' => $row['linkedin'],
+                'instagram' => $row['instagram'],
+                'discord' => $row['discord'],
+                'whatsapp' => $row['whatsapp']
             ));
         }
         echo json_encode(utf8ize($table));
@@ -91,6 +97,7 @@ if ($_GET['action'] == 'afficher') {
         $address = htmlspecialchars($_GET['adressePartielle']);
         $postal = htmlspecialchars($_GET['codePost']);
         $city = htmlspecialchars($_GET['ville']);
+        $district = htmlspecialchars($_GET['region']);
         $type_company = htmlspecialchars($_GET['typeEntreprise']);
         $zone = htmlspecialchars($_GET['zoneDeTravail']);
         $environnement = htmlspecialchars($_GET['environnementTechActuel']);
@@ -110,8 +117,13 @@ if ($_GET['action'] == 'afficher') {
         $mdp = htmlspecialchars($_GET['password']);
         $formation = htmlspecialchars($_GET['veutUneFormation']);
         $list_formations = htmlspecialchars($_GET['listeFormationsSouhaitees']);
+        $origin = htmlspecialchars($_GET['origine']);
+        $linkedin = htmlspecialchars($_GET['linkedin']);
+        $instagram = htmlspecialchars($_GET['instagram']);
+        $discord = htmlspecialchars($_GET['discord']);
+        $whatsapp = htmlspecialchars($_GET['whatsapp']);
 
-        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,creation_date,password_customer, formation, list_formations) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "','" . $mdp . "', '" . $formation . "', '" . $list_formations . "')";
+        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,district_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,creation_date,password_customer, formation, list_formations, linkedin, instagram, discord, whatsapp) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $district . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "','" . $mdp . "', '" . $formation . "', '" . $list_formations . "', '" . $origin . "','" . $linkedin . "','" . $instagram . "','" . $discord . "','" . $whatsapp . "')";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
             $table = array(
@@ -145,6 +157,7 @@ if ($_GET['action'] == 'afficher') {
     $address = htmlspecialchars($_GET['adressePartielle']);
     $postal = htmlspecialchars($_GET['codePost']);
     $city = htmlspecialchars($_GET['ville']);
+    $district = htmlspecialchars($_GET['region']);
     $type_company = htmlspecialchars($_GET['typeEntreprise']);
     $zone = htmlspecialchars($_GET['zoneDeTravail']);
     $environnement = htmlspecialchars($_GET['environnementTechActuel']);
@@ -164,6 +177,11 @@ if ($_GET['action'] == 'afficher') {
     $mdp = htmlspecialchars($_GET['password']);
     $formation = htmlspecialchars($_GET['veutUneFormation']);
     $list_formations = htmlspecialchars($_GET['listeFormationsSouhaitees']);
+    $origin = htmlspecialchars($_GET['origine']);
+    $linkedin = htmlspecialchars($_GET['linkedin']);
+    $instagram = htmlspecialchars($_GET['instagram']);
+    $discord = htmlspecialchars($_GET['discord']);
+    $whatsapp = htmlspecialchars($_GET['whatsapp']);
 
     $sql = "UPDATE customer SET 
         name_customer='" . $name . "',
@@ -180,6 +198,7 @@ if ($_GET['action'] == 'afficher') {
         address_customer='" . $address . "',
         postal_customer='" . $postal . "',
         city_customer='" . $city . "',
+        district_customer='" . $district . "',
         type_company='" . $type_company . "',
         work_zone='" . $zone . "',
         actual_environnement='" . $environnement . "',
@@ -197,7 +216,12 @@ if ($_GET['action'] == 'afficher') {
         creation_date='" . $date . "',
         password_customer='" . $mdp . "',
         formation='" . $formation . "',
-        list_formations='" . $list_formations . "'
+        list_formations='" . $list_formations . "',
+        origin_customer='" . $origin . "',
+        linkedin='" . $linkedin . "', 
+        instagram='" . $instagramm . "',
+        discord='" . $discord . "',
+        whatsapp='" . $whatsapp . "'
             WHERE idcustomer='" . $idcustomer . "'";
 
     $resultat = mysqli_query($conn, $sql);
