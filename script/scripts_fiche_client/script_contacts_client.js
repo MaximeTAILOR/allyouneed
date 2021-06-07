@@ -20,7 +20,6 @@ function nouvelleLigneContact(){
     ligne.appendTo($('#tableContact'))
 
     $(".retirerElement").on('click', (e) => {
-        deleteContact(e.target.classList[1])
         e.target.parentElement.parentElement.remove()
     })
 }
@@ -103,41 +102,43 @@ function envoyerContacts(){
     } else {
         for (ligne of $('#tableContact').children().children()){
             if(ligne.classList != 'en-tete'){
-                let cases = ligne.cells
-                let idCont = cases[0].children[0].classList[1]
+                if(cases[5].children[0].value!="" || cases[4].children[0].value!=""){
+                    let cases = ligne.cells
+                    let idCont = cases[0].children[0].classList[1]
 
-                if(idCont == undefined){
-                    //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
-                    data = {
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
-                        action : "ajouter",
+                    if(idCont == undefined){
+                        //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
+                        data = {
+                            siret : document.querySelector("#siret").value,
+                            nom : cases[1].children[0].value,
+                            prenom : cases[2].children[0].value,
+                            num : cases[5].children[0].value,
+                            job : cases[3].children[0].value,
+                            email : cases[4].children[0].value,
+                            action : "ajouter",
+                        }
+                    } else {
+                        //Si on ne troruve pas le dit id alors, on parle d'un ajout
+                        data = {
+                            idcontact : idCont,
+                            siret : document.querySelector("#siret").value,
+                            nom : cases[1].children[0].value,
+                            prenom : cases[2].children[0].value,
+                            num : cases[5].children[0].value,
+                            job : cases[3].children[0].value,
+                            email : cases[4].children[0].value,
+                            action : "modifier",
+                        }
                     }
-                } else {
-                    //Si on ne troruve pas le dit id alors, on parle d'un ajout
-                    data = {
-                        idcontact : idCont,
-                        siret : document.querySelector("#siret").value,
-                        nom : cases[1].children[0].value,
-                        prenom : cases[2].children[0].value,
-                        num : cases[5].children[0].value,
-                        job : cases[3].children[0].value,
-                        email : cases[4].children[0].value,
-                        action : "modifier",
+                    
+                    if (cases[6].children[0].value == "SUIVI APPRECIER"){
+                        data["approach"] = ""
+                    } else {
+                        data["approach"] = cases[6].children[0].value
                     }
-                }
-                
-                if (cases[6].children[0].value == "SUIVI APPRECIER"){
-                    data["approach"] = ""
-                } else {
-                    data["approach"] = cases[6].children[0].value
-                }
 
-                requeteContact(data)
+                    requeteContact(data)
+                }    
             }
         }
     }

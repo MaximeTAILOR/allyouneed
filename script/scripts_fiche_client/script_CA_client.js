@@ -129,34 +129,36 @@ function envoyerCA(){
     } else {
         for (ligne of $('#tableCA').children().children()){
             if(ligne.classList != 'en-tete'){
-                let cases = ligne.cells
-                let idCA = cases[0].children[0].classList[1]
+                if(cases[1].children[0].value!=""){
+                    let cases = ligne.cells
+                    let idCA = cases[0].children[0].classList[1]
 
-                if(idCA == undefined){
-                    //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
-                    data = {
-                        siret       : document.querySelector("#siret").value,
-                        post        : cases[1].children[0].value,
-                        salary      : cases[2].children[0].value,
-                        percentage  : cases[3].children[0].value,
-                        turnover    : cases[4].textContent,
-                        total       : $('#totalCA').text(), 
-                        action      : "ajouter",
+                    if(idCA == undefined){
+                        //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
+                        data = {
+                            siret       : document.querySelector("#siret").value,
+                            post        : cases[1].children[0].value,
+                            salary      : cases[2].children[0].value,
+                            percentage  : cases[3].children[0].value,
+                            turnover    : cases[4].textContent,
+                            total       : $('#totalCA').text(), 
+                            action      : "ajouter",
+                        }
+                    } else {
+                        //Si on ne troruve pas le dit id alors, on parle d'un ajout
+                        data = {
+                            idrevenue : idCA,
+                            post        : cases[1].children[0].value,
+                            salary      : cases[2].children[0].value,
+                            percentage  : cases[3].children[0].value,
+                            turnover    : cases[4].textContent,
+                            total       : $('#totalCA').text(), 
+                            action : "modifier",
+                        }
                     }
-                } else {
-                    //Si on ne troruve pas le dit id alors, on parle d'un ajout
-                    data = {
-                        idrevenue : idCA,
-                        post        : cases[1].children[0].value,
-                        salary      : cases[2].children[0].value,
-                        percentage  : cases[3].children[0].value,
-                        turnover    : cases[4].textContent,
-                        total       : $('#totalCA').text(), 
-                        action : "modifier",
-                    }
+
+                    requeteCA(data)
                 }
-
-                requeteCA(data)
             }
         }
     }
