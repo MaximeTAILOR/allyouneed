@@ -37,6 +37,7 @@ if ($_SESSION['type'] == "admin"){
                 'fonction' => $row['job_customer'],
                 'company' => $row['last_company'],
                 'password' => $row['password_customer'],
+                'score' => $row['score_customer'],
             ));
         }
         echo json_encode($table);
@@ -63,6 +64,7 @@ if ($_SESSION['type'] == "admin"){
                 'fonction' => $row['job_customer'],
                 'company' => $row['last_company'],
                 'password' => $row['password_customer'],
+                'score' => $row['score_customer'],
             ));
         }
         $table_encode = json_encode($table);
@@ -76,4 +78,3 @@ if ($_SESSION['type'] == "admin"){
     $table_encode = json_encode($table);
     echo $table_encode;
 }
-?>
