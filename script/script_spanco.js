@@ -20,7 +20,6 @@ $.ajax({
         
     },
     error: (error) => {
-      console.log(error);
       alert('Erreur !');
     }
   });
@@ -105,7 +104,7 @@ function modifyLogo (column) {
     else if (column == "#colonne6") {
         
     }else {
-        console.log('Erreur !');
+        alert('Erreur !');
     }
 }
 
@@ -121,7 +120,6 @@ $('#envoyer').click((event) => {
               action : 'modifier',
             },
             success: (data) => {
-              console.log(data);
               if (data.error){
                   alert(data.message);
               } else {

@@ -43,7 +43,6 @@ $('#envoyer').click((event) => {
                 mdp : document.querySelector("#mdp").value,
             },
             success: (data) => {
-                console.log(data);
                 if (data.error){
                     alert(data.message);
                     document.querySelector("#mdp").value='';

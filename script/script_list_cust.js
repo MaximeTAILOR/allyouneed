@@ -27,7 +27,6 @@ $.ajax({
     url: '../php/list_customer.php',
     dataType: 'json',
     success: (data) => {
-        console.log(data);
         if (typeof data.error === 'undefined'){
             remplirTableau(data);
         } else {
@@ -57,7 +56,6 @@ function initLiens(){
         $('.pop-up').html('<span class="close">x</span>')
         //On réassocie l'event
         $('.close').click(() => {
-            console.log('fonction trigger')
             $('.fermeture_pop-up').toggle();
         });
 
