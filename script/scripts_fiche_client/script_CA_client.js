@@ -125,7 +125,7 @@ function updateCAInfo(siretUrl){
 
 //Ajouter et modifier des contacts
 function envoyerCA(){
-    for (ligne of $('#tableCA').children().children()){
+    for (ligne of $('#tableCA tr')){
         if(ligne.classList != 'en-tete'){
             if(ligne.cells[1].children[0].value!=""){
                 let cases = ligne.cells
