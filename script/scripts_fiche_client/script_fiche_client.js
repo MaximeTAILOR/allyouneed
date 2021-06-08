@@ -34,10 +34,10 @@ function changerDePage(pageAOuvrir){
     $('.container3').css('display', 'none')
     $('.container4').css('display', 'none')
     
-    pageAOuvrir.css('display', 'grid');
+    pageAOuvrir.css('display', 'grid')
 
-    let finForm = $('#finForm').clone();
-    $('#finForm').remove();
+    let finForm = $('#finForm').clone()
+    $('#finForm').remove()
     finForm.appendTo(pageAOuvrir)
 
     initNotation()
