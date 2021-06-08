@@ -29,30 +29,29 @@ $('#ca').on('click', (e) => {
 
 
 function changerDePage(pageAOuvrir){
-    let anciennePage
-    if ($('.container1').css('display')=='grid'){
-        anciennePage=$('.container1')
-    } else if ($('.container2').css('display')=='grid') {
-        anciennePage=$('.container2')
-    } else if ($('.container3').css('display')=='grid') {
-        anciennePage=$('.container3')
-    } else if ($('.container4').css('display')=='grid') {
-        anciennePage=$('.container4')
-    }
-    anciennePage.css('display', 'none');
-    pageAOuvrir.css('display', 'grid');
+    $('.container1').css('display', 'none')
+    $('.container2').css('display', 'none')
+    $('.container3').css('display', 'none')
+    $('.container4').css('display', 'none')
+    
+    pageAOuvrir.css('display', 'grid')
 
-    let finForm = $('#finForm').clone();
-    $('#finForm').remove();
+    let finForm = $('#finForm').clone()
+    $('#finForm').remove()
     finForm.appendTo(pageAOuvrir)
 
     initNotation()
-    $("i").on("click", () => {
-        $("i").off("mouseover");
-        setTimeout(() => {initNotation()}, 2000)
-    })
     initEnvoyer()
 }
+
+
+//Demande confirmation avant d'envoyer le formulaire
+$('#listEnt').on("click", (e) => {
+    e.preventDefault() 
+    if(confirm('Êtes vous sûr de vouloir quitter la page ?')){
+        window.location.href = "./list_comp.html"   
+    }
+})
 
 
 
@@ -60,41 +59,75 @@ function changerDePage(pageAOuvrir){
 
 //Fin form______________________________________________________________
 /*
-*Système de bare d'avencement
-*On compte tout les champs (input + textarea)
-*On vérifie qu'ils n'ont pas leur valeur par défaut
-*Ensuite on fait 100 x (nb de champs remplis / nb total de champs)
+Système de bare d'avencement
+
+On arrive a 100% ssi :
+Tout les champs de la page principale sont remplis
+On a un contact remplis au maximum
+On a une mission replie au maximum
+
+
 */
 function updateBar(){
-    let listInputs = document.querySelectorAll('input')
-    
-    let nbMaxInput=0;
-    let nbValidInput=0;
-    for (input of listInputs){
-        if (input.getAttribute('id') != "envoyer"){
+    let nbMaxInput=0
+    let nbValidInput=0
+
+    for (element of $('.container1 input, .container1 select')){
+        if (element.id != "envoyer"){
             nbMaxInput++;
-            if(input.value != ""){
+            if(element.value != ""){
                 nbValidInput++;
             }
         }
     }
 
-    let listTextarea = document.querySelectorAll('textarea');
+    //On cherche dans les lignes du tableau laquelle est la plus remplie
+    //On vas dans les lignes du tableau, on vérifie que ce n'est pas l'en-tête
+    //Ensuite dans les cases de chaque ligne, on vérifie que l'on est pas dans la case du bouton
+    //Puis enfin on vérifie qu'une valeur est bien rentrée
 
-    for (textarea of listTextarea){
-        nbMaxInput++;
-        if (textarea.value != "SUIVIT APPRECIER"){
-            nbValidInput++;
-        } 
-    }
+    //Le code est complexe pour pouvoir s'adapter si on décide de rajouter un champ
 
-    let listSelect = document.querySelectorAll('select');
-    for (select of listSelect){
-        nbMaxInput++;
-        if (select.value != "") {
-            nbValidInput++;
+    let nombreCasesTableContact = $('#tableContact tr:first td').length -1
+    let maxTemp = 0
+    for (lignes of $('#tableContact tr')){
+        let nombreChampsRemplis = 0
+        if (lignes.className != "en-tete"){
+            for (cases of lignes.cells){
+                if(cases.firstChild.value!="" && cases.firstChild.value!="SUIVI APPRECIER" && cases.className != "remove"){
+                    nombreChampsRemplis++
+                }
+            }
+        }
+        if (maxTemp<nombreChampsRemplis){
+            maxTemp = nombreChampsRemplis
         }
     }
+    nbMaxInput+=nombreCasesTableContact
+    nbValidInput+=maxTemp
+
+
+    //La on regarde juste si le nom du manager et le nom de poste ont été reneseignés
+    //Vu que toutes les autres cases ont des valeurs par défaut, c'est innutile de les prendre en compte
+    let nombreCasesTableMission = 2
+    maxTemp = 0
+    for (lignes of $('#tableMission tr')){
+        let nombreChampsRemplis = 0
+
+        if (lignes.className != "en-tete"){
+            for (cases of lignes.cells){
+                if((cases.firstChild.className == "poste" || cases.firstChild.className == "manager") && cases.firstChild.value!=""){
+                    nombreChampsRemplis++
+                }
+            }
+        }
+
+        if (maxTemp<nombreChampsRemplis){
+            maxTemp = nombreChampsRemplis
+        }
+    }
+    nbMaxInput+=nombreCasesTableMission
+    nbValidInput+=maxTemp
 
     
     let proportion = nbValidInput/nbMaxInput;
@@ -106,12 +139,14 @@ function updateBar(){
 }
 
 
+/*
+On fait en sorte que quelque soit ce que l'on clique ou modifie, on actualise la progress bar
+Et ensuite si on clique sur un bouton (par exemple nouveau contact), alors on rebind les champs de la nouvelle ligne
+Pour que eux aussi puissent actualiser la progress bar
+*/
 
-$('input').change(() => {updateBar()});
-$('textarea').change(() => {updateBar()});
-$('select').change(() => {updateBar()});
-
-updateBar()
+//On actualise la progress bar toutes les secondes
+let timer = setInterval(updateBar, 1000)
 
 
 
@@ -136,14 +171,32 @@ function initNotation(){
             $('#' + i).removeClass('check');
             $('#' + i).addClass('un-check');
         }
-        $('#note').text(note);
     });
+
+    $("i").on("click", (event) => {
+        let note = parseInt(event.target.id);
+        $('#note').text(note);
+    })
+
+    $("i").on("mouseout", () => {
+        updateAfficheNote()
+    })
 }
 
-$("i").on("click", () => {
-    $("i").off("mouseover");
-    setTimeout(() => {initNotation()}, 2000)
-})
+function updateAfficheNote(){
+    note = $('#note').text();
+
+    for (let numEtoile=1; numEtoile<6; numEtoile++){
+        let checkStatus = 'un-check'
+        if (numEtoile <= note){
+            checkStatus = 'check'
+        }
+        $('#' + numEtoile).removeClass('un-check')
+        $('#' + numEtoile).removeClass('check')
+        $('#' + numEtoile).addClass(checkStatus);
+    }
+}
+
 
 initNotation()
 
@@ -195,16 +248,22 @@ Fonction pour le chargement du formulaire si jamais on trouve le siret
 On envoie alors une requête et on charge les élements trouvés dans les champs
 
 Ici on parle du chargement de la partie du formulaire qui concerne l'entreprise
+
+On en profite pour initialiser la navbar
 */
 if (queryString){
     let siretUrl = queryString.split('=')[1];
     
     updateEntrepriseInfo(siretUrl)
+
+    //initProgressBarUpdate()
 }else {
     //Si on ne modifie pas de formulaires, alorson initialise pour la création
     let date = new Date();
     let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
     $('#dateDuJour').val(dateFormulaire);
+
+    //initProgressBarUpdate()
 }
 
 
@@ -229,14 +288,8 @@ function updateAffichage(data){
     $('#dateDuJour').val(dateFormulaire);
 
     //update l'affichage de note
-    note = $('#note').text();
-    for (let i = note; i>0; i--){
-        $('#' + i).removeClass('un-check');
-        $('#' + i).addClass('check');
-    }
+    updateAfficheNote()
 }
-
-
 
 
 
@@ -315,13 +368,17 @@ Attention, cette fonction appel des fonction basés sur d'autres feuilles !
 Il est important que celle ci soit chargée en dernier
 */
 function initEnvoyer() {
-    $('#envoyer').on('click', (e) => {
-        e.preventDefault()
-        envoyerEntreprise()
-        envoyerContacts()
-        envoyerMissions()
-        envoyerCA()
-    });
+    if (siret != ""){
+        $('#envoyer').on('click', (e) => {
+            e.preventDefault()
+            envoyerEntreprise()
+            envoyerContacts()
+            envoyerMissions()
+            envoyerCA()
+        });
+    } else {
+        alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
+    }
 }
 
 initEnvoyer()

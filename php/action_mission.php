@@ -48,7 +48,7 @@ if ($_GET['action'] == 'afficher') {
     if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
-            'message' => 'Erreur d\'execution de la requête' . $sql,
+            'message' => 'Erreur d\'execution de la requête',
         );
 
         $table_encode = json_encode(utf8ize($table));

@@ -2,10 +2,11 @@
 var queryString = window.location.search;
 
 /*
-Ajout d'une ligne de contact
+Fonctions n'appelant pas directement une requête AJAX
 */
-$('#ajouterContact').on('click', () => {nouvelleLigneContact()})
 
+
+//Ajout d'une ligne de contact
 function nouvelleLigneContact(){
     let strLigne =  '<tr>'
     strLigne +=     '<td class="remove"><button class="retirerElement">-</button></td>'
@@ -19,43 +20,37 @@ function nouvelleLigneContact(){
     let ligne = $(strLigne)
     ligne.appendTo($('#tableContact'))
 
-    $(".retirerElement").on('click', (e) => {
+    //on selectione le bouton de la dernière case de la dernière ligne du tableau
+    $('#tableContact tr:last td:first button').on('click', (e) => {
         e.target.parentElement.parentElement.remove()
     })
 }
 
 
-
-
-
-/*
-Fonction pour le chargement du formulaire si jamais on trouve le siret
-(dans l'url)
-On envoie alors une requête et on charge les élements trouvés dans les champs
-
-Ici on parle du chargement de la partie du formulaire qui concerne les contacts
-*/
-if (queryString){
-    let siretUrl = queryString.split('=')[1];
-    updateContactsInfo(siretUrl)
-} else {
-    //Si on ne modifie pas de formulaires, alors on initialise pour la création
-    nouvelleLigneContact()
+function reloadContacts(siret){
+    //On supprime les lignes
+    for (ligne of $('#tableContact').children().children()){
+        if(ligne.classList != 'en-tete'){
+            ligne.remove()
+        }
+    }
+    updateContactsInfo(siret)
 }
 
 
 
-
-
+/*
+Fonctions utilisant des requêtes AJAX
+*/
 
 //Fonction qui permet d'afficher les différents contacts
-function updateContactsInfo(siretUrl){
+function updateContactsInfo(siretEnvoyer){
     $.ajax({
         type: 'GET',
         url: '../php/action_contact.php',
         dataType: 'json',
         data : {
-            siret : siretUrl,
+            siret : siretEnvoyer,
             action : "afficher",
         },
         success: (data) => {
@@ -85,6 +80,7 @@ function updateContactsInfo(siretUrl){
             }
         },
         error: (error) => {
+            console.log(error)
             alert('Erreur !');
         }
     });
@@ -93,55 +89,56 @@ function updateContactsInfo(siretUrl){
 
 
 
+/*
+Fonction appelant des requetes AJAX
+*/
+
 
 //Ajouter et modifier des contacts
 function envoyerContacts(){
     //Formulaire du contact
-    if (document.querySelector("#siret").value == ""){
-        alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
-    } else {
-        for (ligne of $('#tableContact').children().children()){
-            if(ligne.classList != 'en-tete'){
-                if(cases[5].children[0].value!="" || cases[4].children[0].value!=""){
-                    let cases = ligne.cells
-                    let idCont = cases[0].children[0].classList[1]
+    for (ligne of $('#tableContact tr')){
+        if(ligne.classList != 'en-tete'){
+            if(ligne.cells[5].children[0].value!="" || ligne.cells[4].children[0].value!=""){
+                let cases = ligne.cells
+                let idCont = cases[0].children[0].classList[1]
 
-                    if(idCont == undefined){
-                        //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
-                        data = {
-                            siret : document.querySelector("#siret").value,
-                            nom : cases[1].children[0].value,
-                            prenom : cases[2].children[0].value,
-                            num : cases[5].children[0].value,
-                            job : cases[3].children[0].value,
-                            email : cases[4].children[0].value,
-                            action : "ajouter",
-                        }
-                    } else {
-                        //Si on ne troruve pas le dit id alors, on parle d'un ajout
-                        data = {
-                            idcontact : idCont,
-                            siret : document.querySelector("#siret").value,
-                            nom : cases[1].children[0].value,
-                            prenom : cases[2].children[0].value,
-                            num : cases[5].children[0].value,
-                            job : cases[3].children[0].value,
-                            email : cases[4].children[0].value,
-                            action : "modifier",
-                        }
+                if(idCont == undefined){
+                    //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
+                    data = {
+                        siret : document.querySelector("#siret").value,
+                        nom : cases[1].children[0].value,
+                        prenom : cases[2].children[0].value,
+                        num : cases[5].children[0].value,
+                        job : cases[3].children[0].value,
+                        email : cases[4].children[0].value,
+                        action : "ajouter",
                     }
+                } else {
+                    //Si on ne troruve pas le dit id alors, on parle d'un ajout
+                    data = {
+                        idcontact : idCont,
+                        siret : document.querySelector("#siret").value,
+                        nom : cases[1].children[0].value,
+                        prenom : cases[2].children[0].value,
+                        num : cases[5].children[0].value,
+                        job : cases[3].children[0].value,
+                        email : cases[4].children[0].value,
+                        action : "modifier",
+                    }
+                }
                     
-                    if (cases[6].children[0].value == "SUIVI APPRECIER"){
-                        data["approach"] = ""
-                    } else {
-                        data["approach"] = cases[6].children[0].value
-                    }
+                if (cases[6].children[0].value == "SUIVI APPRECIER"){
+                    data["approach"] = ""
+                } else {
+                    data["approach"] = cases[6].children[0].value
+                }
 
-                    requeteContact(data)
-                }    
+                requeteContact(data)
             }
         }
     }
+    reloadContacts(document.querySelector("#siret").value)
 }
 
 
@@ -156,8 +153,9 @@ function deleteContact(idCont){
 
 
 
-
-
+/*
+Requetes AJAX
+*/
 //rq ajax contacts
 function requeteContact(dataContact){
     $.ajax({
@@ -175,3 +173,34 @@ function requeteContact(dataContact){
         }
     });
 }
+
+
+
+
+
+/*
+Code principal (tout ce qui n'est pas des fonctions)
+
+On a aussi toutes les initialisation qui sont faites qu'une seule fois
+*/
+
+
+
+/*
+Fonction pour le chargement du formulaire si jamais on trouve le siret
+(dans l'url)
+On envoie alors une requête et on charge les élements trouvés dans les champs
+
+Ici on parle du chargement de la partie du formulaire qui concerne les contacts
+*/
+if (queryString){
+    let siretUrl = queryString.split('=')[1];
+    updateContactsInfo(siretUrl)
+} else {
+    //Si on ne modifie pas de formulaires, alors on initialise pour la création
+    nouvelleLigneContact()
+}
+
+
+//Initialise le comportement du bouton de nouvelle ligne
+$('#ajouterContact').on('click', () => {nouvelleLigneContact()})

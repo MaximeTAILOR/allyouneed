@@ -25,28 +25,19 @@ $('#process').on('click', (e) => {
 
 
 function changerDePage(pageAOuvrir){
-    let anciennePage
-    if ($('.container1').css('display')=='grid'){
-        anciennePage=$('.container1')
-    } else if ($('.container2').css('display')=='grid') {
-        anciennePage=$('.container2')
-    } else if ($('.container3').css('display')=='grid') {
-        anciennePage=$('.container3')
-    } else if ($('.container4').css('display')=='grid') {
-        anciennePage=$('.container4')
-    }
-    anciennePage.css('display', 'none');
-    pageAOuvrir.css('display', 'grid');
+    $('.container1').css('display', 'none')
+    $('.container2').css('display', 'none')
+    $('.container3').css('display', 'none')
+    $('.container4').css('display', 'none')
+    
+    pageAOuvrir.css('display', 'grid')
 
-    let finForm = $('#finForm').clone();
-    $('#finForm').remove();
+    let finForm = $('#finForm').clone()
+    $('#finForm').remove()
     finForm.appendTo(pageAOuvrir)
 
+
     initNotation()
-    $("i").on("click", () => {
-        $("i").off("mouseover");
-        setTimeout(() => {initNotation()}, 2000)
-    })
 }
 
 
@@ -197,14 +188,32 @@ function initNotation(){
             $('#' + i).removeClass('check');
             $('#' + i).addClass('un-check');
         }
-        $('#note').text(note);
     });
+
+    $("i").on("click", (event) => {
+        let note = parseInt(event.target.id);
+        $('#note').text(note);
+    })
+
+    $("i").on("mouseout", () => {
+        updateAfficheNote()
+    })
 }
 
-$("i").on("click", () => {
-    $("i").off("mouseover");
-    setTimeout(() => {initNotation()}, 2000)
-})
+
+function updateAfficheNote(){
+    note = $('#note').text();
+
+    for (let numEtoile=1; numEtoile<6; numEtoile++){
+        let checkStatus = 'un-check'
+        if (numEtoile <= note){
+            checkStatus = 'check'
+        }
+        $('#' + numEtoile).removeClass('un-check')
+        $('#' + numEtoile).removeClass('check')
+        $('#' + numEtoile).addClass(checkStatus);
+    }
+}
 
 initNotation()
 
