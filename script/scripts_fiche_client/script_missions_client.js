@@ -4,8 +4,6 @@ var queryString = window.location.search;
 /*
 Ajout d'une ligne de mission
 */
-$('#ajouterMission').on('click', () => {nouvelleLigneMission()})
-
 function nouvelleLigneMission(){
     let date = new Date();
     let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
@@ -25,10 +23,12 @@ function nouvelleLigneMission(){
     let ligne = $(strLigne)
     ligne.appendTo($('#tableMission'))
 
-    $(".retirerMission").on('click', (e) => {
+    //on selectione le bouton de la dernière case de la dernière ligne du tableau
+    $('#tableMission tr:last td:first button').on('click', (e) => {
         e.target.parentElement.parentElement.remove()
     })
-    $('.dateOuverture').on('click', () => {calculEtatMission()})
+
+    calculEtatMission()
 }
 
 
@@ -58,22 +58,16 @@ function calculEtatMission(){
 
 
 
-/*
-Fonction pour le chargement du formulaire si jamais on trouve le siret
-(dans l'url)
-On envoie alors une requête et on charge les élements trouvés dans les champs
 
-Ici on parle du chargement de la partie du formulaire qui concerne les missions
-*/
-if (queryString){
-    let siretUrl = queryString.split('=')[1];
+function reloadMission(siret){
+    //On supprime les lignes
+    for (ligne of $('#tableMission tr')){
+        if(ligne.classList != 'en-tete'){
+            ligne.remove()
+        }
+    }
 
-    updateContactsInfo(siretUrl)
-
-    calculEtatMission()
-} else {
-    //Si on ne modifie pas de formulaires, alors on initialise pour la création
-    nouvelleLigneMission()
+    updateMissionInfo(siret)
 }
 
 
@@ -81,8 +75,12 @@ if (queryString){
 
 
 
+/*
+Fonction appelant des requetes AJAX
+*/
+
 //Fonction qui permet d'afficher les différentes missions
-function updateContactsInfo(siretUrl){
+function updateMissionInfo(siretUrl){
     $.ajax({
         type: 'GET',
         url: '../php/action_mission.php',
@@ -128,15 +126,13 @@ function updateContactsInfo(siretUrl){
                     strLigne +=     '</tr>'
                     let ligne = $(strLigne)
                     ligne.appendTo($('#tableMission'))
-                
-                    $('.dateOuverture').on('click', () => {calculEtatMission()})
                 }
-
                 //Initialisation du comportement du bouton et appel de quelques fonctions
                 $(".retirerMission").on('click', (e) => {
                     deleteMission(e.target.classList[1])
                     e.target.parentElement.parentElement.remove()
                 })
+                //On rajoute une ligne et on calcul les états
                 calculEtatMission()
                 nouvelleLigneMission()
             }
@@ -153,63 +149,57 @@ function updateContactsInfo(siretUrl){
 
 //Ajouter et modifier des missions
 function envoyerMissions(){
-    if (document.querySelector("#siret").value == ""){
-        alert("Les missions doivent appartenir a une entreprise (siret non defini)")
-    } else {
-        for (ligne of $('#tableMission').children().children()){
-            if(ligne.classList != 'en-tete'){
-                if(cases[3].children[0].value!="" && cases[2].children[0].value!=""){
-                    let cases = ligne.cells
-                    let idMiss = cases[0].children[0].classList[1]
+    for (ligne of $('#tableMission').children().children()){
+        if(ligne.classList != 'en-tete'){
+            if(ligne.cells[3].children[0].value!="" && ligne.cells[2].children[0].value!=""){
+                let cases = ligne.cells
+                let idMiss = cases[0].children[0].classList[1]
 
+                //Que l'on parle d'ajout ou de modifications, il faut préparer les dates pour le php
+                let elementDate
+                elementDate = cases[1].children[0].value.split('/')
+                let dateOuverture=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
 
-                    //Que l'on parle d'ajout ou de modifications, il faut préparer les dates pour le php
-                    let elementDate
-                    elementDate = cases[1].children[0].value.split('/')
-                    let dateOuverture=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
+                elementDate = cases[7].children[0].value.split('/')
+                let dateSignature=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
 
-                    elementDate = cases[7].children[0].value.split('/')
-                    let dateSignature=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
-
-                    //opendate=2021-5-20&enddate=2021-6-18
-                    if(idMiss == undefined){
-                        //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
-                        data = {
-                            siret      : document.querySelector("#siret").value,
-                            manager    : cases[3].children[0].value,
-                            post       : cases[2].children[0].value,
-                            current    : cases[4].children[0].value,
-                            meeting    : cases[5].children[0].value,
-                            endorsed   : cases[6].children[0].value,
-                            opendate   : dateOuverture,
-                            enddate    : dateSignature,
-                            turnover   : cases[8].textContent,
-                            action      : "ajouter",
-                        }
-                    } else {
-                        //Si on ne troruve pas le dit id alors, on parle d'un ajout
-                        data = {
-                            idmission : idMiss,
-                            siret      : document.querySelector("#siret").value,
-                            manager    : cases[3].children[0].value,
-                            post       : cases[2].children[0].value,
-                            current    : cases[4].children[0].value,
-                            meeting    : cases[5].children[0].value,
-                            endorsed   : cases[6].children[0].value,
-                            opendate   : dateOuverture,
-                            enddate    : dateSignature,
-                            turnover   : cases[8].textContent,
-                            action : "modifier",
-                        }
+                if(idMiss == undefined){
+                    //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
+                    data = {
+                        siret      : document.querySelector("#siret").value,
+                        manager    : cases[3].children[0].value,
+                        post       : cases[2].children[0].value,
+                        current    : cases[4].children[0].value,
+                        meeting    : cases[5].children[0].value,
+                        endorsed   : cases[6].children[0].value,
+                        opendate   : dateOuverture,
+                        enddate    : dateSignature,
+                        turnover   : cases[8].textContent,
+                        action      : "ajouter",
                     }
-                    
-                    requeteMission(data)
+                } else {
+                    //Si on ne troruve pas le dit id alors, on parle d'un ajout
+                    data = {
+                        idmission : idMiss,
+                        siret      : document.querySelector("#siret").value,
+                        manager    : cases[3].children[0].value,
+                        post       : cases[2].children[0].value,
+                        current    : cases[4].children[0].value,
+                        meeting    : cases[5].children[0].value,
+                        endorsed   : cases[6].children[0].value,
+                        opendate   : dateOuverture,
+                        enddate    : dateSignature,
+                        turnover   : cases[8].textContent,
+                        action : "modifier",
+                    }
                 }
+                
+                requeteMission(data)
             }
         }
     }
+    reloadMission(document.querySelector("#siret").value)
 }
-
 
 
 
@@ -228,13 +218,17 @@ function deleteMission(idMiss){
 
 
 
-//rq ajax contacts
-function requeteMission(dataContact){
+/*
+Requetes AJAX
+*/
+
+//rq ajax missions
+function requeteMission(dataMission){
     $.ajax({
         type: 'GET',
         url: '../php/action_mission.php',
         dataType: 'json',
-        data : dataContact,
+        data : dataMission,
         success: (data) => {
             if (data.error){
                 alert(data.message)
@@ -244,4 +238,36 @@ function requeteMission(dataContact){
             alert('Erreur !');
         }
     });
+}
+
+
+
+
+
+
+/*
+Code principal (tout ce qui n'est pas des fonctions)
+
+On a aussi toutes les initialisation qui sont faites qu'une seule fois
+*/
+
+$('#ajouterMission').on('click', () => {nouvelleLigneMission()})
+
+
+/*
+Fonction pour le chargement du formulaire si jamais on trouve le siret
+(dans l'url)
+On envoie alors une requête et on charge les élements trouvés dans les champs
+
+Ici on parle du chargement de la partie du formulaire qui concerne les missions
+*/
+if (queryString){
+    let siretUrl = queryString.split('=')[1];
+
+    updateMissionInfo(siretUrl)
+
+    calculEtatMission()
+} else {
+    //Si on ne modifie pas de formulaires, alors on initialise pour la création
+    nouvelleLigneMission()
 }

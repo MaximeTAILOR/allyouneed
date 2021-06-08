@@ -15,7 +15,7 @@ function remplirTableau(data){
         
         //Creation d'une ligne de tableau
         let strLigne =  '<tr>'
-        strLigne +=     '<td class="remove"><button class="retirerEnt '+ company["idCompany"] +' ">-</button></td>'
+        strLigne +=     '<td class="remove"><button class="retirerEnt '+ company["idcompany"] +' ">-</button></td>'
         strLigne +=     '<td>'+ company["name"] +'</td>'
         strLigne +=     '<td>'+ company["siret"] +'</td>'
         strLigne +=     '<td>'+ company["type"] +'</td>'
@@ -35,7 +35,16 @@ function remplirTableau(data){
         //On ajoute la ligne au tableau
         $(strLigne).appendTo($('table'))
     }
+
+    $('.retirerEnt').on('click', (e) => {
+        //Demande confirmation avant de supprimer l'entreprise
+        if(confirm('Êtes vous sûr de vouloir supprimer cet element ?')){
+            id=e.target.classList[1]
+            alert("Suppression de l'element " + id + "...\nOu pas vus que le php ne le permet pas pour le moment...")
+        }
+    })
 }
+
 
 $('#nouvelleEntreprise').on('click', () => {window.location.replace("./fiche_client.html")})
 
@@ -57,13 +66,6 @@ $.ajax({
       alert('Erreur !');
     }
   });
-
-
-
-
-
-
-
 
 
 

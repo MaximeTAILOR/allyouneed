@@ -47,12 +47,17 @@ function changerDePage(pageAOuvrir){
     finForm.appendTo(pageAOuvrir)
 
     initNotation()
-    $("i").on("click", () => {
-        $("i").off("mouseover");
-        setTimeout(() => {initNotation()}, 2000)
-    })
     initEnvoyer()
 }
+
+
+//Demande confirmation avant d'envoyer le formulaire
+$('#listEnt').on("click", (e) => {
+    e.preventDefault() 
+    if(confirm('Êtes vous sûr de vouloir quitter la page ?')){
+        window.location.href = "./list_comp.html"   
+    }
+})
 
 
 
@@ -61,15 +66,29 @@ function changerDePage(pageAOuvrir){
 //Fin form______________________________________________________________
 /*
 *Système de bare d'avencement
-*On compte tout les champs (input + textarea)
-*On vérifie qu'ils n'ont pas leur valeur par défaut
-*Ensuite on fait 100 x (nb de champs remplis / nb total de champs)
+*
+*On arrive a 100% ssi :
+*Tout les champs de la page principale sont remplis
+*On a un contact
+*On a une mission
 */
 function updateBar(){
-    let listInputs = document.querySelectorAll('input')
-    
     let nbMaxInput=0;
     let nbValidInput=0;
+
+    for (element of $('.container1 input, .container1 select')){
+        if (element.id != "envoyer"){
+            nbMaxInput++;
+            if(element.value != ""){
+                nbValidInput++;
+            }
+        }
+    }
+
+    console.log(nbMaxInput + ' / ' + nbValidInput)
+    /*let listInputs = document.querySelectorAll('input')
+    
+    
     for (input of listInputs){
         if (input.getAttribute('id') != "envoyer"){
             nbMaxInput++;
@@ -97,7 +116,8 @@ function updateBar(){
     }
 
     
-    let proportion = nbValidInput/nbMaxInput;
+    let proportion = nbValidInput/nbMaxInput;*/
+    let proportion = 0.5
     
     $('#progressBar').css("width", 100*proportion + "%");
 
@@ -106,7 +126,11 @@ function updateBar(){
 }
 
 
-
+/*
+On fait en sorte que quelque soit ce que l'on clique ou modifie, on actualise la progress bar
+Et ensuite si on clique sur un bouton (par exemple nouveau contact), alors on rebind les champs de la nouvelle ligne
+Pour que eux aussi puissent actualiser la progress bar
+*/
 $('input').change(() => {updateBar()});
 $('textarea').change(() => {updateBar()});
 $('select').change(() => {updateBar()});
@@ -136,14 +160,32 @@ function initNotation(){
             $('#' + i).removeClass('check');
             $('#' + i).addClass('un-check');
         }
-        $('#note').text(note);
     });
+
+    $("i").on("click", (event) => {
+        let note = parseInt(event.target.id);
+        $('#note').text(note);
+    })
+
+    $("i").on("mouseout", () => {
+        updateAfficheNote()
+    })
 }
 
-$("i").on("click", () => {
-    $("i").off("mouseover");
-    setTimeout(() => {initNotation()}, 2000)
-})
+function updateAfficheNote(){
+    note = $('#note').text();
+
+    for (let numEtoile=1; numEtoile<6; numEtoile++){
+        let checkStatus = 'un-check'
+        if (numEtoile <= note){
+            checkStatus = 'check'
+        }
+        $('#' + numEtoile).removeClass('un-check')
+        $('#' + numEtoile).removeClass('check')
+        $('#' + numEtoile).addClass(checkStatus);
+    }
+}
+
 
 initNotation()
 
@@ -195,16 +237,22 @@ Fonction pour le chargement du formulaire si jamais on trouve le siret
 On envoie alors une requête et on charge les élements trouvés dans les champs
 
 Ici on parle du chargement de la partie du formulaire qui concerne l'entreprise
+
+On en profite pour initialiser la navbar
 */
 if (queryString){
     let siretUrl = queryString.split('=')[1];
     
     updateEntrepriseInfo(siretUrl)
+
+    //initProgressBarUpdate()
 }else {
     //Si on ne modifie pas de formulaires, alorson initialise pour la création
     let date = new Date();
     let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
     $('#dateDuJour').val(dateFormulaire);
+
+    //initProgressBarUpdate()
 }
 
 
@@ -229,14 +277,8 @@ function updateAffichage(data){
     $('#dateDuJour').val(dateFormulaire);
 
     //update l'affichage de note
-    note = $('#note').text();
-    for (let i = note; i>0; i--){
-        $('#' + i).removeClass('un-check');
-        $('#' + i).addClass('check');
-    }
+    updateAfficheNote()
 }
-
-
 
 
 
@@ -315,13 +357,17 @@ Attention, cette fonction appel des fonction basés sur d'autres feuilles !
 Il est important que celle ci soit chargée en dernier
 */
 function initEnvoyer() {
-    $('#envoyer').on('click', (e) => {
-        e.preventDefault()
-        envoyerEntreprise()
-        envoyerContacts()
-        envoyerMissions()
-        envoyerCA()
-    });
+    if (siret != ""){
+        $('#envoyer').on('click', (e) => {
+            e.preventDefault()
+            envoyerEntreprise()
+            envoyerContacts()
+            envoyerMissions()
+            envoyerCA()
+        });
+    } else {
+        alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
+    }
 }
 
 initEnvoyer()
