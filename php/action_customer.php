@@ -52,6 +52,7 @@ if ($_GET['action'] == 'afficher') {
                 'typeDeContrat' => $row['contract_type'],
                 'compteRenduAgent' => $row['report'],
                 'avisAgent' => $row['thoughts'],
+                'note' => $row['score_customer'],
                 'dateDuJour' => $date,
                 'veutUneFormation' => $row['formation'],
                 'listeFormationsSouhaitees' => $row['list_formations'],
@@ -111,6 +112,7 @@ if ($_GET['action'] == 'afficher') {
         $contract = htmlspecialchars($_GET['typeDeContrat']);
         $report = htmlspecialchars($_GET['compteRenduAgent']);
         $thoughts = htmlspecialchars($_GET['avisAgent']);
+        $score = htmlspecialchars($_GET['note']);
         $date = date_create($_GET['dateDuJour']);
         $date = date_format($date, 'Y-m-d');
         $formation = htmlspecialchars($_GET['veutUneFormation']);
@@ -121,11 +123,7 @@ if ($_GET['action'] == 'afficher') {
         $discord = htmlspecialchars($_GET['discord']);
         $whatsapp = htmlspecialchars($_GET['whatsapp']);
 
-<<<<<<< HEAD
-        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,district_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,creation_date, formation, list_formations,origin_customer, linkedin, instagram, discord, whatsapp) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $district . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "', '" . $formation . "', '" . $list_formations . "', '" . $origin . "','" . $linkedin . "','" . $instagram . "','" . $discord . "','" . $whatsapp . "')";
-=======
-        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,district_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,creation_date, formation, list_formations,origin_customer, linkedin, instagram, discord, whatsapp) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $district . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "','" . $formation . "', '" . $list_formations . "', '" . $origin . "','" . $linkedin . "','" . $instagram . "','" . $discord . "','" . $whatsapp . "')";
->>>>>>> a56180c7cf7ffc98ac29704c5c8f3aa960e89071
+        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,district_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,score_customer, creation_date, formation, list_formations,origin_customer, linkedin, instagram, discord, whatsapp) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $district . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $score . "','" . $date . "', '" . $formation . "', '" . $list_formations . "', '" . $origin . "','" . $linkedin . "','" . $instagram . "','" . $discord . "','" . $whatsapp . "')";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
             $table = array(
@@ -174,6 +172,7 @@ if ($_GET['action'] == 'afficher') {
     $contract = htmlspecialchars($_GET['typeDeContrat']);
     $report = htmlspecialchars($_GET['compteRenduAgent']);
     $thoughts = htmlspecialchars($_GET['avisAgent']);
+    $score = htmlspecialchars($_GET['note']);
     $date = date_create($_GET['dateDuJour']);
     $date = date_format($date, 'Y-m-d');
     $formation = htmlspecialchars($_GET['veutUneFormation']);
@@ -214,6 +213,7 @@ if ($_GET['action'] == 'afficher') {
         contract_type='" . $contract . "',
         report='" . $report . "',
         thoughts='" . $thoughts . "',
+        score_customer='" . $score . "',
         creation_date='" . $date . "',
         formation='" . $formation . "',
         list_formations='" . $list_formations . "',
