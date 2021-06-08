@@ -2,7 +2,6 @@ const queryString = window.location.search;
 let idUrl = queryString.split('=')[1];
 
 function remplirFiche (data) {
-    console.log(data);
     for (champ of Object.keys(data)) {
         $('#' + champ).val(data[champ]);
     }
@@ -37,6 +36,8 @@ if (idUrl == undefined) {
         donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
         donnees['statutCandidat'] = $('#statutCandidat').val();
         donnees['avisAgent'] = $('#avisAgent').val();
+        donnees['origine'] = $('#origine').val();
+        donnees['idcustomer'] = idUrl;
 
         genreCheck(donnees);
 
@@ -54,8 +55,8 @@ if (idUrl == undefined) {
                 }
                 
             },
-            error: () => {
-                alert('Erreur !');
+            error: (data) => {
+                console.log(data);
             }
         });
     });
@@ -70,11 +71,9 @@ if (idUrl == undefined) {
             action : 'afficher'
         },
         success: (data) => {
-          console.log(data);
           if (data.error){
               alert(data.message);
           } else {
-              console.log('gg');
               remplirFiche(data[0]);
           }
             
@@ -93,27 +92,36 @@ if (idUrl == undefined) {
         donnees[element.id] = element.value;
         }
         donnees['action'] = 'modifier';
+        donnees['idcustomer'] = idUrl;
+        donnees['typeDeContrat'] = $('#typeDeContrat').val();
+        donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
+        donnees['statutCandidat'] = $('#statutCandidat').val();
+        donnees['avisAgent'] = $('#avisAgent').val();
+        donnees['origine'] = $('#origine').val();
 
-        $('#envoyer').click((event) => { 
-            event.preventDefault();
-                $.ajax({
-                    type: 'GET',
-                    url: '../php/action_customer.php',
-                    dataType: 'json',
-                    data : donnees,
-                    success: (data) => {
-                      console.log(data);
-                      if (data.error){
-                          alert(data.message);
-                      } else {
-                          alert(data.message);
-                      }
-                        
-                    },
-                    error: () => {
-                      alert('Erreur !');
-                    }
-                });
-        });    
-    });
+        genreCheck(donnees);
+
+        console.log(donnees);
+
+        $.ajax({
+            type: 'GET',
+            url: '../php/action_customer.php',
+            dataType: 'json',
+            data : donnees,
+            success: (data) => {
+                console.log(data);
+                if (data.error){
+                    alert(data.message);
+                } else {
+                    console.log('gg2');
+                    alert(data.message);
+                }
+                
+            },
+            error: (data, error) => {
+                console.log(data);
+            }
+        });
+    });    
+    
 }
