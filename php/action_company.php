@@ -66,7 +66,7 @@ if ($_GET['action'] == 'afficher') {
         $grade = $_GET['grade'];
         $spanco = 0;
 
-        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, type_company, date_company, origin_company, grade_company, spanco_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $type . "', '" . $date . "', '" . $origin . "', '" . $grade . "', '" . $spanco . "',)";
+        $sql = "INSERT INTO company (siret_company, siren_company, ape_company, name_company, type_company, date_company, origin_company, grade_company, spanco_company) values ('" . $siret . "', '" . $siren . "', '" . $ape . "', '" . $entreprise . "', '" . $type . "', '" . $date . "', '" . $origin . "', '" . $grade . "', '" . $spanco . "')";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
             $table = array(
