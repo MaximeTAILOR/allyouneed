@@ -53,7 +53,6 @@ if ($_GET['action'] == 'afficher') {
                 'compteRenduAgent' => $row['report'],
                 'avisAgent' => $row['thoughts'],
                 'dateDuJour' => $date,
-                'mdp' => $row['password_customer'],
                 'veutUneFormation' => $row['formation'],
                 'listeFormationsSouhaitees' => $row['list_formations'],
                 'origine' => $row['origin_customer'],
@@ -89,7 +88,7 @@ if ($_GET['action'] == 'afficher') {
         $num = htmlspecialchars($_GET['portable']);
         $email = htmlspecialchars($_GET['mail']);
         $job = htmlspecialchars($_GET['posteActuel']);
-        $d_job = htmlspecialchars($_GET['posteSouhaité']);
+        $d_job = htmlspecialchars($_GET['posteSouhaite']);
         $company = htmlspecialchars($_GET['derniereEntreprise']);
         $d_company = htmlspecialchars($_GET['entrepriseSouhaitees']);
         $salary = htmlspecialchars($_GET['salaireActuel']);
@@ -103,18 +102,17 @@ if ($_GET['action'] == 'afficher') {
         $environnement = htmlspecialchars($_GET['environnementTechActuel']);
         $d_environnement = htmlspecialchars($_GET['environnementTechVoulu']);
         $project = htmlspecialchars($_GET['plusGrosProjet']);
-        $d_project = htmlspecialchars($_GET['projetsSouhaités']);
+        $d_project = htmlspecialchars($_GET['projetsSouhaites']);
         $languages = htmlspecialchars($_GET['langues']);
         $website = htmlspecialchars($_GET['siteWeb']);
         $portfolio = htmlspecialchars($_GET['portfolio']);
         $cv = htmlspecialchars($_GET['CV']);
-        $status = htmlspecialchars($_GET['statusCandidat']);
+        $status = htmlspecialchars($_GET['statutCandidat']);
         $contract = htmlspecialchars($_GET['typeDeContrat']);
         $report = htmlspecialchars($_GET['compteRenduAgent']);
         $thoughts = htmlspecialchars($_GET['avisAgent']);
         $date = date_create($_GET['dateDuJour']);
         $date = date_format($date, 'Y-m-d');
-        $mdp = htmlspecialchars($_GET['password']);
         $formation = htmlspecialchars($_GET['veutUneFormation']);
         $list_formations = htmlspecialchars($_GET['listeFormationsSouhaitees']);
         $origin = htmlspecialchars($_GET['origine']);
@@ -123,7 +121,7 @@ if ($_GET['action'] == 'afficher') {
         $discord = htmlspecialchars($_GET['discord']);
         $whatsapp = htmlspecialchars($_GET['whatsapp']);
 
-        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,district_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,creation_date,password_customer, formation, list_formations, linkedin, instagram, discord, whatsapp) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $district . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "','" . $mdp . "', '" . $formation . "', '" . $list_formations . "', '" . $origin . "','" . $linkedin . "','" . $instagram . "','" . $discord . "','" . $whatsapp . "')";
+        $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,district_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,creation_date,password_customer, formation, list_formations, linkedin, instagram, discord, whatsapp) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $district . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $date . "', '" . $formation . "', '" . $list_formations . "', '" . $origin . "','" . $linkedin . "','" . $instagram . "','" . $discord . "','" . $whatsapp . "')";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
             $table = array(
@@ -149,7 +147,7 @@ if ($_GET['action'] == 'afficher') {
     $num = htmlspecialchars($_GET['portable']);
     $email = htmlspecialchars($_GET['mail']);
     $job = htmlspecialchars($_GET['posteActuel']);
-    $d_job = htmlspecialchars($_GET['posteSouhaité']);
+    $d_job = htmlspecialchars($_GET['posteSouhaite']);
     $company = htmlspecialchars($_GET['derniereEntreprise']);
     $d_company = htmlspecialchars($_GET['entrepriseSouhaitees']);
     $salary = htmlspecialchars($_GET['salaireActuel']);
@@ -162,19 +160,18 @@ if ($_GET['action'] == 'afficher') {
     $zone = htmlspecialchars($_GET['zoneDeTravail']);
     $environnement = htmlspecialchars($_GET['environnementTechActuel']);
     $d_environnement = htmlspecialchars($_GET['environnementTechVoulu']);
-    $project = htmlspecialchars($_GET['project']);
-    $d_project = htmlspecialchars($_GET['projetsSouhaités']);
+    $project = htmlspecialchars($_GET['plusGrosProjet']);
+    $d_project = htmlspecialchars($_GET['projetsSouhaites']);
     $languages = htmlspecialchars($_GET['langues']);
     $website = htmlspecialchars($_GET['siteWeb']);
     $portfolio = htmlspecialchars($_GET['portfolio']);
     $cv = htmlspecialchars($_GET['CV']);
-    $status = htmlspecialchars($_GET['statusCandidat']);
+    $status = htmlspecialchars($_GET['statutCandidat']);
     $contract = htmlspecialchars($_GET['typeDeContrat']);
     $report = htmlspecialchars($_GET['compteRenduAgent']);
     $thoughts = htmlspecialchars($_GET['avisAgent']);
     $date = date_create($_GET['dateDuJour']);
     $date = date_format($date, 'Y-m-d');
-    $mdp = htmlspecialchars($_GET['password']);
     $formation = htmlspecialchars($_GET['veutUneFormation']);
     $list_formations = htmlspecialchars($_GET['listeFormationsSouhaitees']);
     $origin = htmlspecialchars($_GET['origine']);
@@ -214,12 +211,11 @@ if ($_GET['action'] == 'afficher') {
         report='" . $report . "',
         thoughts='" . $thoughts . "',
         creation_date='" . $date . "',
-        password_customer='" . $mdp . "',
         formation='" . $formation . "',
         list_formations='" . $list_formations . "',
         origin_customer='" . $origin . "',
         linkedin='" . $linkedin . "', 
-        instagram='" . $instagramm . "',
+        instagram='" . $instagram . "',
         discord='" . $discord . "',
         whatsapp='" . $whatsapp . "'
             WHERE idcustomer='" . $idcustomer . "'";
