@@ -97,7 +97,7 @@ Fonction appelant des requetes AJAX
 //Ajouter et modifier des contacts
 function envoyerContacts(){
     //Formulaire du contact
-    for (ligne of $('#tableContact').children().children()){
+    for (ligne of $('#tableContact tr')){
         if(ligne.classList != 'en-tete'){
             if(ligne.cells[5].children[0].value!="" || ligne.cells[4].children[0].value!=""){
                 let cases = ligne.cells

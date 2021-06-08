@@ -149,7 +149,7 @@ function updateMissionInfo(siretUrl){
 
 //Ajouter et modifier des missions
 function envoyerMissions(){
-    for (ligne of $('#tableMission').children().children()){
+    for (ligne of $('#tableMission tr')){
         if(ligne.classList != 'en-tete'){
             if(ligne.cells[3].children[0].value!="" && ligne.cells[2].children[0].value!=""){
                 let cases = ligne.cells

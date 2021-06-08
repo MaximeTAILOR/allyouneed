@@ -29,17 +29,11 @@ $('#ca').on('click', (e) => {
 
 
 function changerDePage(pageAOuvrir){
-    let anciennePage
-    if ($('.container1').css('display')=='grid'){
-        anciennePage=$('.container1')
-    } else if ($('.container2').css('display')=='grid') {
-        anciennePage=$('.container2')
-    } else if ($('.container3').css('display')=='grid') {
-        anciennePage=$('.container3')
-    } else if ($('.container4').css('display')=='grid') {
-        anciennePage=$('.container4')
-    }
-    anciennePage.css('display', 'none');
+    $('.container1').css('display', 'none')
+    $('.container2').css('display', 'none')
+    $('.container3').css('display', 'none')
+    $('.container4').css('display', 'none')
+    
     pageAOuvrir.css('display', 'grid');
 
     let finForm = $('#finForm').clone();
@@ -65,16 +59,18 @@ $('#listEnt').on("click", (e) => {
 
 //Fin form______________________________________________________________
 /*
-*Système de bare d'avencement
-*
-*On arrive a 100% ssi :
-*Tout les champs de la page principale sont remplis
-*On a un contact
-*On a une mission
+Système de bare d'avencement
+
+On arrive a 100% ssi :
+Tout les champs de la page principale sont remplis
+On a un contact remplis au maximum
+On a une mission replie au maximum
+
+
 */
 function updateBar(){
-    let nbMaxInput=0;
-    let nbValidInput=0;
+    let nbMaxInput=0
+    let nbValidInput=0
 
     for (element of $('.container1 input, .container1 select')){
         if (element.id != "envoyer"){
@@ -85,39 +81,56 @@ function updateBar(){
         }
     }
 
-    console.log(nbMaxInput + ' / ' + nbValidInput)
-    /*let listInputs = document.querySelectorAll('input')
-    
-    
-    for (input of listInputs){
-        if (input.getAttribute('id') != "envoyer"){
-            nbMaxInput++;
-            if(input.value != ""){
-                nbValidInput++;
+    //On cherche dans les lignes du tableau laquelle est la plus remplie
+    //On vas dans les lignes du tableau, on vérifie que ce n'est pas l'en-tête
+    //Ensuite dans les cases de chaque ligne, on vérifie que l'on est pas dans la case du bouton
+    //Puis enfin on vérifie qu'une valeur est bien rentrée
+
+    //Le code est complexe pour pouvoir s'adapter si on décide de rajouter un champ
+
+    let nombreCasesTableContact = $('#tableContact tr:first td').length -1
+    let maxTemp = 0
+    for (lignes of $('#tableContact tr')){
+        let nombreChampsRemplis = 0
+        if (lignes.className != "en-tete"){
+            for (cases of lignes.cells){
+                if(cases.firstChild.value!="" && cases.firstChild.value!="SUIVI APPRECIER" && cases.className != "remove"){
+                    nombreChampsRemplis++
+                }
             }
         }
-    }
-
-    let listTextarea = document.querySelectorAll('textarea');
-
-    for (textarea of listTextarea){
-        nbMaxInput++;
-        if (textarea.value != "SUIVIT APPRECIER"){
-            nbValidInput++;
-        } 
-    }
-
-    let listSelect = document.querySelectorAll('select');
-    for (select of listSelect){
-        nbMaxInput++;
-        if (select.value != "") {
-            nbValidInput++;
+        if (maxTemp<nombreChampsRemplis){
+            maxTemp = nombreChampsRemplis
         }
     }
+    nbMaxInput+=nombreCasesTableContact
+    nbValidInput+=maxTemp
+
+
+    //La on regarde juste si le nom du manager et le nom de poste ont été reneseignés
+    //Vu que toutes les autres cases ont des valeurs par défaut, c'est innutile de les prendre en compte
+    let nombreCasesTableMission = 2
+    maxTemp = 0
+    for (lignes of $('#tableMission tr')){
+        let nombreChampsRemplis = 0
+
+        if (lignes.className != "en-tete"){
+            for (cases of lignes.cells){
+                if((cases.firstChild.className == "poste" || cases.firstChild.className == "manager") && cases.firstChild.value!=""){
+                    nombreChampsRemplis++
+                }
+            }
+        }
+
+        if (maxTemp<nombreChampsRemplis){
+            maxTemp = nombreChampsRemplis
+        }
+    }
+    nbMaxInput+=nombreCasesTableMission
+    nbValidInput+=maxTemp
 
     
-    let proportion = nbValidInput/nbMaxInput;*/
-    let proportion = 0.5
+    let proportion = nbValidInput/nbMaxInput;
     
     $('#progressBar').css("width", 100*proportion + "%");
 
@@ -131,11 +144,9 @@ On fait en sorte que quelque soit ce que l'on clique ou modifie, on actualise la
 Et ensuite si on clique sur un bouton (par exemple nouveau contact), alors on rebind les champs de la nouvelle ligne
 Pour que eux aussi puissent actualiser la progress bar
 */
-$('input').change(() => {updateBar()});
-$('textarea').change(() => {updateBar()});
-$('select').change(() => {updateBar()});
 
-updateBar()
+//On actualise la progress bar toutes les secondes
+let timer = setInterval(updateBar, 1000)
 
 
 
