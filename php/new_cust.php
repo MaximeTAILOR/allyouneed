@@ -11,14 +11,14 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         'error'  => true,
         'message' => 'Erreur d\'execution de la requête' . $sql,
     );
-    $table_encode = json_encode($table);
+    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
     echo $table_encode;
 } elseif (mysqli_num_rows($resultat) == 1) { // Si il y a déjà l'addresse mail dans la database --> le compte existe déjà
     $table = array(
         'error'  => true,
         'message' => 'Cette addresse mail est déjà utilisée',
     );
-    $table_encode = json_encode($table);
+    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
     echo $table_encode;
 } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
 
@@ -31,14 +31,14 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête2',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } elseif (mysqli_num_rows($resultat) == 1) { // Si il y a déjà l'addresse mail dans la database --> le compte existe déjà
         $table = array(
             'error'  => true,
             'message' => 'Cette addresse mail est déjà utilisée',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
 
@@ -51,14 +51,14 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
                 'error'  => true,
                 'message' => 'Erreur d\'execution de la requête3',
             );
-            $table_encode = json_encode($table);
+            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) == 1) { // Si il y a déjà l'addresse mail dans la database --> le compte existe déjà
             $table = array(
                 'error'  => true,
                 'message' => 'Cette addresse mail est déjà utilisée',
             );
-            $table_encode = json_encode($table);
+            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
             $nom = htmlspecialchars($_GET['nom']);
@@ -81,7 +81,7 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
                     'message' => 'Erreur d\'execution de la requête' . $sql,
                 );
 
-                $table_encode = json_encode($table);
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                 echo $table_encode;
             } else {
                 $table = array(
@@ -89,7 +89,7 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
                     'message' => 'Inscription réussie, vous allez être redirigé vers notre site sans quelques instants.',
                 );
 
-                $table_encode = json_encode($table);
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                 echo $table_encode;
             }
         }

@@ -3,7 +3,6 @@
 session_start();
 
 include './conn_db.php';
-include './utf8.php';
 
 if ($_GET['action'] == 'afficher') {
     $sql = "SELECT * from mission where siret_company='" . $_GET['siret'] . "'";
@@ -13,7 +12,7 @@ if ($_GET['action'] == 'afficher') {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode(utf8ize($table));
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } else {
         $table = array();
@@ -30,7 +29,7 @@ if ($_GET['action'] == 'afficher') {
                 'turnover' => $row['turnover_mission'],
             ));
         }
-        echo json_encode(utf8ize($table));
+        echo json_encode($table, JSON_UNESCAPED_UNICODE);
     }
 } elseif ($_GET['action'] == 'ajouter') {
     $siret = htmlspecialchars($_GET['siret']);
@@ -51,7 +50,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête',
         );
 
-        $table_encode = json_encode(utf8ize($table));
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } else {
         $table = array(
@@ -59,7 +58,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'La misison a été ajoutée',
         );
 
-        $table_encode = json_encode(utf8ize($table));
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'modifier') {
@@ -81,7 +80,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode(utf8ize($table));
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } else {
         $table = array(
@@ -89,7 +88,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'La mission a été modifiée',
         );
 
-        $table_encode = json_encode(utf8ize($table));
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'supprimer') {
@@ -101,7 +100,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode(utf8ize($table));
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } else {
         $table = array(
@@ -109,7 +108,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'La mission a été supprimée',
         );
 
-        $table_encode = json_encode(utf8ize($table));
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     }
 }

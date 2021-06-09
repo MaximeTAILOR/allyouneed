@@ -22,7 +22,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
 
@@ -33,7 +33,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                 'error'  => true,
                 'message' => 'Erreur d\'execution de la requête',
             );
-            $table_encode = json_encode($table);
+            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas l'addresse mail dans la table ADMINISTRATEUR
 
@@ -44,7 +44,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                     'error'  => true,
                     'message' => 'Erreur d\'execution de la requête',
                 );
-                $table_encode = json_encode($table);
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                 echo $table_encode;
             } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas l' addresse mail dans la table CUSTOMER
                 $table = array(
@@ -52,7 +52,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                     'message' => 'Aucun compte n\'est lié à cet email',
                 );
                 
-                $table_encode = json_encode($table);
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                 echo $table_encode;
 
 
@@ -70,7 +70,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                             'message' => 'Erreur d\'execution de la requête',
                         );
                         
-                        $table_encode = json_encode($table);
+                        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                         echo $table_encode;
 
                     }elseif(mysqli_num_rows($resultat) == 1){  
@@ -86,7 +86,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                             'error' => false,
                             'message' => '../html/list_cust.html',
                         );
-                        $table_encode = json_encode($table);
+                        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                         echo $table_encode;
                     }
                 }else{
@@ -95,7 +95,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                         'message' => 'Mot de passe incorect',
                     );
                     
-                    $table_encode = json_encode($table);
+                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                     echo $table_encode;
                 }
             }
@@ -113,7 +113,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                         'message' => 'Erreur d\'execution de la requête',
                     );
                     
-                    $table_encode = json_encode($table);
+                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                     echo $table_encode;
 
                 }elseif(mysqli_num_rows($resultat) == 1){ // S'il y a un seul résultat c'est bon car le login (mail) est unique 
@@ -129,7 +129,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                         'error' => false,
                         'message' => '../html/list_cust.html',
                     );
-                    $table_encode = json_encode($table);
+                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                     echo $table_encode;
                 }
             }else{
@@ -138,7 +138,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                     'message' => 'Mot de passe incorect',
                 );
                 
-                $table_encode = json_encode($table);
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                 echo $table_encode;
             }
         }
@@ -156,7 +156,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                     'message' => 'Erreur d\'execution de la requête',
                 );
                 
-                $table_encode = json_encode($table);
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                 echo $table_encode;
 
             }elseif(mysqli_num_rows($resultat) == 1){  
@@ -172,7 +172,7 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                     'error' => false,
                     'message' => '../html/list_comp.html',
                 );
-                $table_encode = json_encode($table);
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
                 echo $table_encode;
             }
         }else{
@@ -181,10 +181,9 @@ if(isset($_POST['mail'], $_POST['mdp'])){
                 'message' => 'Mot de passe incorect',
             );
             
-            $table_encode = json_encode($table);
+            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
             echo $table_encode;
         }
             
     }
 }
-?>

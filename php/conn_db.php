@@ -15,11 +15,11 @@ $db_port = "3306";
 //Connexion :
 
 $conn = mysqli_connect($db_host, $db_user, $db_password, $db_database, $db_port); // Connexion à la base de données
-    if (!$conn){
-        $array = array(
-            'error' => true,
-            'message' => 'erreur de connexion à la base de données',
+if (!$conn) {
+    $array = array(
+        'error' => true,
+        'message' => 'erreur de connexion à la base de données',
 
-        );
-    }
+    );
+}
 ?>

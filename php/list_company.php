@@ -9,12 +9,12 @@ if (!isset($_SESSION['type'])) { //Pour savoir qui est connecté
         'error'  => true,
         'message' => "Vous n'êtes pas connecté.",
     );
-    $table_encode = json_encode($table);
+    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
     echo $table_encode;
     die();
 }
 
-if ($_SESSION['type'] == "admin"){
+if ($_SESSION['type'] == "admin") {
     $table = array();
     $sql = "SELECT * FROM company";
     $resultat = mysqli_query($conn, $sql);
@@ -23,36 +23,36 @@ if ($_SESSION['type'] == "admin"){
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête ' . $sql,
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
-    }else{
+    } else {
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
                 'idcompany' => $row['idcompany'],
                 'siret' => $row['siret_company'],
                 'ape' => $row['ape_company'],
                 'name' => $row['name_company'],
-                'date'=> $row['date_company'],
+                'date' => $row['date_company'],
                 'grade' => $row['grade_company'],
                 'type' => $row['type_company'],
 
 
             ));
         }
-        echo json_encode($table);
+        echo json_encode($table, JSON_UNESCAPED_UNICODE);
     }
-}elseif($_SESSION['type'] == "company"){
+} elseif ($_SESSION['type'] == "company") {
     $table = array();
-    $sql = "SELECT * FROM company INNER JOIN contact on company.idcompany = contact.idcompany where idcontact='" . $_SESSION[ 'id_user'] . "'";
+    $sql = "SELECT * FROM company INNER JOIN contact on company.idcompany = contact.idcompany where idcontact='" . $_SESSION['id_user'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table);
+        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
-    }else{
+    } else {
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
                 'nom' => $row['name_contact'],
@@ -67,14 +67,13 @@ if ($_SESSION['type'] == "admin"){
                 'password' => $row['password_contact'],
             ));
         }
-        echo json_encode($table);
+        echo json_encode($table, JSON_UNESCAPED_UNICODE);
     }
-}else{
+} else {
     $table = array(
         'error'  => false,
         'message' => 'Vous ne pouvez pas voir les companies en tant que client',
     );
-    $table_encode = json_encode($table);
+    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
     echo $table_encode;
 }
-?>

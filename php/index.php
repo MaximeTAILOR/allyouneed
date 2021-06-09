@@ -30,6 +30,5 @@ $sql = "SELECT * FROM customer";
                     'entreprise' => $row['name_company'], 
                 ));
             }
-            echo json_encode($table); 
+            echo json_encode($table, JSON_UNESCAPED_UNICODE); 
         }
-?>

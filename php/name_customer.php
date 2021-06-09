@@ -14,14 +14,13 @@ if ($resultat == FALSE) {
         'error'  => true,
         'message' => 'Erreur d\'execution de la requête',
     );
-    $table_encode = json_encode($table);
+    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
     echo $table_encode;
-}else{
+} else {
     while ($row = mysqli_fetch_assoc($resultat)) {
         array_push($table, array(
             'firstname' => $row['fname_customer'],
         ));
     }
-    echo json_encode($table);
+    echo json_encode($table, JSON_UNESCAPED_UNICODE);
 }
-?>
