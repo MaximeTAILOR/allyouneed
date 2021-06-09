@@ -5,6 +5,8 @@ function remplirFiche (data) {
     for (champ of Object.keys(data)) {
         $('#' + champ).val(data[champ]);
     }
+    $('#note').text(data.note);
+    updateAfficheNote();
 }
 
 function genreCheck(donnees) {
@@ -17,6 +19,20 @@ function genreCheck(donnees) {
         delete donnees['homme'];
         delete donnees['femme'];
         donnees['genre'] = 'femme';
+    }
+}
+
+function updateAfficheNote(){
+    note = $('#note').text();
+
+    for (let numEtoile=1; numEtoile<6; numEtoile++){
+        let checkStatus = 'un-check'
+        if (numEtoile <= note){
+            checkStatus = 'check'
+        }
+        $('#' + numEtoile).removeClass('un-check')
+        $('#' + numEtoile).removeClass('check')
+        $('#' + numEtoile).addClass(checkStatus);
     }
 }
 
@@ -38,6 +54,7 @@ if (idUrl == undefined) {
         donnees['avisAgent'] = $('#avisAgent').val();
         donnees['origine'] = $('#origine').val();
         donnees['idcustomer'] = idUrl;
+        donnees['note'] = $('#note').text();
 
         genreCheck(donnees);
 
@@ -98,6 +115,7 @@ if (idUrl == undefined) {
         donnees['statutCandidat'] = $('#statutCandidat').val();
         donnees['avisAgent'] = $('#avisAgent').val();
         donnees['origine'] = $('#origine').val();
+        donnees['note'] = $('#note').text();
 
         genreCheck(donnees);
 
