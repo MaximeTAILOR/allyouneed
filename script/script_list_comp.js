@@ -46,7 +46,7 @@ function remplirTableau(data){
 }
 
 
-$('#nouvelleEntreprise').on('click', () => {window.location.replace("./fiche_client.html")})
+$('#nouveau').on('click', () => {window.location.replace("./fiche_client.html")})
 
 
 

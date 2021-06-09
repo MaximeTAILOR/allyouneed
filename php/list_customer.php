@@ -28,7 +28,7 @@ if ($_SESSION['type'] == "admin"){
     }else{
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
-                'id' => $row['idcustomer'],
+                'idCustomer' => $row['idcustomer'],
                 'nom' => $row['name_customer'],
                 'prenom' => $row['fname_customer'],
                 'num' => $row['num_customer'],
@@ -37,6 +37,8 @@ if ($_SESSION['type'] == "admin"){
                 'fonction' => $row['job_customer'],
                 'company' => $row['last_company'],
                 'password' => $row['password_customer'],
+                'score' => $row['score_customer'],
+                'date' => $row['creation_date'],
             ));
         }
         echo json_encode($table);
@@ -55,6 +57,7 @@ if ($_SESSION['type'] == "admin"){
     }else{
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
+                'idCustomer' => $row['idcustomer'],
                 'nom' => $row['name_customer'],
                 'prenom' => $row['fname_customer'],
                 'num' => $row['num_customer'],
@@ -63,6 +66,8 @@ if ($_SESSION['type'] == "admin"){
                 'fonction' => $row['job_customer'],
                 'company' => $row['last_company'],
                 'password' => $row['password_customer'],
+                'score' => $row['score_customer'],
+                'date' => $row['creation_date'],
             ));
         }
         $table_encode = json_encode($table);
@@ -76,4 +81,3 @@ if ($_SESSION['type'] == "admin"){
     $table_encode = json_encode($table);
     echo $table_encode;
 }
-?>
