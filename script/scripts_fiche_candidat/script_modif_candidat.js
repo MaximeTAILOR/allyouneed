@@ -69,27 +69,31 @@ Fonctions préparant ou appelant des requêtes AJAX
 function initBouttonAjouter(){
     $('#envoyer').on('click', (event) => { 
         event.preventDefault();
-        
-        let inputs = $("input:not(#envoyer)")
 
-        let donnees = {};
+        if (document.querySelector("#mail").value != ""){
+            let inputs = $("input:not(#envoyer)")
 
-        for (element of inputs) {
-        donnees[element.id] = element.value;
+            let donnees = {};
+
+            for (element of inputs) {
+            donnees[element.id] = element.value;
+            }
+
+            donnees['action'] = 'ajouter';
+            donnees['typeDeContrat'] = $('#typeDeContrat').val();
+            donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
+            donnees['statutCandidat'] = $('#statutCandidat').val();
+            donnees['avisAgent'] = $('#avisAgent').val();
+            donnees['origine'] = $('#origine').val();
+            donnees['idcustomer'] = idUrl;
+            donnees['note'] = $('#note').text();
+
+            genreCheck(donnees);
+
+            requeteCandidat(donnees, 'ajouter')
+        } else {
+            alert("Les candidats doivent avoir une adresse mail")
         }
-
-        donnees['action'] = 'ajouter';
-        donnees['typeDeContrat'] = $('#typeDeContrat').val();
-        donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
-        donnees['statutCandidat'] = $('#statutCandidat').val();
-        donnees['avisAgent'] = $('#avisAgent').val();
-        donnees['origine'] = $('#origine').val();
-        donnees['idcustomer'] = idUrl;
-        donnees['note'] = $('#note').text();
-
-        genreCheck(donnees);
-
-        requeteCandidat(donnees, 'ajouter')
     });
 }
 
@@ -99,25 +103,29 @@ function initBouttonModifier(){
     $('#envoyer').on('click', (event) => { 
         event.preventDefault();
 
-        let inputs = document.querySelectorAll('input');
+        if (document.querySelector("#mail").value != ""){
+            let inputs = document.querySelectorAll('input');
 
-        let donnees = {};
-        for (element of inputs) {
-        donnees[element.id] = element.value;
+            let donnees = {};
+            for (element of inputs) {
+            donnees[element.id] = element.value;
+            }
+            donnees['action'] = 'modifier';
+            donnees['idcustomer'] = idUrl;
+            donnees['typeDeContrat'] = $('#typeDeContrat').val();
+            donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
+            donnees['statutCandidat'] = $('#statutCandidat').val();
+            donnees['avisAgent'] = $('#avisAgent').val();
+            donnees['origine'] = $('#origine').val();
+            donnees['note'] = $('#note').text();
+
+            genreCheck(donnees);
+
+            requeteCandidat(donnees, 'modifier')
+        } else {
+            alert("Les candidats doivent avoir une adresse mail")
         }
-        donnees['action'] = 'modifier';
-        donnees['idcustomer'] = idUrl;
-        donnees['typeDeContrat'] = $('#typeDeContrat').val();
-        donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
-        donnees['statutCandidat'] = $('#statutCandidat').val();
-        donnees['avisAgent'] = $('#avisAgent').val();
-        donnees['origine'] = $('#origine').val();
-        donnees['note'] = $('#note').text();
-
-        genreCheck(donnees);
-
-        requeteCandidat(donnees, 'modifier')
-    }); 
+    });
 }
 
 
@@ -135,42 +143,38 @@ function updateAfficheInfos(){
 Requêtes AJAX
 */
 function requeteCandidat(donnees, action){
-    if (document.querySelector("#mail").value != ""){
-        $.ajax({
-            type: 'GET',
-            url: '../php/action_customer.php',
-            dataType: 'json',
-            data : donnees,
-            success: (data) => {
-                if (data.error){
-                    alert(data.message)
-                } else {
-                    //La requête a abouti !
-                    if (action == 'afficher'){
-                        remplirFiche(data[0]);
-                    }
-
-                    if (action == 'modifier'){
-                        alert(data.message)
-                    }
-
-                    if (action == 'ajouter'){
-                        idUrl = data.idcustomer
-                        alert(data.message)
-                        
-                        $( "#envoyer").unbind( "click" )
-                        initBouttonModifier()
-                        
-                    }
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_customer.php',
+        dataType: 'json',
+        data : donnees,
+        success: (data) => {
+            if (data.error){
+                alert(data.message)
+            } else {
+                //La requête a abouti !
+                if (action == 'afficher'){
+                    remplirFiche(data[0]);
                 }
-            },
-            error: (data) => {
-                alert('Erreur !')
+
+                if (action == 'modifier'){
+                    alert(data.message)
+                }
+
+                if (action == 'ajouter'){
+                    idUrl = data.idcustomer
+                    alert(data.message)
+                        
+                    $( "#envoyer").unbind( "click" )
+                    initBouttonModifier()
+                        
+                }
             }
-        });
-    } else {
-        alert("Les candidats doivent avoir une adresse mail")
-    }
+        },
+        error: (data) => {
+            alert('Erreur !')
+        }
+    });
 }
 
 
