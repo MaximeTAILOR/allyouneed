@@ -135,38 +135,42 @@ function updateAfficheInfos(){
 Requêtes AJAX
 */
 function requeteCandidat(donnees, action){
-    $.ajax({
-        type: 'GET',
-        url: '../php/action_customer.php',
-        dataType: 'json',
-        data : donnees,
-        success: (data) => {
-            if (data.error){
-                alert(data.message)
-            } else {
-                //La requête a abouti !
-                if (action == 'afficher'){
-                    remplirFiche(data[0]);
-                }
-
-                if (action == 'modifier'){
+    if (document.querySelector("#mail").value != ""){
+        $.ajax({
+            type: 'GET',
+            url: '../php/action_customer.php',
+            dataType: 'json',
+            data : donnees,
+            success: (data) => {
+                if (data.error){
                     alert(data.message)
-                }
+                } else {
+                    //La requête a abouti !
+                    if (action == 'afficher'){
+                        remplirFiche(data[0]);
+                    }
 
-                if (action == 'ajouter'){
-                    idUrl = data.idcustomer
-                    alert(data.message)
-                    
-                    $( "#envoyer").unbind( "click" )
-                    initBouttonModifier()
-                    
+                    if (action == 'modifier'){
+                        alert(data.message)
+                    }
+
+                    if (action == 'ajouter'){
+                        idUrl = data.idcustomer
+                        alert(data.message)
+                        
+                        $( "#envoyer").unbind( "click" )
+                        initBouttonModifier()
+                        
+                    }
                 }
+            },
+            error: (data) => {
+                alert('Erreur !')
             }
-        },
-        error: (data) => {
-            alert('Erreur !')
-        }
-    });
+        });
+    } else {
+        alert("Les candidats doivent avoir une adresse mail")
+    }
 }
 
 
