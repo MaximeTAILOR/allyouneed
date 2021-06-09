@@ -6,17 +6,45 @@
 //Fonctions
 function remplirTableau(data){
     for (client of data){
-        let html =  $("<tr>");
-        html.html(html.html() + `<td>${client.prenom}</td>`);
-        html.html(html.html() + `<td>${client.nom}</td>`);
-        html.html(html.html() + `<td>${client.num}</td>`);
-        html.html(html.html() + `<td>${client.email}</td>`);
-        html.html(html.html() + `<td>${client.statut}</td>`);
-        html.html(html.html() + `<td><a href="#", class="trigger-popup">Acceder a la fiche complète</a></td>`);
-        html.html(html.html() + "</tr>");
-        $('table').append(html)
+        //Conversion de la date en forma php a la date en forma affiché a l'utilisateur
+        let elementsDate = client["date"].split('-')
+        for (index in elementsDate){
+            elementsDate[index] = parseInt(elementsDate[index])
+            }
+        let dateInsc = elementsDate[2] + '/' + elementsDate[1] + '/' + elementsDate[0];
+
+        
+        //Creation d'une ligne de tableau
+        let strLigne =  '<tr>'
+        strLigne +=     '<td class="remove"><button class="retirer '+ client["idCustomer"] +' ">-</button></td>'
+        strLigne +=     '<td>'+ client["prenom"] +'</td>'
+        strLigne +=     '<td>'+ client["nom"] +'</td>'
+        strLigne +=     '<td>'+ client["num"] +'</td>'
+        strLigne +=     '<td>'+ client["email"] +'</td>'
+        strLigne +=     '<td>'+ dateInsc +'</td>'
+        strLigne +=     '<td>'
+            for (let numEtoile=1; numEtoile<6; numEtoile++){
+                let checkStatus = 'un-check'
+                if (numEtoile <= client["score"]){
+                    checkStatus = 'check'
+                }
+                strLigne+=  '<i class="fas fa-star check ' + checkStatus + '"></i>'
+            }
+        strLigne +=     '</td>'
+        strLigne +=     '<td><a href=./fiche_candidat.html?id='+ client["idCustomer"] +'>Fiche detaillée</a></td>'
+        strLigne +=     '</tr>'
+
+        //On ajoute la ligne au tableau
+        $(strLigne).appendTo($('table'))
     }
-    initLiens();
+
+    $('.retirer').on('click', (e) => {
+        //Demande confirmation avant de supprimer l'entreprise
+        if(confirm('Êtes vous sûr de vouloir supprimer cet element ?')){
+            id=e.target.classList[1]
+            alert("Suppression de l'element " + id + "...\nOu pas vus que le php ne le permet pas pour le moment...")
+        }
+    })
 }
 
 
@@ -27,7 +55,6 @@ $.ajax({
     url: '../php/list_customer.php',
     dataType: 'json',
     success: (data) => {
-        console.log(data);
         if (typeof data.error === 'undefined'){
             remplirTableau(data);
         } else {
@@ -40,6 +67,8 @@ $.ajax({
   });
 
 
+$('#nouveau').on('click', () => {window.location.replace("./fiche_candidat.html")})
+
 
 
 
@@ -50,6 +79,7 @@ $.ajax({
 */
 
 //fonctions
+/*
 function initLiens(){
     $('.trigger-popup').click(function (event) { 
         event.preventDefault();
@@ -57,7 +87,6 @@ function initLiens(){
         $('.pop-up').html('<span class="close">x</span>')
         //On réassocie l'event
         $('.close').click(() => {
-            console.log('fonction trigger')
             $('.fermeture_pop-up').toggle();
         });
 
@@ -94,4 +123,4 @@ $('.fermeture_pop-up').click(() => {
 
 $('.pop-up').click((e) => {
     e.stopPropagation();
-});
+});*/

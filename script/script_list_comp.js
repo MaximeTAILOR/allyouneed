@@ -15,7 +15,7 @@ function remplirTableau(data){
         
         //Creation d'une ligne de tableau
         let strLigne =  '<tr>'
-        strLigne +=     '<td class="remove"><button class="retirerEnt '+ company["idcompany"] +' ">-</button></td>'
+        strLigne +=     '<td class="remove"><button class="retirer '+ company["idcompany"] +' ">-</button></td>'
         strLigne +=     '<td>'+ company["name"] +'</td>'
         strLigne +=     '<td>'+ company["siret"] +'</td>'
         strLigne +=     '<td>'+ company["type"] +'</td>'
@@ -36,7 +36,7 @@ function remplirTableau(data){
         $(strLigne).appendTo($('table'))
     }
 
-    $('.retirerEnt').on('click', (e) => {
+    $('.retirer').on('click', (e) => {
         //Demande confirmation avant de supprimer l'entreprise
         if(confirm('Êtes vous sûr de vouloir supprimer cet element ?')){
             id=e.target.classList[1]
@@ -46,7 +46,7 @@ function remplirTableau(data){
 }
 
 
-$('#nouvelleEntreprise').on('click', () => {window.location.replace("./fiche_client.html")})
+$('#nouveau').on('click', () => {window.location.replace("./fiche_client.html")})
 
 
 

@@ -223,3 +223,11 @@ Pour afficher ou cacher la liste des formations
 $('#veutUneFormation').on('click', () => {
     $('#listeFormationSouhaite').toggle();
 })
+
+
+$('#listCand').on("click", (e) => {
+    e.preventDefault() 
+    if(confirm('Êtes vous sûr de vouloir quitter la page ?')){
+        window.location.href = "./list_cust.html"   
+    }
+})

@@ -5,18 +5,41 @@ function remplirFiche (data) {
     for (champ of Object.keys(data)) {
         $('#' + champ).val(data[champ]);
     }
+    $('#note').text(data.note);
+    updateAfficheNote();
+    updateImg()
 }
 
 function genreCheck(donnees) {
     if ($('#homme').is(':checked')) {
-        delete donnees['homme'];
-        delete donnees['femme'];
-        donnees['genre'] = 'homme';
+        delete donnees['homme']
+        delete donnees['femme']
+        donnees['genre'] = 'homme'
     }
     if ($('#femme').is(':checked')) {
-        delete donnees['homme'];
-        delete donnees['femme'];
-        donnees['genre'] = 'femme';
+        delete donnees['homme']
+        delete donnees['femme']
+        donnees['genre'] = 'femme'
+    }
+}
+
+function updateAfficheNote(){
+    note = $('#note').text()
+
+    for (let numEtoile=1; numEtoile<6; numEtoile++){
+        let checkStatus = 'un-check'
+        if (numEtoile <= note){
+            checkStatus = 'check'
+        }
+        $('#' + numEtoile).removeClass('un-check')
+        $('#' + numEtoile).removeClass('check')
+        $('#' + numEtoile).addClass(checkStatus)
+    }
+}
+
+function updateImg(){
+    if ($('#femme').is(':checked')) {
+        $('img').attr('src', '../img/women.jpg')
     }
 }
 
@@ -25,7 +48,7 @@ if (idUrl == undefined) {
     $('#envoyer').click((event) => { 
         event.preventDefault();
         
-        let inputs = $("input:not(#envoyer)");
+        let inputs = $("input:not(#envoyer)")
 
         let donnees = {};
         for (element of inputs) {
@@ -38,6 +61,7 @@ if (idUrl == undefined) {
         donnees['avisAgent'] = $('#avisAgent').val();
         donnees['origine'] = $('#origine').val();
         donnees['idcustomer'] = idUrl;
+        donnees['note'] = $('#note').text();
 
         genreCheck(donnees);
 
@@ -47,7 +71,6 @@ if (idUrl == undefined) {
             dataType: 'json',
             data : donnees,
             success: (data) => {
-                console.log(data);
                 if (data.error){
                     alert(data.message);
                 } else {
@@ -56,7 +79,7 @@ if (idUrl == undefined) {
                 
             },
             error: (data) => {
-                console.log(data);
+                alert('Erreur !')
             }
         });
     });
@@ -98,10 +121,9 @@ if (idUrl == undefined) {
         donnees['statutCandidat'] = $('#statutCandidat').val();
         donnees['avisAgent'] = $('#avisAgent').val();
         donnees['origine'] = $('#origine').val();
+        donnees['note'] = $('#note').text();
 
         genreCheck(donnees);
-
-        console.log(donnees);
 
         $.ajax({
             type: 'GET',
@@ -109,17 +131,15 @@ if (idUrl == undefined) {
             dataType: 'json',
             data : donnees,
             success: (data) => {
-                console.log(data);
                 if (data.error){
                     alert(data.message);
                 } else {
-                    console.log('gg2');
                     alert(data.message);
                 }
                 
             },
             error: (data, error) => {
-                console.log(data);
+                alert('Erreur !')
             }
         });
     });    

@@ -49,7 +49,7 @@ table {
   }
   
 
-  #nouvelleEntreprise {
+  #nouveau {
     height: 30px;
     width: 150px;
     border-radius: 4px;
@@ -59,12 +59,12 @@ table {
     color: silver;
   }
   
-  #nouvelleEntreprise {
+  #nouveau:hover {
     background-color: rgb(80, 80, 80);
     border-color: rgb(80, 80, 80);
   }
 
-  .retirerEnt{
+  .retirer{
     background-color: rgb(196, 0, 0);
     border-color: rgb(196, 0, 0);
     color: white;
@@ -72,7 +72,7 @@ table {
     font-size: 15px;
   }
   
-  .retirerEnt:hover{
+  .retirer:hover{
     background-color: rgb(150, 0, 0);
     border-color: rgb(150, 0, 0);
   }
