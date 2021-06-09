@@ -64,7 +64,7 @@ table {
     border-color: rgb(80, 80, 80);
   }
 
-  .retirerEnt{
+  .retirer{
     background-color: rgb(196, 0, 0);
     border-color: rgb(196, 0, 0);
     color: white;
@@ -72,7 +72,7 @@ table {
     font-size: 15px;
   }
   
-  .retirerEnt:hover{
+  .retirer:hover{
     background-color: rgb(150, 0, 0);
     border-color: rgb(150, 0, 0);
   }

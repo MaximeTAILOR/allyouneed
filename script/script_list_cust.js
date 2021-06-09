@@ -16,7 +16,7 @@ function remplirTableau(data){
         
         //Creation d'une ligne de tableau
         let strLigne =  '<tr>'
-        strLigne +=     '<td class="remove"><button class="retirerEnt '+ client["idCustomer"] +' ">-</button></td>'
+        strLigne +=     '<td class="remove"><button class="retirer '+ client["idCustomer"] +' ">-</button></td>'
         strLigne +=     '<td>'+ client["prenom"] +'</td>'
         strLigne +=     '<td>'+ client["nom"] +'</td>'
         strLigne +=     '<td>'+ client["num"] +'</td>'
@@ -37,6 +37,14 @@ function remplirTableau(data){
         //On ajoute la ligne au tableau
         $(strLigne).appendTo($('table'))
     }
+
+    $('.retirer').on('click', (e) => {
+        //Demande confirmation avant de supprimer l'entreprise
+        if(confirm('Êtes vous sûr de vouloir supprimer cet element ?')){
+            id=e.target.classList[1]
+            alert("Suppression de l'element " + id + "...\nOu pas vus que le php ne le permet pas pour le moment...")
+        }
+    })
 }
 
 
