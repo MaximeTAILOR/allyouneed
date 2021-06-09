@@ -133,39 +133,28 @@ if ($_GET['action'] == 'afficher') {
             $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
         } else {
-            $sql = "SELECT max(idcustomer) FROM customer";
+            $sql = "SELECT * FROM customer where email_customer='" . $email . "'";
             $resultat = mysqli_query($conn, $sql);
             if ($resultat == FALSE) {
+                $table = array(
+                    'error'  => true,
+                    'message' => 'Erreur d\'execution de la requête' . $sql,
+                );
+                $table_encode = json_encode(utf8ize($table));
+                echo $table_encode;
+            } else {
+                while ($row = mysqli_fetch_assoc($resultat)) {
+                    $id = $row['idcustomer'];
+                }
+                $table = array(
+                    'error'  => false,
+                    'message' => 'Le candidat a bien été ajouté' . $sql,
+                    'idcustomer' => $id,
+                );
+                $table_encode = json_encode(utf8ize($table));
+                echo $table_encode;
             }
-
-            $table = array(
-                'error'  => false,
-                'message' => 'Le candidat a bien été ajouté' . $sql,
-            );
-            $table_encode = json_encode(utf8ize($table));
-            echo $table_encode;
         }
-    }
-    $sql = "SELECT max(idcustomer) FROM customer";
-    $resultat = mysqli_query($conn, $sql);
-    if ($resultat == FALSE) {
-        $table = array(
-            'error'  => true,
-            'message' => 'Erreur d\'execution de la requête' . $sql,
-        );
-        $table_encode = json_encode(utf8ize($table));
-        echo $table_encode;
-    } else {
-        while ($row = mysqli_fetch_assoc($resultat)) {
-            $id = $row['max(idcustomer)'];
-        }
-        $table = array(
-            'error'  => false,
-            'message' => 'Le candidat a bien été ajouté' . $sql,
-            'idcustomer' => $id,
-        );
-        $table_encode = json_encode(utf8ize($table));
-        echo $table_encode;
     }
 } elseif ($_GET['action'] == 'modifier') {
     $idcustomer = htmlspecialchars($_GET['idcustomer']);
