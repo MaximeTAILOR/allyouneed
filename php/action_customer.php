@@ -71,7 +71,7 @@ if ($_GET['action'] == 'afficher') {
     if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
-            'message' => 'Erreur d\'execution de la requête' . $sql,
+            'message' => 'Erreur d\'execution de la requête ' . $sql,
         );
         $table_encode = json_encode(utf8ize($table));
         echo $table_encode;
@@ -128,7 +128,7 @@ if ($_GET['action'] == 'afficher') {
         if ($resultat == FALSE) {
             $table = array(
                 'error'  => true,
-                'message' => 'Erreur d\'execution de la requête' . $sql
+                'message' => 'Erreur d\'execution de la requête ' . $sql
             );
             $table_encode = json_encode(utf8ize($table));
             echo $table_encode;
@@ -138,7 +138,7 @@ if ($_GET['action'] == 'afficher') {
             if ($resultat == FALSE) {
                 $table = array(
                     'error'  => true,
-                    'message' => 'Erreur d\'execution de la requête' . $sql,
+                    'message' => 'Erreur d\'execution de la requête ' . $sql,
                 );
                 $table_encode = json_encode(utf8ize($table));
                 echo $table_encode;
@@ -148,7 +148,7 @@ if ($_GET['action'] == 'afficher') {
                 }
                 $table = array(
                     'error'  => false,
-                    'message' => 'Le candidat a bien été ajouté' . $sql,
+                    'message' => 'Le candidat a bien été ajouté',
                     'idcustomer' => $id,
                 );
                 $table_encode = json_encode(utf8ize($table));

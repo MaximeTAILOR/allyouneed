@@ -1,10 +1,3 @@
-$('#envoyer').on('click', (e) => {
-    e.preventDefault();
-    clearInterval(intervalle);
-    localStorage.removeItem("sauvegardeLocaleDuForm");
-});
-
-
 function creationSauvegarde(){
     let data = {};
 

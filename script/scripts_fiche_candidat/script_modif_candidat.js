@@ -1,28 +1,11 @@
 const queryString = window.location.search;
-let idUrl = queryString.split('=')[1];
+var idUrl = queryString.split('=')[1];
 
-function remplirFiche (data) {
-    for (champ of Object.keys(data)) {
-        $('#' + champ).val(data[champ]);
-    }
-    $('#note').text(data.note);
-    updateAfficheNote();
-    updateImg()
-}
+/*
+Fonctions appellées régulièrement dans le script
+*/
 
-function genreCheck(donnees) {
-    if ($('#homme').is(':checked')) {
-        delete donnees['homme']
-        delete donnees['femme']
-        donnees['genre'] = 'homme'
-    }
-    if ($('#femme').is(':checked')) {
-        delete donnees['homme']
-        delete donnees['femme']
-        donnees['genre'] = 'femme'
-    }
-}
-
+//Fonction qui sert a mettre a jour l'affichage des notes
 function updateAfficheNote(){
     note = $('#note').text()
 
@@ -37,23 +20,64 @@ function updateAfficheNote(){
     }
 }
 
+
+
+
+/*
+Fonctions servant au chargement de la page
+(notement, remplir les champs, mettre la bonne image...)
+*/
+
+//Fonction servant a remplir la fiche avec les données récupérées
+//On parcours les champs et on on mes les valeurs renvoyées dans les inputs correspondants
+function remplirFiche (data) {
+    for (champ of Object.keys(data)) {
+        $('#' + champ).val(data[champ]);
+    }
+    $('#note').text(data.note);
+    updateAfficheNote();
+    updateImg()
+}
+
+
+//Fonction qui met l'image de la femme si le bon boutton est check (on s'en sert que au chargement des données)
 function updateImg(){
     if ($('#femme').is(':checked')) {
         $('img').attr('src', '../img/women.jpg')
     }
 }
 
-if (idUrl == undefined) {
-    
-    $('#envoyer').click((event) => { 
+
+//Supprime les champs 'homme' et 'femme' créé automatiquement en parcourant les unputs
+//Puis, créé un champ 'genre' qui contiens home ou femme
+function genreCheck(donnees) {
+    delete donnees['homme']
+    delete donnees['femme']
+    if ($('#homme').is(':checked')) {
+        donnees['genre'] = 'homme'
+    }
+    if ($('#femme').is(':checked')) {
+        donnees['genre'] = 'femme'
+    }
+}
+
+
+/*
+Fonctions préparant ou appelant des requêtes AJAX
+*/
+//Initialisation du bouton pour qu'il ai un comportement d'ajout
+function initBouttonAjouter(){
+    $('#envoyer').on('click', (event) => { 
         event.preventDefault();
         
         let inputs = $("input:not(#envoyer)")
 
         let donnees = {};
+
         for (element of inputs) {
         donnees[element.id] = element.value;
         }
+
         donnees['action'] = 'ajouter';
         donnees['typeDeContrat'] = $('#typeDeContrat').val();
         donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
@@ -65,47 +89,14 @@ if (idUrl == undefined) {
 
         genreCheck(donnees);
 
-        $.ajax({
-            type: 'GET',
-            url: '../php/action_customer.php',
-            dataType: 'json',
-            data : donnees,
-            success: (data) => {
-                if (data.error){
-                    alert(data.message);
-                } else {
-                    alert(data.message);
-                }
-                
-            },
-            error: (data) => {
-                alert('Erreur !')
-            }
-        });
+        requeteCandidat(donnees, 'ajouter')
     });
-} else {
+}
 
-    $.ajax({
-        type: 'GET',
-        url: '../php/action_customer.php',
-        dataType: 'json',
-        data: {
-            idcustomer : idUrl,
-            action : 'afficher'
-        },
-        success: (data) => {
-          if (data.error){
-              alert(data.message);
-          } else {
-              remplirFiche(data[0]);
-          }
-            
-        },
-        error: (error) => {
-          alert(error);
-        }
-    });
-    $('#envoyer').click((event) => { 
+
+//Initialisation du bouton pour qu'il ai un comportement de modification
+function initBouttonModifier(){
+    $('#envoyer').on('click', (event) => { 
         event.preventDefault();
 
         let inputs = document.querySelectorAll('input');
@@ -125,23 +116,68 @@ if (idUrl == undefined) {
 
         genreCheck(donnees);
 
-        $.ajax({
-            type: 'GET',
-            url: '../php/action_customer.php',
-            dataType: 'json',
-            data : donnees,
-            success: (data) => {
-                if (data.error){
-                    alert(data.message);
-                } else {
-                    alert(data.message);
+        requeteCandidat(donnees, 'modifier')
+    }); 
+}
+
+
+//Appel l'affichage des données au chargement
+function updateAfficheInfos(){
+    let donnees = {
+        'action' : 'afficher',
+        'idcustomer' : idUrl}
+    requeteCandidat(donnees, 'afficher')
+}
+
+
+
+/*
+Requêtes AJAX
+*/
+function requeteCandidat(donnees, action){
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_customer.php',
+        dataType: 'json',
+        data : donnees,
+        success: (data) => {
+            if (data.error){
+                alert(data.message)
+            } else {
+                //La requête a abouti !
+                if (action == 'afficher'){
+                    remplirFiche(data[0]);
                 }
-                
-            },
-            error: (data, error) => {
-                alert('Erreur !')
+
+                if (action == 'modifier'){
+                    alert(data.message)
+                }
+
+                if (action == 'ajouter'){
+                    idUrl = data.idcustomer
+                    alert(data.message)
+                    
+                    $( "#envoyer").unbind( "click" )
+                    initBouttonModifier()
+                    
+                }
             }
-        });
-    });    
-    
+        },
+        error: (data) => {
+            alert('Erreur !')
+        }
+    });
+}
+
+
+
+/*
+Script principal (tout ce qui n'est pas une fonction)
+Innitialisation de bouttons et code appellé en début de programme
+*/
+if (idUrl == undefined) {
+    initBouttonAjouter()
+} else {
+    updateAfficheInfos()
+    initBouttonModifier()
 }

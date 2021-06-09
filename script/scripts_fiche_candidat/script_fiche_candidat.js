@@ -38,6 +38,16 @@ function changerDePage(pageAOuvrir){
 
 
     initNotation()
+
+    //Le script modif candidat étant chargé en premier, j'ai le droit d'utiliser ces fonctions
+    //Cepandant il est important de ne pas changer l'ordre de ceux ci
+    //
+    //De plus idUrl étant une var, même si elle est définie sur un autre script, elle est accessible
+    if (idUrl == undefined) {
+        initBouttonAjouter()
+    } else {
+        initBouttonModifier()
+    }
 }
 
 
@@ -228,6 +238,7 @@ $('#veutUneFormation').on('click', () => {
 $('#listCand').on("click", (e) => {
     e.preventDefault() 
     if(confirm('Êtes vous sûr de vouloir quitter la page ?')){
+        localStorage.removeItem("sauvegardeLocaleDuForm")
         window.location.href = "./list_cust.html"   
     }
 })
