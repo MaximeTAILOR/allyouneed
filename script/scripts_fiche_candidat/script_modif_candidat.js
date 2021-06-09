@@ -7,23 +7,24 @@ function remplirFiche (data) {
     }
     $('#note').text(data.note);
     updateAfficheNote();
+    updateImg()
 }
 
 function genreCheck(donnees) {
     if ($('#homme').is(':checked')) {
-        delete donnees['homme'];
-        delete donnees['femme'];
-        donnees['genre'] = 'homme';
+        delete donnees['homme']
+        delete donnees['femme']
+        donnees['genre'] = 'homme'
     }
     if ($('#femme').is(':checked')) {
-        delete donnees['homme'];
-        delete donnees['femme'];
-        donnees['genre'] = 'femme';
+        delete donnees['homme']
+        delete donnees['femme']
+        donnees['genre'] = 'femme'
     }
 }
 
 function updateAfficheNote(){
-    note = $('#note').text();
+    note = $('#note').text()
 
     for (let numEtoile=1; numEtoile<6; numEtoile++){
         let checkStatus = 'un-check'
@@ -32,7 +33,13 @@ function updateAfficheNote(){
         }
         $('#' + numEtoile).removeClass('un-check')
         $('#' + numEtoile).removeClass('check')
-        $('#' + numEtoile).addClass(checkStatus);
+        $('#' + numEtoile).addClass(checkStatus)
+    }
+}
+
+function updateImg(){
+    if ($('#femme').is(':checked')) {
+        $('img').attr('src', '../img/women.jpg')
     }
 }
 
@@ -41,7 +48,7 @@ if (idUrl == undefined) {
     $('#envoyer').click((event) => { 
         event.preventDefault();
         
-        let inputs = $("input:not(#envoyer)");
+        let inputs = $("input:not(#envoyer)")
 
         let donnees = {};
         for (element of inputs) {
