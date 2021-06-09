@@ -129,7 +129,6 @@ $('#envoyer').click((event) => {
                 prenom : document.querySelector('#prenom').value,
             },
             success: (data) => {
-                console.log(data);
                 if (data.error){
                     alert(data.message);
                     document.querySelector("#mdp").value='';

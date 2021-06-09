@@ -44,7 +44,6 @@ $('#envoyer').click((event) => {
               timer         : document.querySelector("#timer").value,
             },
             success: (data) => {
-              console.log(data);
               if (data.error){
                   alert(data.message);
               } else {

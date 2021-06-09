@@ -80,7 +80,6 @@ function updateContactsInfo(siretEnvoyer){
             }
         },
         error: (error) => {
-            console.log(error)
             alert('Erreur !');
         }
     });

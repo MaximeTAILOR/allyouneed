@@ -201,7 +201,6 @@ $('#envoyer').click((event) => {
             //siret
             element=document.querySelector("#siren");
             if (element.value != data.etablissement.siren){
-                console.log("differents");
                 erreur = true;
                 element.style.borderColor='red';
                 $("<p> Le siret et siren ne corresponent pas.</p>").insertAfter(element);
@@ -251,7 +250,6 @@ $('#envoyer').click((event) => {
                         mdp             : document.querySelector('#mdp').value,
                     },
                     success: (data) => {
-                        console.log(data);
                         if (data.error){
                             alert(data.message);
                             document.querySelector("#mdp").value='';

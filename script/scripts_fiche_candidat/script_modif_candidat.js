@@ -64,7 +64,6 @@ if (idUrl == undefined) {
             dataType: 'json',
             data : donnees,
             success: (data) => {
-                console.log(data);
                 if (data.error){
                     alert(data.message);
                 } else {
@@ -73,7 +72,7 @@ if (idUrl == undefined) {
                 
             },
             error: (data) => {
-                console.log(data);
+                alert('Erreur !')
             }
         });
     });
@@ -119,25 +118,21 @@ if (idUrl == undefined) {
 
         genreCheck(donnees);
 
-        console.log(donnees);
-
         $.ajax({
             type: 'GET',
             url: '../php/action_customer.php',
             dataType: 'json',
             data : donnees,
             success: (data) => {
-                console.log(data);
                 if (data.error){
                     alert(data.message);
                 } else {
-                    console.log('gg2');
                     alert(data.message);
                 }
                 
             },
             error: (data, error) => {
-                console.log(data);
+                alert('Erreur !')
             }
         });
     });    
