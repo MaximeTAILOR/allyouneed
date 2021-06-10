@@ -368,17 +368,17 @@ Attention, cette fonction appel des fonction basés sur d'autres feuilles !
 Il est important que celle ci soit chargée en dernier
 */
 function initEnvoyer() {
-    if (siret != ""){
         $('#envoyer').on('click', (e) => {
-            e.preventDefault()
-            envoyerEntreprise()
-            envoyerContacts()
-            envoyerMissions()
-            envoyerCA()
+            if (document.querySelector("#siret").value != ""){
+                e.preventDefault()
+                envoyerEntreprise()
+                envoyerContacts()
+                envoyerMissions()
+                envoyerCA()
+            } else {
+                alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
+            }
         });
-    } else {
-        alert("Les contacts doivent appartenir a une entreprise (siret non defini)")
-    }
 }
 
 initEnvoyer()
