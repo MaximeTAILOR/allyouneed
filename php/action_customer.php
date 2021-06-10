@@ -255,4 +255,24 @@ if ($_GET['action'] == 'afficher') {
         $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
+} elseif ($_GET['action'] == 'supprimer') {
+    $sql = "DELETE FROM customer WHERE idcustomer='" . $_GET['idcustomer'] . "'";
+    $resultat = mysqli_query($conn, $sql);
+    if ($resultat == FALSE) {
+        $table = array(
+            'error'  => true,
+            'message' => 'Erreur d\'execution de la requête' . $sql,
+        );
+
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
+        echo $table_encode;
+    } else {
+        $table = array(
+            'error'  => false,
+            'message' => 'Le contact a été supprimé',
+        );
+
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
+        echo $table_encode;
+    }
 }
