@@ -33,11 +33,11 @@ if ($_GET['action'] == 'afficher') {
     }
 } elseif ($_GET['action'] == 'ajouter') {
     $siret = htmlspecialchars($_GET['siret']);
-    $manager = htmlspecialchars($_GET['manager']);
-    $post = htmlspecialchars($_GET['post']);
-    $current = htmlspecialchars($_GET['current']);
-    $meeting = htmlspecialchars($_GET['meeting']);
-    $endorsed = htmlspecialchars($_GET['endorsed']);
+    $manager = htmlspecialchars(addslashes($_GET['manager']));
+    $post = htmlspecialchars(addslashes($_GET['post']));
+    $current = htmlspecialchars(addslashes($_GET['current']));
+    $meeting = htmlspecialchars(addslashes($_GET['meeting']));
+    $endorsed = htmlspecialchars(addslashes($_GET['endorsed']));
     $opendate = htmlspecialchars($_GET['opendate']);
     $enddate = htmlspecialchars($_GET['enddate']);
     $turnover = htmlspecialchars($_GET['turnover']);
@@ -63,11 +63,11 @@ if ($_GET['action'] == 'afficher') {
     }
 } elseif ($_GET['action'] == 'modifier') {
     $idmission = htmlspecialchars($_GET['idmission']);
-    $manager = htmlspecialchars($_GET['manager']);
-    $post = htmlspecialchars($_GET['post']);
-    $current = htmlspecialchars($_GET['current']);
-    $meeting = htmlspecialchars($_GET['meeting']);
-    $endorsed = htmlspecialchars($_GET['endorsed']);
+    $manager = htmlspecialchars(addslashes($_GET['manager']));
+    $post = htmlspecialchars(addslashes($_GET['post']));
+    $current = htmlspecialchars(addslashes($_GET['current']));
+    $meeting = htmlspecialchars(addslashes($_GET['meeting']));
+    $endorsed = htmlspecialchars(addslashes($_GET['endorsed']));
     $opendate = htmlspecialchars($_GET['opendate']);
     $enddate = htmlspecialchars($_GET['enddate']);
     $turnover = htmlspecialchars($_GET['turnover']);

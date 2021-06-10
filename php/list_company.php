@@ -35,8 +35,6 @@ if ($_SESSION['type'] == "admin") {
                 'date' => $row['date_company'],
                 'grade' => $row['grade_company'],
                 'type' => $row['type_company'],
-
-
             ));
         }
         echo json_encode($table, JSON_UNESCAPED_UNICODE);

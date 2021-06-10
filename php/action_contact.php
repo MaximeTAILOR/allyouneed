@@ -32,7 +32,7 @@ if ($_GET['action'] == 'afficher') {
     }
 } elseif ($_GET['action'] == 'ajouter') {
     if (isset($_GET['siret'])) {
-        $sql = "SELECT * from contact where email_contact='" . $_GET['email'] . "'";
+        $sql = "SELECT * from contact where email_contact='" . addslashes($_GET['email']) . "'";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
             $table = array(
@@ -50,13 +50,13 @@ if ($_GET['action'] == 'afficher') {
             echo $table_encode;
         } else {
             $siret = htmlspecialchars($_GET['siret']);
-            $name = htmlspecialchars($_GET['nom']);
-            $fname = htmlspecialchars($_GET['prenom']);
+            $name = htmlspecialchars(addslashes($_GET['nom']));
+            $fname = htmlspecialchars(addslashes($_GET['prenom']));
             $num = htmlspecialchars($_GET['num']);
-            $job = htmlspecialchars($_GET['job']);
-            $email = htmlspecialchars($_GET['email']);
-            $approach = htmlspecialchars($_GET['approach']);
-            $mdp = htmlspecialchars($_GET['approach']);
+            $job = htmlspecialchars(addslashes($_GET['job']));
+            $email = htmlspecialchars(addslashes($_GET['email']));
+            $approach = htmlspecialchars(addslashes($_GET['approach']));
+            $mdp = "Allyouneed";
             $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
             $sql = "INSERT INTO contact (siret_company, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('" . $siret . "', '" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $approach . "')";
@@ -92,13 +92,13 @@ if ($_GET['action'] == 'afficher') {
     if (isset($_GET['siret'])) {
         $idcontact = $_GET['idcontact'];
         $siret = $_GET['siret'];
-        $name = htmlspecialchars($_GET['nom']);
-        $fname = htmlspecialchars($_GET['prenom']);
+        $name = htmlspecialchars(addslashes($_GET['nom']));
+        $fname = htmlspecialchars(addslashes($_GET['prenom']));
         $num = htmlspecialchars($_GET['num']);
-        $job = htmlspecialchars($_GET['job']);
-        $email = htmlspecialchars($_GET['email']);
-        $approach = htmlspecialchars($_GET['approach']);
-        $mdp = 'Test.123';
+        $job = htmlspecialchars(addslashes($_GET['job']));
+        $email = htmlspecialchars(addslashes($_GET['email']));
+        $approach = htmlspecialchars(addslashes($_GET['approach']));
+        $mdp = 'Allyouneed';
         $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
         $sql = "SELECT * FROM contact where idcontact!='" . $idcontact . "' and email_contact = '" . $email . "'";
