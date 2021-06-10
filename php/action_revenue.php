@@ -31,7 +31,7 @@ if ($_GET['action'] == 'afficher') {
     }
 } elseif ($_GET['action'] == 'ajouter') {
     $siret = htmlspecialchars($_GET['siret']);
-    $post = htmlspecialchars($_GET['post']);
+    $post = htmlspecialchars(addslashes($_GET['post']));
     $salary = htmlspecialchars($_GET['salary']);
     $percentage = htmlspecialchars($_GET['percentage']);
     $turnover = htmlspecialchars($_GET['turnover']);
@@ -57,7 +57,7 @@ if ($_GET['action'] == 'afficher') {
     }
 } elseif ($_GET['action'] == 'modifier') {
     $idrevenue = htmlspecialchars($_GET['idrevenue']);
-    $post = htmlspecialchars($_GET['post']);
+    $post = htmlspecialchars(addslashes($_GET['post']));
     $salary = htmlspecialchars($_GET['salary']);
     $percentage = htmlspecialchars($_GET['percentage']);
     $turnover = htmlspecialchars($_GET['turnover']);

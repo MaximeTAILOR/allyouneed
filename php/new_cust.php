@@ -4,7 +4,7 @@ session_start();
 
 include './conn_db.php';
 
-$sql = "SELECT * from contact where email_contact='" . $_GET['mail'] . "'";
+$sql = "SELECT * from contact where email_contact='" . addslashes($_GET['mail']) . "'";
 $resultat = mysqli_query($conn, $sql);
 if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
     $table = array(
@@ -24,7 +24,7 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
 
     //--------------------------------------------------------------------------------------------------------------------------------
 
-    $sql = "SELECT * from administrateur where email_admin='" . $_GET['mail'] . "'";
+    $sql = "SELECT * from administrateur where email_admin='" . addslashes($_GET['mail']) . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         $table = array(
@@ -44,7 +44,7 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
 
         //----------------------------------------------------------------------------------------------------------------------------------
 
-        $sql = "SELECT * from customer where email_customer='" . $_GET['mail'] . "'";
+        $sql = "SELECT * from customer where email_customer='" . addslashes($_GET['mail']) . "'";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
             $table = array(
@@ -61,13 +61,13 @@ if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
             $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
-            $nom = htmlspecialchars($_GET['nom']);
-            $prenom = htmlspecialchars($_GET['prenom']);
+            $nom = htmlspecialchars(addslashes($_GET['nom']));
+            $prenom = htmlspecialchars(addslashes($_GET['prenom']));
             $tel = htmlspecialchars($_GET['telephone']);
-            $mail = htmlspecialchars($_GET['mail']);
-            $statut = htmlspecialchars($_GET['statut']);
-            $fonction = htmlspecialchars($_GET['fonction']);
-            $entreprise = htmlspecialchars($_GET['nomEntreprise']);
+            $mail = htmlspecialchars(addslashes($_GET['mail']));
+            $statut = htmlspecialchars(addslashes($_GET['statut']));
+            $fonction = htmlspecialchars(addslashes($_GET['fonction']));
+            $entreprise = htmlspecialchars(addslashes($_GET['nomEntreprise']));
             $date = date_create($_GET['date']);
             $date = date_format($date, 'Y-m-d');
             $mdp = htmlspecialchars($_GET['mdp']);

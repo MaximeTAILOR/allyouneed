@@ -57,11 +57,11 @@ if ($_GET['action'] == 'afficher') {
         $siret = htmlspecialchars($_GET['siret']);
         $siren = htmlspecialchars($_GET['siren']);
         $ape = htmlspecialchars($_GET['ape']);
-        $entreprise = htmlspecialchars($_GET['nomEntreprise']);
-        $type = htmlspecialchars($_GET['type']);
+        $entreprise = htmlspecialchars(addslashes($_GET['nomEntreprise']));
+        $type = htmlspecialchars(addslashes($_GET['type']));
         $date = date_create($_GET['date']);
         $date = date_format($date, 'Y-m-d');
-        $origin = $_GET['origin'];
+        $origin = htmlspecialchars(addslashes($_GET['origin']));
         $grade = $_GET['grade'];
         $spanco = 0;
 
@@ -89,11 +89,11 @@ if ($_GET['action'] == 'afficher') {
     $siret = htmlspecialchars($_GET['siret']);
     $siren = htmlspecialchars($_GET['siren']);
     $ape = htmlspecialchars($_GET['ape']);
-    $entreprise = htmlspecialchars($_GET['nomEntreprise']);
-    $type = htmlspecialchars($_GET['type']);
+    $entreprise = htmlspecialchars(addslashes($_GET['nomEntreprise']));
+    $type = htmlspecialchars(addslashes($_GET['type']));
     $date = date_create($_GET['date']);
     $date = date_format($date, 'Y-m-d');
-    $origin = $_GET['origin'];
+    $origin = addslashes($_GET['origin']);
     $grade = $_GET['grade'];
     $spanco = $_GET['spanco'];
 

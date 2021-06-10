@@ -65,7 +65,7 @@ if ($_GET['action'] == 'afficher') {
         echo json_encode($table, JSON_UNESCAPED_UNICODE);
     }
 } elseif ($_GET['action'] == 'ajouter') {
-    $sql = "SELECT * FROM customer where email_customer='" . $_GET['mail'] . "'";
+    $sql = "SELECT * FROM customer where email_customer='" . addslashes($_GET['mail']) . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
@@ -82,52 +82,52 @@ if ($_GET['action'] == 'afficher') {
         $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } else {
-        $name = htmlspecialchars($_GET['nom']);
-        $fname = htmlspecialchars($_GET['prenom']);
-        $gender = htmlspecialchars($_GET['genre']);
-        $num = htmlspecialchars($_GET['portable']);
-        $email = htmlspecialchars($_GET['mail']);
-        $job = htmlspecialchars($_GET['posteActuel']);
-        $d_job = htmlspecialchars($_GET['posteSouhaite']);
-        $company = htmlspecialchars($_GET['derniereEntreprise']);
-        $d_company = htmlspecialchars($_GET['entrepriseSouhaitees']);
-        $salary = htmlspecialchars($_GET['salaireActuel']);
-        $d_salary = htmlspecialchars($_GET['salaireSouhaite']);
-        $address = htmlspecialchars($_GET['adressePartielle']);
-        $postal = htmlspecialchars($_GET['codePost']);
-        $city = htmlspecialchars($_GET['ville']);
-        $district = htmlspecialchars($_GET['region']);
-        $type_company = htmlspecialchars($_GET['typeEntreprise']);
-        $zone = htmlspecialchars($_GET['zoneDeTravail']);
-        $environnement = htmlspecialchars($_GET['environnementTechActuel']);
-        $d_environnement = htmlspecialchars($_GET['environnementTechVoulu']);
-        $project = htmlspecialchars($_GET['plusGrosProjet']);
-        $d_project = htmlspecialchars($_GET['projetsSouhaites']);
-        $languages = htmlspecialchars($_GET['langues']);
-        $website = htmlspecialchars($_GET['siteWeb']);
-        $portfolio = htmlspecialchars($_GET['portfolio']);
-        $cv = htmlspecialchars($_GET['CV']);
-        $status = htmlspecialchars($_GET['statutCandidat']);
-        $contract = htmlspecialchars($_GET['typeDeContrat']);
-        $report = htmlspecialchars($_GET['compteRenduAgent']);
-        $thoughts = htmlspecialchars($_GET['avisAgent']);
-        $score = htmlspecialchars($_GET['note']);
+        $name = htmlspecialchars(addslashes($_GET['nom']));
+        $fname = htmlspecialchars(addslashes($_GET['prenom']));
+        $gender = htmlspecialchars(addslashes($_GET['genre']));
+        $num = htmlspecialchars(addslashes($_GET['portable']));
+        $email = htmlspecialchars(addslashes($_GET['mail']));
+        $job = htmlspecialchars(addslashes($_GET['posteActuel']));
+        $d_job = htmlspecialchars(addslashes($_GET['posteSouhaite']));
+        $company = htmlspecialchars(addslashes($_GET['derniereEntreprise']));
+        $d_company = htmlspecialchars(addslashes($_GET['entrepriseSouhaitees']));
+        $salary = htmlspecialchars(addslashes($_GET['salaireActuel']));
+        $d_salary = htmlspecialchars(addslashes($_GET['salaireSouhaite']));
+        $address = htmlspecialchars(addslashes($_GET['adressePartielle']));
+        $postal = htmlspecialchars(addslashes($_GET['codePost']));
+        $city = htmlspecialchars(addslashes($_GET['ville']));
+        $district = htmlspecialchars(addslashes($_GET['region']));
+        $type_company = htmlspecialchars(addslashes($_GET['typeEntreprise']));
+        $zone = htmlspecialchars(addslashes($_GET['zoneDeTravail']));
+        $environnement = htmlspecialchars(addslashes($_GET['environnementTechActuel']));
+        $d_environnement = htmlspecialchars(addslashes($_GET['environnementTechVoulu']));
+        $project = htmlspecialchars(addslashes($_GET['plusGrosProjet']));
+        $d_project = htmlspecialchars(addslashes($_GET['projetsSouhaites']));
+        $languages = htmlspecialchars(addslashes($_GET['langues']));
+        $website = htmlspecialchars(addslashes($_GET['siteWeb']));
+        $portfolio = htmlspecialchars(addslashes($_GET['portfolio']));
+        $cv = htmlspecialchars(addslashes($_GET['CV']));
+        $status = htmlspecialchars(addslashes($_GET['statutCandidat']));
+        $contract = htmlspecialchars(addslashes($_GET['typeDeContrat']));
+        $report = htmlspecialchars(addslashes($_GET['compteRenduAgent']));
+        $thoughts = htmlspecialchars(addslashes($_GET['avisAgent']));
+        $score = htmlspecialchars(addslashes($_GET['note']));
         $date = date_create($_GET['dateDuJour']);
         $date = date_format($date, 'Y-m-d');
-        $formation = htmlspecialchars($_GET['veutUneFormation']);
-        $list_formations = htmlspecialchars($_GET['listeFormationsSouhaitees']);
-        $origin = htmlspecialchars($_GET['origine']);
-        $linkedin = htmlspecialchars($_GET['linkedin']);
-        $instagram = htmlspecialchars($_GET['instagram']);
-        $discord = htmlspecialchars($_GET['discord']);
-        $whatsapp = htmlspecialchars($_GET['whatsapp']);
+        $formation = htmlspecialchars(addslashes($_GET['veutUneFormation']));
+        $list_formations = htmlspecialchars(addslashes($_GET['listeFormationsSouhaitees']));
+        $origin = htmlspecialchars(addslashes($_GET['origine']));
+        $linkedin = htmlspecialchars(addslashes($_GET['linkedin']));
+        $instagram = htmlspecialchars(addslashes($_GET['instagram']));
+        $discord = htmlspecialchars(addslashes($_GET['discord']));
+        $whatsapp = htmlspecialchars(addslashes($_GET['whatsapp']));
 
         $sql = "INSERT INTO customer (name_customer,fname_customer,gender_customer,num_customer,email_customer,job_customer,desired_job,last_company,desired_company,actual_salary,desired_salary,address_customer,postal_customer,city_customer,district_customer,type_company,work_zone,actual_environnement,desired_environnement,project,desired_project,languages,website,portfolio,cv,status_customer,contract_type,report,thoughts,score_customer, creation_date, formation, list_formations,origin_customer, linkedin, instagram, discord, whatsapp) VALUES ('" . $name . "','" . $fname . "','" . $gender . "','" . $num . "','" . $email . "','" . $job . "','" . $d_job . "','" . $company . "','" . $d_company . "','" . $salary . "','" . $d_salary . "','" . $address . "','" . $postal . "','" . $city . "','" . $district . "','" . $type_company . "','" . $zone . "','" . $environnement . "','" . $d_environnement . "','" . $project . "','" . $d_project . "','" . $languages . "','" . $website . "','" . $portfolio . "','" . $cv . "','" . $status . "','" . $contract . "','" . $report . "','" . $thoughts . "','" . $score . "','" . $date . "', '" . $formation . "', '" . $list_formations . "', '" . $origin . "','" . $linkedin . "','" . $instagram . "','" . $discord . "','" . $whatsapp . "')";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) {
             $table = array(
                 'error'  => true,
-                'message' => 'Erreur d\'execution de la requête ' . $sql
+                'message' => 'Erreur d\'execution de la requête ' . $mail
             );
             $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
             echo $table_encode;
@@ -156,46 +156,46 @@ if ($_GET['action'] == 'afficher') {
         }
     }
 } elseif ($_GET['action'] == 'modifier') {
-    $idcustomer = htmlspecialchars($_GET['idcustomer']);
-    $name = htmlspecialchars($_GET['nom']);
-    $fname = htmlspecialchars($_GET['prenom']);
-    $gender = htmlspecialchars($_GET['genre']);
-    $num = htmlspecialchars($_GET['portable']);
-    $email = htmlspecialchars($_GET['mail']);
-    $job = htmlspecialchars($_GET['posteActuel']);
-    $d_job = htmlspecialchars($_GET['posteSouhaite']);
-    $company = htmlspecialchars($_GET['derniereEntreprise']);
-    $d_company = htmlspecialchars($_GET['entrepriseSouhaitees']);
-    $salary = htmlspecialchars($_GET['salaireActuel']);
-    $d_salary = htmlspecialchars($_GET['salaireSouhaite']);
-    $address = htmlspecialchars($_GET['adressePartielle']);
-    $postal = htmlspecialchars($_GET['codePost']);
-    $city = htmlspecialchars($_GET['ville']);
-    $district = htmlspecialchars($_GET['region']);
-    $type_company = htmlspecialchars($_GET['typeEntreprise']);
-    $zone = htmlspecialchars($_GET['zoneDeTravail']);
-    $environnement = htmlspecialchars($_GET['environnementTechActuel']);
-    $d_environnement = htmlspecialchars($_GET['environnementTechVoulu']);
-    $project = htmlspecialchars($_GET['plusGrosProjet']);
-    $d_project = htmlspecialchars($_GET['projetsSouhaites']);
-    $languages = htmlspecialchars($_GET['langues']);
-    $website = htmlspecialchars($_GET['siteWeb']);
-    $portfolio = htmlspecialchars($_GET['portfolio']);
-    $cv = htmlspecialchars($_GET['CV']);
-    $status = htmlspecialchars($_GET['statutCandidat']);
-    $contract = htmlspecialchars($_GET['typeDeContrat']);
-    $report = htmlspecialchars($_GET['compteRenduAgent']);
-    $thoughts = htmlspecialchars($_GET['avisAgent']);
-    $score = htmlspecialchars($_GET['note']);
+    $idcustomer = htmlspecialchars(addslashes($_GET['idcustomer']));
+    $name = htmlspecialchars(addslashes($_GET['nom']));
+    $fname = htmlspecialchars(addslashes($_GET['prenom']));
+    $gender = htmlspecialchars(addslashes($_GET['genre']));
+    $num = htmlspecialchars(addslashes($_GET['portable']));
+    $email = htmlspecialchars(addslashes($_GET['mail']));
+    $job = htmlspecialchars(addslashes($_GET['posteActuel']));
+    $d_job = htmlspecialchars(addslashes($_GET['posteSouhaite']));
+    $company = htmlspecialchars(addslashes($_GET['derniereEntreprise']));
+    $d_company = htmlspecialchars(addslashes($_GET['entrepriseSouhaitees']));
+    $salary = htmlspecialchars(addslashes($_GET['salaireActuel']));
+    $d_salary = htmlspecialchars(addslashes($_GET['salaireSouhaite']));
+    $address = htmlspecialchars(addslashes($_GET['adressePartielle']));
+    $postal = htmlspecialchars(addslashes($_GET['codePost']));
+    $city = htmlspecialchars(addslashes($_GET['ville']));
+    $district = htmlspecialchars(addslashes($_GET['region']));
+    $type_company = htmlspecialchars(addslashes($_GET['typeEntreprise']));
+    $zone = htmlspecialchars(addslashes($_GET['zoneDeTravail']));
+    $environnement = htmlspecialchars(addslashes($_GET['environnementTechActuel']));
+    $d_environnement = htmlspecialchars(addslashes($_GET['environnementTechVoulu']));
+    $project = htmlspecialchars(addslashes($_GET['plusGrosProjet']));
+    $d_project = htmlspecialchars(addslashes($_GET['projetsSouhaites']));
+    $languages = htmlspecialchars(addslashes($_GET['langues']));
+    $website = htmlspecialchars(addslashes($_GET['siteWeb']));
+    $portfolio = htmlspecialchars(addslashes($_GET['portfolio']));
+    $cv = htmlspecialchars(addslashes($_GET['CV']));
+    $status = htmlspecialchars(addslashes($_GET['statutCandidat']));
+    $contract = htmlspecialchars(addslashes($_GET['typeDeContrat']));
+    $report = htmlspecialchars(addslashes($_GET['compteRenduAgent']));
+    $thoughts = htmlspecialchars(addslashes($_GET['avisAgent']));
+    $score = htmlspecialchars(addslashes($_GET['note']));
     $date = date_create($_GET['dateDuJour']);
     $date = date_format($date, 'Y-m-d');
-    $formation = htmlspecialchars($_GET['veutUneFormation']);
-    $list_formations = htmlspecialchars($_GET['listeFormationsSouhaitees']);
-    $origin = htmlspecialchars($_GET['origine']);
-    $linkedin = htmlspecialchars($_GET['linkedin']);
-    $instagram = htmlspecialchars($_GET['instagram']);
-    $discord = htmlspecialchars($_GET['discord']);
-    $whatsapp = htmlspecialchars($_GET['whatsapp']);
+    $formation = htmlspecialchars(addslashes($_GET['veutUneFormation']));
+    $list_formations = htmlspecialchars(addslashes($_GET['listeFormationsSouhaitees']));
+    $origin = htmlspecialchars(addslashes($_GET['origine']));
+    $linkedin = htmlspecialchars(addslashes($_GET['linkedin']));
+    $instagram = htmlspecialchars(addslashes($_GET['instagram']));
+    $discord = htmlspecialchars(addslashes($_GET['discord']));
+    $whatsapp = htmlspecialchars(addslashes($_GET['whatsapp']));
 
     $sql = "UPDATE customer SET 
         name_customer='" . $name . "',
