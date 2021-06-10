@@ -6,7 +6,7 @@ include './conn_db.php';
 
 if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'], $_POST['mail'], $_POST['siret'], $_POST['siren'], $_POST['ape'], $_POST['nomEntreprise'], $_POST['mdp'])) { //on vérifie que tous le éléments sont rensignés
 
-    $sql = "SELECT * from contact where email_contact='" . $_POST['mail'] . "'";
+    $sql = "SELECT * from contact where email_contact='" . addslashes($_POST['mail']) . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
         $table = array(
@@ -26,7 +26,7 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
 
         //--------------------------------------------------------------------------------------------------------------------------------
 
-        $sql = "SELECT * from administrateur where email_admin='" . $_POST['mail'] . "'";
+        $sql = "SELECT * from administrateur where email_admin='" . addslashes($_POST['mail']) . "'";
         $resultat = mysqli_query($conn, $sql);
         if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
             $table = array(
@@ -46,7 +46,7 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
 
             //----------------------------------------------------------------------------------------------------------------------------------
 
-            $sql = "SELECT * from customer where email_customer='" . $_POST['mail'] . "'";
+            $sql = "SELECT * from customer where email_customer='" . addslashes($_POST['mail']) . "'";
             $resultat = mysqli_query($conn, $sql);
             if ($resultat == FALSE) { // S'il y a une erreur dans la requête sql
                 $table = array(
@@ -66,15 +66,15 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
 
                 //-------------------------------------------------------------------------------------------------------------------------------------
 
-                $nom = htmlspecialchars($_POST['nom']);
-                $prenom = htmlspecialchars($_POST['prenom']);
+                $nom = htmlspecialchars(addslashes($_POST['nom']));
+                $prenom = htmlspecialchars(addslashes($_POST['prenom']));
                 $tel = htmlspecialchars($_POST['telephone']);
-                $poste = htmlspecialchars($_POST['poste']);
-                $mail = htmlspecialchars($_POST['mail']);
+                $poste = htmlspecialchars(addslashes($_POST['poste']));
+                $mail = htmlspecialchars(addslashes($_POST['mail']));
                 $siret = htmlspecialchars($_POST['siret']);
                 $siren = htmlspecialchars($_POST['siren']);
-                $ape = htmlspecialchars($_POST['ape']);
-                $entreprise = htmlspecialchars($_POST['nomEntreprise']);
+                $ape = htmlspecialchars(addslashes($_POST['ape']));
+                $entreprise = htmlspecialchars(addslashes($_POST['nomEntreprise']));
                 $date = date_create($_GET['date']);
                 $date = date_format($date, 'Y-m-d');
                 $mdp = htmlspecialchars($_POST['mdp']);
