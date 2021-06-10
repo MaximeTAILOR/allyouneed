@@ -26,6 +26,10 @@ $('#ca').on('click', (e) => {
     changerDePage($('.container4'))
 });
 
+$('#spanco').on('click', (e) => {
+    e.preventDefault();
+    changerDePage($('.container5'))
+});
 
 
 function changerDePage(pageAOuvrir){
@@ -33,6 +37,7 @@ function changerDePage(pageAOuvrir){
     $('.container2').css('display', 'none')
     $('.container3').css('display', 'none')
     $('.container4').css('display', 'none')
+    $('.container5').css('display', 'none')
     
     pageAOuvrir.css('display', 'grid')
 

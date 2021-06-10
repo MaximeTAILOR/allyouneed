@@ -1,7 +1,6 @@
 let spancoColumn;
 let rowColumn;
-const queryString = window.location.search;
-let siretUrl = queryString.split('=')[1];
+
 
 $.ajax({
     type: 'GET',
