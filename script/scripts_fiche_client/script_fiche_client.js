@@ -1,5 +1,7 @@
 //constantes pour tout le programe
 var queryString = window.location.search;
+let spancoColumn;
+let rowColumn;
 
 
 //navbar______________________________________________________________
@@ -166,7 +168,7 @@ let timer = setInterval(updateBar, 1000)
 */
 
 function initNotation(){
-    $("i").on("mouseover", (event) => { 
+    $(".fa-star").on("mouseover", (event) => { 
         let note = parseInt(event.target.id);
         for (let i = note; i>0; i--){
             $('#' + i).removeClass('un-check');
@@ -178,12 +180,12 @@ function initNotation(){
         }
     });
 
-    $("i").on("click", (event) => {
+    $(".fa-star").on("click", (event) => {
         let note = parseInt(event.target.id);
         $('#note').text(note);
     })
 
-    $("i").on("mouseout", () => {
+    $(".fa-star").on("mouseout", () => {
         updateAfficheNote()
     })
 }
@@ -299,6 +301,108 @@ function updateAffichage(data){
 
 
 
+
+/*
+Fonctions consernant le SPANCO
+*/
+//Fonction permettant d'initialiser les flèches
+function initFleches() {
+    $('#arrowRight').click(() => {   
+        let spancoCompany = $('#logo').clone();
+        let arrows = $('#arrow').clone();
+        spancoColumn = $('#logo').parent().attr('id');
+        rowColumn = spancoColumn.charAt(spancoColumn.length-1);
+        $('#logo').remove();
+        $('#arrow').remove();
+        rowColumn = parseInt(rowColumn) + 1;
+        spancoColumn = '#' + spancoColumn.slice(0, -1) + rowColumn;
+        spancoCompany.appendTo(spancoColumn);
+        arrows.appendTo(spancoColumn);
+        $('#arrowLeft').attr('style', 'display : inline');
+        initFleches();
+        rightBorder(spancoColumn);
+    })
+    
+    $('#arrowLeft').click(() => {   
+        let spancoCompany = $('#logo').clone();
+        let arrows = $('#arrow').clone();
+        spancoColumn = $('#logo').parent().attr('id');
+        rowColumn = spancoColumn.charAt(spancoColumn.length-1);
+        $('#logo').remove();
+        $('#arrow').remove();
+        rowColumn = parseInt(rowColumn) - 1;
+        spancoColumn = '#' + spancoColumn.slice(0, -1) + rowColumn;
+        spancoCompany.appendTo(spancoColumn);
+        arrows.appendTo(spancoColumn);
+        $('#arrowRight').attr('style', 'display : inline');
+        initFleches();
+        leftBorder(spancoColumn);
+    })
+}
+
+initFleches()
+
+
+
+//Met le SPANCO dans la bonne case
+function initSpanco(data){
+    spancoColumn = '#colonne' + data[0]['spanco'];
+    let spancoCompInit = $('#logo').clone();
+    let spancoArrowsInit = $('#arrow').clone();
+    $('#logo').remove();
+    $('#arrow').remove();
+    spancoCompInit.appendTo(spancoColumn);
+    spancoArrowsInit.appendTo(spancoColumn);
+    initFleches();
+    rightBorder(spancoColumn);
+    leftBorder(spancoColumn);
+    $('#dateSpanco').append(data[0]['date']);
+
+    rowColumn = data[0]['spanco']
+}
+
+
+function leftBorder (column) {
+    if (column == "#colonne0") {
+        $('#arrowLeft').attr('style', 'display : none');
+    }
+}
+
+function rightBorder (column) {
+    if (column == "#colonne5") {
+        $('#arrowRight').attr('style', 'display : none');
+    }
+}
+
+
+function modifyLogo (column) {
+    if (column == "#colonne1") {
+
+    }
+    else if (column == "#colonne2") {
+        
+    }
+    else if (column == "#colonne3") {
+        
+    }
+    else if (column == "#colonne4") {
+        
+    }
+    else if (column == "#colonne5") {
+        
+    }
+    else if (column == "#colonne6") {
+        
+    }else {
+        alert('Erreur !');
+    }
+}
+
+
+
+
+
+
 function updateEntrepriseInfo(siretUrl){
     $.ajax({
         type: 'GET',
@@ -313,6 +417,7 @@ function updateEntrepriseInfo(siretUrl){
                 alert(data.message);
             } else {
                 updateAffichage(data[0])
+                initSpanco(data)
             }
         },
         error: (error) => {
@@ -351,8 +456,8 @@ function envoyerEntreprise(){
             date :          datePhp,
             origin :        document.querySelector("#origineDuContact").value,
             grade :         $('#note').text(),
+            spanco :        rowColumn,
             action :        actionSurClient,
-            spanco :        "",
         },
         success: (data) => {
             if (data.error){
