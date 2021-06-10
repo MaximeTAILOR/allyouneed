@@ -12,7 +12,7 @@ if ($_GET['action'] == 'afficher') {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array();
@@ -27,7 +27,7 @@ if ($_GET['action'] == 'afficher') {
                 'total' => $row['total_revenue'],
             ));
         }
-        echo json_encode($table, JSON_UNESCAPED_UNICODE);
+        echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
     }
 } elseif ($_GET['action'] == 'ajouter') {
     $siret = htmlspecialchars($_GET['siret']);
@@ -45,14 +45,14 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array(
             'error'  => false,
             'message' => 'Le CA a été ajouté',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'modifier') {
@@ -71,7 +71,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array(
@@ -79,7 +79,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Le CA a été modifié',
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'supprimer') {
@@ -91,7 +91,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array(
@@ -99,7 +99,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Le CA a été supprimé',
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 }

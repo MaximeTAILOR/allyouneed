@@ -13,7 +13,7 @@ if ($_GET['action'] == 'afficher') {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array();
@@ -34,7 +34,7 @@ if ($_GET['action'] == 'afficher') {
                 'spanco' => $row['spanco_company']
             ));
         }
-        echo json_encode($table, JSON_UNESCAPED_UNICODE);
+        echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
     }
 } elseif ($_GET['action'] == 'ajouter') {
     $sql = "SELECT * from company where siret_company='" . $_GET['siret'] . "'";
@@ -44,14 +44,14 @@ if ($_GET['action'] == 'afficher') {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } elseif (mysqli_num_rows($resultat) == 1) {
         $table = array(
             'error'  => true,
             'message' => "L'entreprise existe déjà dans la base de données",
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $siret = htmlspecialchars($_GET['siret']);
@@ -73,7 +73,7 @@ if ($_GET['action'] == 'afficher') {
                 'message' => 'Erreur d\'execution de la requête ' . $sql,
             );
 
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } else {
             $table = array(
@@ -81,7 +81,7 @@ if ($_GET['action'] == 'afficher') {
                 'message' => 'L\'entreprise a été ajoutée',
             );
 
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         }
     }
@@ -105,7 +105,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array(
@@ -113,7 +113,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'L\'entreprise a été modifiée',
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'supprimer') {
@@ -128,7 +128,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
 
@@ -142,7 +142,7 @@ if ($_GET['action'] == 'afficher') {
                 'message' => 'Erreur d\'execution de la requête' . $sql,
             );
 
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } else {
 
@@ -156,7 +156,7 @@ if ($_GET['action'] == 'afficher') {
                     'message' => 'Erreur d\'execution de la requête' . $sql,
                 );
 
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             } else {
 
@@ -170,7 +170,7 @@ if ($_GET['action'] == 'afficher') {
                         'message' => 'Erreur d\'execution de la requête' . $sql,
                     );
 
-                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                     echo $table_encode;
                 } else {
                     $table = array(
@@ -178,7 +178,7 @@ if ($_GET['action'] == 'afficher') {
                         'message' => 'L\'entreprise a été supprimée',
                     );
 
-                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                     echo $table_encode;
                 }
             }

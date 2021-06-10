@@ -12,7 +12,7 @@ if ($_GET['action'] == 'afficher') {
             'error' => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array();
@@ -62,7 +62,7 @@ if ($_GET['action'] == 'afficher') {
                 'whatsapp' => $row['whatsapp']
             ));
         }
-        echo json_encode($table, JSON_UNESCAPED_UNICODE);
+        echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
     }
 } elseif ($_GET['action'] == 'ajouter') {
     $sql = "SELECT * FROM customer where email_customer='" . addslashes($_GET['mail']) . "'";
@@ -72,14 +72,14 @@ if ($_GET['action'] == 'afficher') {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête ' . $sql,
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } elseif (mysqli_num_rows($resultat) == 1) {
         $table = array(
             'error'  => true,
             'message' => "Le candidat existe déjà dans la base de données",
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $name = htmlspecialchars(addslashes($_GET['nom']));
@@ -129,7 +129,7 @@ if ($_GET['action'] == 'afficher') {
                 'error'  => true,
                 'message' => 'Erreur d\'execution de la requête ' . $mail
             );
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } else {
             $sql = "SELECT * FROM customer where email_customer='" . $email . "'";
@@ -139,7 +139,7 @@ if ($_GET['action'] == 'afficher') {
                     'error'  => true,
                     'message' => 'Erreur d\'execution de la requête ' . $sql,
                 );
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             } else {
                 while ($row = mysqli_fetch_assoc($resultat)) {
@@ -150,7 +150,7 @@ if ($_GET['action'] == 'afficher') {
                     'message' => 'Le candidat a bien été ajouté',
                     'idcustomer' => $id,
                 );
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             }
         }
@@ -244,7 +244,7 @@ if ($_GET['action'] == 'afficher') {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array(
@@ -252,7 +252,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Le candidat a été modifié',
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 }

@@ -13,14 +13,14 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } elseif (mysqli_num_rows($resultat) == 1) { // Si il y a déjà l'addresse mail dans la database --> le compte existe déjà
         $table = array(
             'error'  => true,
             'message' => 'Cette addresse mail est déjà utilisée',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
 
@@ -33,14 +33,14 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
                 'error'  => true,
                 'message' => 'Erreur d\'execution de la requête',
             );
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) == 1) { // Si il y a déjà l'addresse mail dans la database --> le compte existe déjà
             $table = array(
                 'error'  => true,
                 'message' => 'Cette addresse mail est déjà utilisée',
             );
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
 
@@ -53,14 +53,14 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
                     'error'  => true,
                     'message' => 'Erreur d\'execution de la requête',
                 );
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             } elseif (mysqli_num_rows($resultat) == 1) { // Si il y a déjà l'addresse mail dans la database --> le compte existe déjà
                 $table = array(
                     'error'  => true,
                     'message' => 'Cette addresse mail est déjà utilisée',
                 );
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             } elseif (mysqli_num_rows($resultat) == 0) { //S'il n'y a pas la meme addresse mail dans la database
 
@@ -90,7 +90,7 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
                         'message' => 'Erreur d\'execution de la requête' . $sql,
                     );
 
-                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                     echo $table_encode;
                 } elseif ($resultat2 == FALSE) {
                     $table = array(
@@ -98,7 +98,7 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
                         'message' => 'Erreur d\'execution de la requête' . $sql,
                     );
 
-                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                     echo $table_encode;
                 } else {
                     $table = array(
@@ -106,7 +106,7 @@ if (isset($_POST['prenom'], $_POST['nom'], $_POST['telephone'], $_POST['poste'],
                         'message' => 'Inscription réussie !',
                     );
 
-                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                     echo $table_encode;
                 }
             }

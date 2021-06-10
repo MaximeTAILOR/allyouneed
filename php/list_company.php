@@ -9,7 +9,7 @@ if (!isset($_SESSION['type'])) { //Pour savoir qui est connecté
         'error'  => true,
         'message' => "Vous n'êtes pas connecté.",
     );
-    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
     echo $table_encode;
     die();
 }
@@ -23,7 +23,7 @@ if ($_SESSION['type'] == "admin") {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête ' . $sql,
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         while ($row = mysqli_fetch_assoc($resultat)) {
@@ -37,7 +37,7 @@ if ($_SESSION['type'] == "admin") {
                 'type' => $row['type_company'],
             ));
         }
-        echo json_encode($table, JSON_UNESCAPED_UNICODE);
+        echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
     }
 } elseif ($_SESSION['type'] == "company") {
     $table = array();
@@ -48,7 +48,7 @@ if ($_SESSION['type'] == "admin") {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         while ($row = mysqli_fetch_assoc($resultat)) {
@@ -65,13 +65,13 @@ if ($_SESSION['type'] == "admin") {
                 'password' => $row['password_contact'],
             ));
         }
-        echo json_encode($table, JSON_UNESCAPED_UNICODE);
+        echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
     }
 } else {
     $table = array(
         'error'  => false,
         'message' => 'Vous ne pouvez pas voir les companies en tant que client',
     );
-    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
     echo $table_encode;
 }

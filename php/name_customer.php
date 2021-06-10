@@ -14,7 +14,7 @@ if ($resultat == FALSE) {
         'error'  => true,
         'message' => 'Erreur d\'execution de la requête',
     );
-    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
     echo $table_encode;
 } else {
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -22,5 +22,5 @@ if ($resultat == FALSE) {
             'firstname' => $row['fname_customer'],
         ));
     }
-    echo json_encode($table, JSON_UNESCAPED_UNICODE);
+    echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
 }

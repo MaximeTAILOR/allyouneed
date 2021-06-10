@@ -12,7 +12,7 @@ if ($_GET['action'] == 'afficher') {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array();
@@ -28,7 +28,7 @@ if ($_GET['action'] == 'afficher') {
                 'approach' => $row['approach_contact'],
             ));
         }
-        echo json_encode($table, JSON_UNESCAPED_UNICODE);
+        echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
     }
 } elseif ($_GET['action'] == 'ajouter') {
     if (isset($_GET['siret'])) {
@@ -39,14 +39,14 @@ if ($_GET['action'] == 'afficher') {
                 'error'  => true,
                 'message' => 'Erreur d\'execution de la requête',
             );
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) == 1) {
             $table = array(
                 'error'  => true,
                 'message' => 'Le contact existe déjà dans la base de données',
             );
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } else {
             $siret = htmlspecialchars($_GET['siret']);
@@ -67,7 +67,7 @@ if ($_GET['action'] == 'afficher') {
                     'message' => 'Erreur d\'execution de la requête' . $sql,
                 );
 
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             } else {
                 $table = array(
@@ -75,7 +75,7 @@ if ($_GET['action'] == 'afficher') {
                     'message' => 'Le contact a été ajouté',
                 );
 
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             }
         }
@@ -85,7 +85,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Le contact n\'appartient à aucune entreprise',
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'modifier') {
@@ -109,7 +109,7 @@ if ($_GET['action'] == 'afficher') {
                 'error'  => true,
                 'message' => 'Erreur d\'execution de la requête ' . $sql,
             );
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } elseif (mysqli_num_rows($resultat) >= 1) {
 
@@ -117,7 +117,7 @@ if ($_GET['action'] == 'afficher') {
                 'error'  => true,
                 'message' => 'L\'addresse mail est déjà utilisée',
             );
-            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
             echo $table_encode;
         } else {
 
@@ -129,7 +129,7 @@ if ($_GET['action'] == 'afficher') {
                     'message' => 'Erreur d\'execution de la requête' . $sql,
                 );
 
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             } else {
                 $table = array(
@@ -137,7 +137,7 @@ if ($_GET['action'] == 'afficher') {
                     'message' => 'Le contact a été modifié',
                 );
 
-                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
                 echo $table_encode;
             }
         }
@@ -147,7 +147,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Le contact n\'appartient à aucune entreprise' . $sql,
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 } elseif ($_GET['action'] == 'supprimer') {
@@ -159,7 +159,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Erreur d\'execution de la requête' . $sql,
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         $table = array(
@@ -167,7 +167,7 @@ if ($_GET['action'] == 'afficher') {
             'message' => 'Le contact a été supprimé',
         );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 }

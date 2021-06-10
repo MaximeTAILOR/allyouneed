@@ -9,7 +9,7 @@ if (!isset($_SESSION['type'])) { //Pour savoir qui est connecté
         'error'  => true,
         'message' => "Vous n'êtes pas connecter.",
     );
-    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE, JSON_UNESCAPED_UNICODE);
+    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
     echo $table_encode;
     die();
 }
@@ -23,7 +23,7 @@ if ($_SESSION['type'] == "admin") {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         while ($row = mysqli_fetch_assoc($resultat)) {
@@ -41,7 +41,7 @@ if ($_SESSION['type'] == "admin") {
                 'date' => $row['creation_date'],
             ));
         }
-        echo json_encode($table, JSON_UNESCAPED_UNICODE);
+        echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
     }
 } elseif ($_SESSION['type'] == "customer") {
     $table = array();
@@ -52,7 +52,7 @@ if ($_SESSION['type'] == "admin") {
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête',
         );
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     } else {
         while ($row = mysqli_fetch_assoc($resultat)) {
@@ -70,7 +70,7 @@ if ($_SESSION['type'] == "admin") {
                 'date' => $row['creation_date'],
             ));
         }
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+        $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
     }
 } else {
@@ -78,6 +78,6 @@ if ($_SESSION['type'] == "admin") {
         'error'  => false,
         'message' => 'Vous ne pouvez pas voir les clients en tant qu\'entreprise',
     );
-    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+    $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
     echo $table_encode;
 }
