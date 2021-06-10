@@ -295,6 +295,32 @@ Disposition des elements sur la page
 
 
 
+
+/*
+Les informations a venir ne concernent que la page 5
+*/
+
+/*paramétrage de la grid de la page 5*/
+.container5{
+  color: white;
+  padding: 20px;
+  display:none;
+  height: 100%;
+  grid-template-columns: 7.5fr 1.5fr;
+  grid-template-rows: 1fr 180px;
+  grid-template-areas: 
+    "monTableau monTableau"
+    ". finForm";
+}
+
+/*
+Disposition des elements sur la page
+*/
+#monTableau{grid-area: monTableau;}
+
+
+
+
 /*elements de fin de formulaire*/
 
 #displayProgressBar{
