@@ -41,12 +41,12 @@ if ($_SESSION['type'] == "admin") {
     }
 } elseif ($_SESSION['type'] == "company") {
     $table = array();
-    $sql = "SELECT * FROM company INNER JOIN contact on company.siret_company = contact.siret_company where siret_company='" . $_SESSION['siret_user'] . "'";
+    $sql = "SELECT * FROM company INNER JOIN contact on company.siret_company = contact.siret_company where company.siret_company='" . $_SESSION['siret_user'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
             'error'  => true,
-            'message' => 'Erreur d\'execution de la requête',
+            'message' => 'Erreur d\'execution de la requête' . $sql,
         );
         $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
         echo $table_encode;
