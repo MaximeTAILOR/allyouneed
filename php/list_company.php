@@ -41,7 +41,7 @@ if ($_SESSION['type'] == "admin") {
     }
 } elseif ($_SESSION['type'] == "company") {
     $table = array();
-    $sql = "SELECT * FROM company INNER JOIN contact on company.idcompany = contact.idcompany where idcontact='" . $_SESSION['id_user'] . "'";
+    $sql = "SELECT * FROM company INNER JOIN contact on company.siret_company = contact.siret_company where siret_company='" . $_SESSION['siret_user'] . "'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
