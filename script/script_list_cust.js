@@ -42,10 +42,37 @@ function remplirTableau(data){
         //Demande confirmation avant de supprimer l'entreprise
         if(confirm('Êtes vous sûr de vouloir supprimer cet element ?')){
             id=e.target.classList[1]
-            alert("Suppression de l'element " + id + "...\nOu pas vus que le php ne le permet pas pour le moment...")
+            supprimerCandidat(id)
+            e.target.parentElement.parentElement.remove()
         }
     })
 }
+
+
+function supprimerCandidat(idCandidat){
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_customer.php',
+        dataType: 'json',
+        data : {
+            idcustomer : idCandidat,
+            action : 'supprimer',
+        },
+        success: (data) => {
+            if (typeof data.error === 'undefined'){
+                remplirTableau(data);
+            } else {
+                alert(data.message);
+            }
+        },
+        error: () => {
+        alert('Erreur !');
+        }
+    });
+}
+
+
+
 
 
 

@@ -15,7 +15,7 @@ function remplirTableau(data){
         
         //Creation d'une ligne de tableau
         let strLigne =  '<tr>'
-        strLigne +=     '<td class="remove"><button class="retirer '+ company["idcompany"] +' ">-</button></td>'
+        strLigne +=     '<td class="remove"><button class="retirer '+ company["siret"] +' ">-</button></td>'
         strLigne +=     '<td>'+ company["name"] +'</td>'
         strLigne +=     '<td>'+ company["siret"] +'</td>'
         strLigne +=     '<td>'+ company["type"] +'</td>'
@@ -39,14 +39,38 @@ function remplirTableau(data){
     $('.retirer').on('click', (e) => {
         //Demande confirmation avant de supprimer l'entreprise
         if(confirm('Êtes vous sûr de vouloir supprimer cet element ?')){
-            id=e.target.classList[1]
-            alert("Suppression de l'element " + id + "...\nOu pas vus que le php ne le permet pas pour le moment...")
+            siret=e.target.classList[1]
+            supprimerEntreprise(siret)
+            e.target.parentElement.parentElement.remove()
         }
     })
 }
 
 
-$('#nouveau').on('click', () => {window.location.replace("./fiche_client.html")})
+
+function supprimerEntreprise(siretComp){
+    $.ajax({
+        type: 'GET',
+        url: '../php/action_company.php',
+        dataType: 'json',
+        data : {
+            siret : siretComp,
+            action : 'supprimer',
+        },
+        success: (data) => {
+            if (typeof data.error === 'undefined'){
+                remplirTableau(data);
+            } else {
+                alert(data.message);
+            }
+        },
+        error: () => {
+        alert('Erreur !');
+        }
+    });
+}
+
+
 
 
 
@@ -68,7 +92,7 @@ $.ajax({
   });
 
 
-
+  $('#nouveau').on('click', () => {window.location.replace("./fiche_client.html")})
 
 
 
