@@ -318,6 +318,22 @@ Disposition des elements sur la page
 */
 #monTableau{grid-area: monTableau;}
 
+#monTableau td{
+  text-align: center;
+}
+
+#logo{
+  font-size: 80px;
+  margin-bottom: 15px;
+}
+
+#arrow{
+  font-size: 25px;
+}
+
+#arrowLeft, #arrowRight{
+  margin: 10px;
+}
 
 
 
