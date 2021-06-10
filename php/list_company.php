@@ -53,16 +53,13 @@ if ($_SESSION['type'] == "admin") {
     } else {
         while ($row = mysqli_fetch_assoc($resultat)) {
             array_push($table, array(
-                'nom' => $row['name_contact'],
-                'prenom' => $row['fname_contact'],
-                'num' => $row['num_contact'],
-                'job' => $row['job_contact'],
-                'email' => $row['email_contact'],
+                'idcompany' => $row['idcompany'],
                 'siret' => $row['siret_company'],
-                'siren' => $row['siren_company'],
                 'ape' => $row['ape_company'],
-                'company' => $row['name_company'],
-                'password' => $row['password_contact'],
+                'name' => $row['name_company'],
+                'date' => $row['date_company'],
+                'grade' => $row['grade_company'],
+                'type' => $row['type_company'],
             ));
         }
         echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
