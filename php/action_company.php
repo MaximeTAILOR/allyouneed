@@ -119,7 +119,10 @@ if ($_GET['action'] == 'afficher') {
 } elseif ($_GET['action'] == 'supprimer') {
     $siret = htmlspecialchars($_GET['siret']);
     $sql = "DELETE FROM company WHERE siret_company='" . $siret . "'";
+    $resultat = mysqli_query($conn, $sql);
+
     if ($resultat == FALSE) {
+
         $table = array(
             'error'  => true,
             'message' => 'Erreur d\'execution de la requête' . $sql,
@@ -128,12 +131,57 @@ if ($_GET['action'] == 'afficher') {
         $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
         echo $table_encode;
     } else {
-        $table = array(
-            'error'  => false,
-            'message' => 'L\'entreprise a été supprimée',
-        );
 
-        $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
-        echo $table_encode;
+        $sql = "DELETE FROM contact WHERE siret_company='" . $siret . "'";
+        $resultat = mysqli_query($conn, $sql);
+
+        if ($resultat == FALSE) {
+
+            $table = array(
+                'error'  => true,
+                'message' => 'Erreur d\'execution de la requête' . $sql,
+            );
+
+            $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+            echo $table_encode;
+        } else {
+
+            $sql = "DELETE FROM mission WHERE siret_company='" . $siret . "'";
+            $resultat = mysqli_query($conn, $sql);
+
+            if ($resultat == FALSE) {
+
+                $table = array(
+                    'error'  => true,
+                    'message' => 'Erreur d\'execution de la requête' . $sql,
+                );
+
+                $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                echo $table_encode;
+            } else {
+
+                $sql = "DELETE FROM revenue WHERE siret_company='" . $siret . "'";
+                $resultat = mysqli_query($conn, $sql);
+
+                if ($resultat == FALSE) {
+
+                    $table = array(
+                        'error'  => true,
+                        'message' => 'Erreur d\'execution de la requête' . $sql,
+                    );
+
+                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                    echo $table_encode;
+                } else {
+                    $table = array(
+                        'error'  => false,
+                        'message' => 'L\'entreprise a été supprimée',
+                    );
+
+                    $table_encode = json_encode($table, JSON_UNESCAPED_UNICODE);
+                    echo $table_encode;
+                }
+            }
+        }
     }
 }
