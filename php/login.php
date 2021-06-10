@@ -161,6 +161,7 @@ if (isset($_POST['mail'], $_POST['mdp'])) {
                 $_SESSION['name_user'] = $row['name_contact'];
                 $_SESSION['fname_user'] = $row['fname_contact'];
                 $_SESSION['mail_user'] = $row['email_contact'];
+                $_SESSION['siret_user'] = $row['siret_company'];
                 $_SESSION['type'] = "company"; // On détermine le type de l'utilisateur
 
                 $table = array(

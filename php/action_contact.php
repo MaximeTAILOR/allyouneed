@@ -59,7 +59,7 @@ if ($_GET['action'] == 'afficher') {
             $mdp = "Allyouneed";
             $pass_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO contact (siret_company, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('" . $siret . "', '" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $mdp . "', '" . $approach . "')";
+            $sql = "INSERT INTO contact (siret_company, name_contact, fname_contact, num_contact, job_contact, email_contact, password_contact, approach_contact) values ('" . $siret . "', '" . $name . "', '" . $fname . "', '" . $num . "', '" . $job . "', '" . $email . "', '" . $pass_hash . "', '" . $approach . "')";
             $resultat = mysqli_query($conn, $sql);
             if ($resultat == FALSE) {
                 $table = array(

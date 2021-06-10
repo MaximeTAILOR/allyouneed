@@ -269,7 +269,7 @@ if ($_GET['action'] == 'afficher') {
     } else {
         $table = array(
             'error'  => false,
-            'message' => 'Le contact a été supprimé',
+            'message' => 'Le candidat a été supprimé',
         );
 
         $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
