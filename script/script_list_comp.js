@@ -45,6 +45,15 @@ function remplirTableau(data){
     })
 }
 
+//Si la personne connectée a un compte entreprise, on l'empêche de pouvoir créer des données dans la base de données
+
+function modifCompany(data){
+    if(data['typeUser'] == "company"){
+        $('#nouveau').attr('style', 'display : none');
+        
+    }
+}
+
 
 $('#nouveau').on('click', () => {window.location.replace("./fiche_client.html")})
 
@@ -57,6 +66,7 @@ $.ajax({
     dataType: 'json',
     success: (data) => {
         if (typeof data.error === 'undefined'){
+            modifCompany(data[0]);
             remplirTableau(data);
         } else {
             alert(data.message);
@@ -66,14 +76,6 @@ $.ajax({
       alert('Erreur !');
     }
   });
-
-
-
-
-
-
-
-
 
 
 

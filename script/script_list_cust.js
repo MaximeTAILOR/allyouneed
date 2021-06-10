@@ -47,6 +47,15 @@ function remplirTableau(data){
     })
 }
 
+//Si la personne connectée a un compte candidat, on l'empêche de pouvoir créer des données dans la base de données
+
+function modifCandidat(data){
+    if(data['typeUser'] == "customer"){
+        $('#nouveau').attr('style', 'display : none');
+        
+    }
+}
+
 
 
 //Script principal
@@ -56,6 +65,7 @@ $.ajax({
     dataType: 'json',
     success: (data) => {
         if (typeof data.error === 'undefined'){
+            modifCandidat(data[0]);
             remplirTableau(data);
         } else {
             alert(data.message);
