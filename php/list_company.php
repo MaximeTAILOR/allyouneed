@@ -60,6 +60,7 @@ if ($_SESSION['type'] == "admin") {
                 'date' => $row['date_company'],
                 'grade' => $row['grade_company'],
                 'type' => $row['type_company'],
+                'typeUser' => 'company',
             ));
         }
         echo json_encode($table, JSON_INVALID_UTF8_IGNORE);

@@ -68,6 +68,7 @@ if ($_SESSION['type'] == "admin") {
                 'password' => $row['password_customer'],
                 'score' => $row['score_customer'],
                 'date' => $row['creation_date'],
+                'typeUser' => 'customer',
             ));
         }
         $table_encode = json_encode($table, JSON_INVALID_UTF8_IGNORE);
