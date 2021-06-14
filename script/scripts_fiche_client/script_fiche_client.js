@@ -303,7 +303,7 @@ function updateAffichage(data){
 
 
 /*
-Fonctions consernant le SPANCO
+Fonctions concernant le SPANCO
 */
 //Fonction permettant d'initialiser les flèches
 function initFleches() {
@@ -321,6 +321,7 @@ function initFleches() {
         $('#arrowLeft').attr('style', 'display : inline');
         initFleches();
         rightBorder(spancoColumn);
+        modifyLogo(spancoColumn);
     })
     
     $('#arrowLeft').click(() => {   
@@ -337,6 +338,7 @@ function initFleches() {
         $('#arrowRight').attr('style', 'display : inline');
         initFleches();
         leftBorder(spancoColumn);
+        modifyLogo(spancoColumn);
     })
 }
 
@@ -346,7 +348,9 @@ initFleches()
 
 //Met le SPANCO dans la bonne case
 function initSpanco(data){
+    console.log(data);
     spancoColumn = '#colonne' + data[0]['spanco'];
+    console.log(spancoColumn);
     let spancoCompInit = $('#logo').clone();
     let spancoArrowsInit = $('#arrow').clone();
     $('#logo').remove();
@@ -354,6 +358,7 @@ function initSpanco(data){
     spancoCompInit.appendTo(spancoColumn);
     spancoArrowsInit.appendTo(spancoColumn);
     initFleches();
+    modifyLogo(spancoColumn);
     rightBorder(spancoColumn);
     leftBorder(spancoColumn);
     $('#dateSpanco').append(data[0]['date']);
@@ -376,23 +381,23 @@ function rightBorder (column) {
 
 
 function modifyLogo (column) {
-    if (column == "#colonne1") {
-
+    if (column == "#colonne0") {
+        $('#logo').attr('class', 'far fa-user')
+    }
+    else if (column == "#colonne1") {
+        $('#logo').attr('class', 'fas fa-suitcase')
     }
     else if (column == "#colonne2") {
-        
+        $('#logo').attr('class', 'fas fa-list-ul')
     }
     else if (column == "#colonne3") {
-        
+        $('#logo').attr('class', 'fas fa-balance-scale')
     }
     else if (column == "#colonne4") {
-        
+        $('#logo').attr('class', 'fas fa-handshake')
     }
     else if (column == "#colonne5") {
-        
-    }
-    else if (column == "#colonne6") {
-        
+        $('#logo').attr('class', 'fas fa-user-check')
     }else {
         alert('Erreur !');
     }
