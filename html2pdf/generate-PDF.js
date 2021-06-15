@@ -37,16 +37,23 @@ function remplirFiche (data) {
     $('img').attr('src', '../img/women.jpg')
   }
 
-  sauvegarderEnPDF()
+
+  let date = new Date();
+  let dateCreation = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
+  
+  $('#dateDeCreation').text(dateCreation);
+
+
+  sauvegarderEnPDF(data['nom'], data['prenom'])
 }
 
 
 
 
-function sauvegarderEnPDF(){
+function sauvegarderEnPDF(nom, prenom){
   html2pdf(element, {
     margin:       10,
-    filename:     'test.pdf',
+    filename:     `compte_rendu_${nom}_${prenom}.pdf`,
     image:        { type: 'jpeg', quality: 0.98 },
     html2canvas:  { scale: 4, useCORS: true, logging: true, dpi: 192, letterRendering: true},
     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }

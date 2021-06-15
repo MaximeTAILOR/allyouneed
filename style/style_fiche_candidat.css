@@ -90,6 +90,10 @@ a:hover {
   margin-left: 10px;
 }
 
+.fa-file-download:hover{
+  color: rgb(190, 56, 3);
+}
+
 
 
 /*
