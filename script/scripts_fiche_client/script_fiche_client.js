@@ -245,10 +245,6 @@ function remplissageAutoSiret (siret){
 }
 
 
-
-
-
-
 /*
 Fonction pour le chargement du formulaire si jamais on trouve le siret
 (dans l'url)
@@ -261,8 +257,7 @@ On en profite pour initialiser la navbar
 if (queryString){
     let siretUrl = queryString.split('=')[1];
     
-    updateEntrepriseInfo(siretUrl)
-
+    updateEntrepriseInfo(siretUrl);
     //initProgressBarUpdate()
 }else {
     //Si on ne modifie pas de formulaires, alorson initialise pour la création
@@ -386,22 +381,69 @@ function modifyLogo (column) {
     }
     else if (column == "#colonne1") {
         $('#logo').attr('class', 'fas fa-suitcase')
+        $('#logo').addClass('trigger-popup')
+        initLiens();
     }
     else if (column == "#colonne2") {
         $('#logo').attr('class', 'fas fa-list-ul')
+        $('#logo').addClass('trigger-popup')
+        initLiens();
     }
     else if (column == "#colonne3") {
         $('#logo').attr('class', 'fas fa-balance-scale')
+        $('#logo').addClass('trigger-popup')
+        initLiens();
     }
     else if (column == "#colonne4") {
         $('#logo').attr('class', 'fas fa-handshake')
+        $('#logo').addClass('trigger-popup')
+        initLiens();
     }
     else if (column == "#colonne5") {
         $('#logo').attr('class', 'fas fa-user-check')
+        $('#logo').addClass('trigger-popup')
+        initLiens();
     }else {
         alert('Erreur !');
     }
 }
+
+
+function updateContactsInfo() {
+let siretUrl = queryString.split('=')[1];
+console.log(siretUrl);
+$.ajax({
+    type: 'GET',
+    url: '../php/action_contact.php',
+    dataType: 'json',
+    data : {
+        siret : siretUrl,
+        action : "afficher",
+    },
+    success: (data) => {
+        if (data.error){
+            alert(data.message);
+        } else{
+            for (contacts of data){
+                let strLigne =  ''
+                strLigne +=     '<h1> Contact : </h1>';
+                strLigne +=     '<p> Nom : <br>' + contacts.name + '</p>';
+                strLigne +=     '<p> Prénom : <br>' + contacts.fname + '</p>';
+                strLigne +=     '<p> Fonction : <br>' + contacts.job + '</p>';
+                strLigne +=     '<p> Adresse mail : <br>' + contacts.email + '</p>';
+                strLigne +=     '<p> Numéro de téléphone : <br>' + contacts.num + '</p>';
+                strLigne +=     '<p> Suivi apprécié : <br>' + contacts.approach + '</p>';
+                let ligne = $(strLigne)
+                ligne.appendTo($('.pop-up'))
+            }
+        }
+    },
+    error: (error) => {
+        alert(error);
+    }
+});
+}
+
 
 
 
@@ -421,8 +463,8 @@ function updateEntrepriseInfo(siretUrl){
             if (data.error){
                 alert(data.message);
             } else {
-                updateAffichage(data[0])
-                initSpanco(data)
+                updateAffichage(data[0]);
+                initSpanco(data);
             }
         },
         error: (error) => {
@@ -496,4 +538,34 @@ function initEnvoyer() {
         });
 }
 
-initEnvoyer()
+function initLiens(){
+    $('.trigger-popup').click((event) => { 
+        event.preventDefault();
+        //On réinitialise la fenêtre pop-up puis on l'affiche
+        $('.pop-up').html('<span class="close">x</span>')
+        //On réassocie l'event
+        $('.close').click(() => {
+            $('.fermeture_pop-up').toggle();
+        });
+
+        $('.fermeture_pop-up').toggle();
+
+        //sélection du conteneur dans lequel on vas placer les infos
+        let conteneur=$('.pop-up');
+        
+        updateContactsInfo();
+    
+    })
+}
+
+//evenements
+$('.fermeture_pop-up').click(() => {
+    $('.fermeture_pop-up').toggle();
+});
+
+$('.pop-up').click((e) => {
+    e.stopPropagation();
+});
+
+initEnvoyer();
+initLiens();

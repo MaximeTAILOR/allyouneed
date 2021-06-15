@@ -320,6 +320,11 @@ Disposition des elements sur la page
 
 #monTableau td{
   text-align: center;
+  width:15%;
+}
+
+#content td{
+  height: 150px;
 }
 
 #logo{
