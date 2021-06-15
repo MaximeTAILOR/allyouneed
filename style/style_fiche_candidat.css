@@ -83,6 +83,12 @@ a:hover {
   text-decoration-color: rgb(190, 56, 3);
 }
 
+.fa-file-download{
+  color: white;
+  cursor: pointer;
+  font-size: 35px;
+  margin-left: 10px;
+}
 
 
 

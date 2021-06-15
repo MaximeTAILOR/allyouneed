@@ -21,6 +21,14 @@ function updateAfficheNote(){
 }
 
 
+//Fonction pour accéder au dl en pdf
+function innitDLLink(){
+    $('.fa-file-download').toggle()
+    $('.fa-file-download').on('click', ()=>{
+        var w = window.open()
+        w.location.href = '../html2pdf/generate-PDF.html?id=' + idUrl
+    })
+}
 
 
 /*
@@ -182,11 +190,11 @@ function requeteCandidat(donnees, action){
 
                 if (action == 'ajouter'){
                     idUrl = data.idcustomer
+                    innitDLLink()
                     alert(data.message)
                         
                     $( "#envoyer").unbind( "click" )
                     initBouttonModifier()
-                        
                 }
             }
         },
@@ -207,4 +215,5 @@ if (idUrl == undefined) {
 } else {
     updateAfficheInfos()
     initBouttonModifier()
+    innitDLLink()
 }
