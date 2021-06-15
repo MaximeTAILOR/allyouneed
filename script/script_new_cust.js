@@ -3,9 +3,7 @@ const tabNumeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 //mais en utilisant une requete curl on pourrait mettre un temps plus court
 //et aller chercher le jeton a se moment la.
 const cle = "631cd780-53e6-335c-b1d3-d682fb533507";
-//49872731200049
-//41228073720375
-//
+
 
 //On modifie le comportement de l'envoie du formulairee
 $('#envoyer').click((event) => {

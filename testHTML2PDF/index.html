@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creation PDF</title>
+  <link href="style.css" rel="stylesheet">
+  <link href="./fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="print">
+  <div id="image">
+    <img src="../img/man.jpg"/>
+  </div>
+  <div id="identite">
+    <span id="nom">Nom</span>
+    <br>
+    <span id="prenom">Prenom</span>
+  </div>
+  <div id="contacts">
+    <span id="portable">tel</span>
+    <br>
+    <span id="mail">mail</span>
+    <br>
+    <span id="adressePartielle">adresse</span>
+    <br>
+    <span id="codePost">complement d'adresse</span> - <span id="ville">Ville</span>
+  </div>
+
+
+  <div id="linkedIn">
+    <i class="fab fa-linkedin"></i> : <span id="linkedin">LinkedIn</span>
+  </div>
+  <div id="whats">
+    <i class="fab fa-whatsapp"></i> : <span id="whatsapp">Whatsapp</span>
+  </div>
+  <div id="disco">
+    <i class="fab fa-discord"></i> : <span id="discord">Discord</span>
+  </div>
+  <div id="insta">
+    <i class="fab fa-instagram"></i> : <span id="instagram">Instagram</span>
+  </div>
+  
+
+  <h1 id="titreSituation">Situation actuelle et souhaitée</h1>
+
+  <table id="situation">
+    <tr>
+      <td>Poste Actuel<br>
+        <span id=posteActuel>Poste</span></td>
+      <td>Poste Souhaité<br>
+        <span id=posteSouhaite>Poste</span></td>
+    </tr>
+
+    <tr>
+      <td>Precedente entreprise<br>
+        <span id="derniereEntreprise">Entreprise</span></td>
+      <td>Entreprise souhaitée<br>
+        <span id="entrepriseSouhaitees">Entreprise</span></td>
+    </tr>
+
+    <tr>
+      <td>Salaire actuel<br>
+        <span id="salaireActuel">XXXXX</span>€</td>
+      <td>Salaire souhaité<br>
+        <span id=salaireSouhaite>XXXXX</span>€</td>
+    </tr>
+    
+    <tr>
+      <td>Environement tech actuel<br>
+        <span id="environementTechActuel">Environnement</span></td>
+      <td>Environement tech souhaite<br>
+        <span id="environementTechSouhaite">Environnement</span></td>
+    </tr>
+    
+    <tr>
+      <td>Le plus gros projet<br>
+        <span id="plusGrosProjet">Projet</span></td>
+      <td>Projets souhaites<br>
+        <span id="projetsSouhaites">Projet</span></td>
+    </tr>
+  </table>
+
+
+  <h1 id="titreResume">Résume de l'entretien</h1>
+  <div id="resumeEntretiens">
+    <span id="compteRenduAgent">
+      Compte rendu d'entretiens.<br><br><br><br><br>
+    </span>
+  </div>
+  
+
+  <h1 id="avisProfil">Avis sur le profil</h1>
+  <div id=avis>
+    Avis de l'agent<br>
+    <span id="avisAgent">
+      Avis de l'agent<br><br>
+    </span>
+    </div>
+  <div id="date">
+    Inscrit depuis le<br>
+    <span id="dateDuJour">JJ/MM/AAAA</span>
+  </div>
+  <div id="notation">
+    Avis sur le profil<br>
+    <i id="1" class="fas fa-star check"></i>
+    <i id="2" class="fas fa-star check"></i>
+    <i id="3" class="fas fa-star un-check"></i>
+    <i id="4" class="fas fa-star un-check"></i>
+    <i id="5" class="fas fa-star un-check"></i>
+  </div>
+
+  <footer>
+    Générer le <span id="dateDeCreation">JJ/MM/AAAA</span>
+  </footer>
+</div>
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
+<script src="exemple.js"></script>
+</html>

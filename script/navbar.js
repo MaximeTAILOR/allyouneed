@@ -4,7 +4,7 @@ $("body").prepend($('<header>'));
 //Creation de la navbar
 let navbar = $("<ul>")
 
-navbar.html(navbar.html() + "<li><a href='list_cust.html'>Contacts</a></li>");
+navbar.html(navbar.html() + "<li><a href='list_cust.html'>Candidats</a></li>");
 navbar.html(navbar.html() + "<li><a href='list_comp.html'>Entreprises</a></li>");
 navbar.html(navbar.html() + "<li><a href='#' class='log-out'>Log out</a></li>");
 

@@ -188,7 +188,7 @@ updateBar()
 */
 
 function initNotation(){
-    $("i").on("mouseover", (event) => { 
+    $(".fa-star").on("mouseover", (event) => { 
         let note = parseInt(event.target.id);
         for (let i = note; i>0; i--){
             $('#' + i).removeClass('un-check');
@@ -200,12 +200,12 @@ function initNotation(){
         }
     });
 
-    $("i").on("click", (event) => {
+    $(".fa-star").on("click", (event) => {
         let note = parseInt(event.target.id);
         $('#note').text(note);
     })
 
-    $("i").on("mouseout", () => {
+    $(".fa-star").on("mouseout", () => {
         updateAfficheNote()
     })
 }
@@ -225,8 +225,6 @@ function updateAfficheNote(){
     }
 }
 
-initNotation()
-
 /*
 Pour afficher ou cacher la liste des formations
 */
@@ -242,3 +240,5 @@ $('#listCand').on("click", (e) => {
         window.location.href = "./list_cust.html"   
     }
 })
+
+initNotation()

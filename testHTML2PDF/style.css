@@ -1,0 +1,142 @@
+body{
+  width: 210mm;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#print{
+  padding: 10px;
+}
+
+
+h1 {
+  border-top: solid black;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+#contacts{
+  text-align: right;
+}
+
+img{
+  width: 95%;
+  height: auto;
+}
+
+table{
+  margin: 0px;
+  width: 100%;
+  border-collapse: collapse
+}
+
+td{
+  width: 50%;
+  border: 0px;
+}
+
+td:nth-child(2n){
+  border-left: solid black;
+}
+
+tr{
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  background-color: rgb(206, 206, 206);
+}
+
+tr:nth-child(2n){
+  background-color: silver;
+}
+
+footer{
+  font-size: 15px;
+  border-top: solid black;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+#resumeEntretiens span, #avis span{
+  display: block;
+  background-color: silver;
+}
+
+.defautlValue{
+  background-color: rgb(138, 138, 138);
+}
+
+
+/*Couleur des étoiles*/
+.check{
+  color: orange;
+}
+
+.un-check{
+  color: black;
+}
+
+
+/*réseaux sociaux*/
+.fa-discord {
+  color: rgb(114, 137, 218);
+}
+
+.fa-linkedin{
+  color: #0072b1;
+}
+
+.fa-instagram{
+  color: rgb(193,53,132);
+}
+
+.fa-whatsapp{
+  color: #25D366;
+}
+
+
+
+
+
+
+
+
+
+/*grid*/
+#print{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /*grid-template-rows: ;*/
+  grid-template-areas:
+    "image identite contacts contacts"
+    "linkedIn whats disco insta"
+    "titreSituation titreSituation titreSituation titreSituation"
+    "postActuel postActuel postSouhaite postSouhaite"
+    "situation situation situation situation"
+    "titreResume titreResume titreResume titreResume"
+    "resumeEntretiens resumeEntretiens resumeEntretiens resumeEntretiens"
+    "avisProfil avisProfil avisProfil avisProfil"
+    "avis avis date notation"
+    "footer footer footer footer"
+    ;
+}
+
+#image{grid-area: image;}
+#identite{grid-area: identite;}
+#contacts{grid-area: contacts;}
+#linkedIn{grid-area: linkedIn;}
+#whats{grid-area: whats;}
+#disco{grid-area: disco;}
+#insta{grid-area: insta;}
+#situation{grid-area: situation;}
+#resumeEntretiens{grid-area: resumeEntretiens;}
+#avis{grid-area: avis;}
+#date{grid-area: date;}
+#notation{grid-area: notation;}
+footer{grid-area: footer;}
+#titreSituation{grid-area: titreSituation;}
+#titreResume{grid-area: titreResume;}
+#avisProfil{grid-area: avisProfil;}

@@ -34,6 +34,16 @@ function remplirFiche (data) {
     for (champ of Object.keys(data)) {
         $('#' + champ).val(data[champ]);
     }
+
+    
+    let elementsDate = data["dateDuJour"].split('-')
+    for (index in elementsDate){
+        elementsDate[index] = parseInt(elementsDate[index])
+    }
+    let dateFormulaire = elementsDate[0] + '/' + elementsDate[1] + '/' + elementsDate[2];
+    $('#dateDuJour').val(dateFormulaire);
+
+
     $('#note').text(data.note);
     updateAfficheNote();
     updateImg()
@@ -71,7 +81,7 @@ function initBouttonAjouter(){
         event.preventDefault();
 
         if (document.querySelector("#mail").value != ""){
-            let inputs = $("input:not(#envoyer)")
+            let inputs = $("input:not(#envoyer):not(#dateDuJour)")
 
             let donnees = {};
 
@@ -79,6 +89,10 @@ function initBouttonAjouter(){
             donnees[element.id] = element.value;
             }
 
+            elementDate = document.querySelector("#dateDuJour").value.split('/')
+            datePhp=elementDate[0] + '-' + elementDate[1] + '-' + elementDate[2]
+
+            donnees['dateDuJour'] = datePhp
             donnees['action'] = 'ajouter';
             donnees['typeDeContrat'] = $('#typeDeContrat').val();
             donnees['compteRenduAgent'] = $('#compteRenduAgent').val();
@@ -110,6 +124,11 @@ function initBouttonModifier(){
             for (element of inputs) {
             donnees[element.id] = element.value;
             }
+
+            elementDate = document.querySelector("#dateDuJour").value.split('/')
+            datePhp=elementDate[0] + '-' + elementDate[1] + '-' + elementDate[2]
+
+            donnees['dateDuJour'] = datePhp
             donnees['action'] = 'modifier';
             donnees['idcustomer'] = idUrl;
             donnees['typeDeContrat'] = $('#typeDeContrat').val();
