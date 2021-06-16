@@ -21,7 +21,7 @@ if ($_GET['action'] == 'afficher') {
             $opendate = date_format($opendate, 'd-m-Y');
             $enddate = date_create($row['enddate_mission']);
             $enddate = date_format($enddate, 'd-m-Y');
-            $lastmodif = date_create($row['last_edif_mission']);
+            $lastmodif = date_create($row['last_modif_mission']);
             $lastmodif = date_format($lastmodif, 'd-m-Y');
             array_push($table, array(
                 'idmission' => $row['idmission'],
@@ -85,7 +85,7 @@ if ($_GET['action'] == 'afficher') {
     $lastmodif = date_create($_GET['lastmodif']);
     $lastmodif = date_format($lastmodif, 'd-m-Y');
 
-    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "', last_edit_mission='" . $lastedit . "' WHERE idmission=" . $idmission;
+    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "', last_edit_mission='" . $lastmodif . "' WHERE idmission=" . $idmission;
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
