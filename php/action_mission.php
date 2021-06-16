@@ -18,11 +18,8 @@ if ($_GET['action'] == 'afficher') {
         $table = array();
         while ($row = mysqli_fetch_assoc($resultat)) {
             $opendate = date_create($row['opendate_mission']);
-            $opendate = date_format($opendate, 'd-m-Y');
             $enddate = date_create($row['enddate_mission']);
-            $enddate = date_format($enddate, 'd-m-Y');
             $lastmodif = date_create($row['last_edit_mission']);
-            $lastmodif = date_format($lastmodif, 'd-m-Y');
             array_push($table, array(
                 'idmission' => $row['idmission'],
                 'manager' => $row['manager_mission'],
@@ -47,9 +44,7 @@ if ($_GET['action'] == 'afficher') {
     $endorsed = htmlspecialchars(addslashes($_GET['endorsed']));
     $turnover = htmlspecialchars($_GET['turnover']);
     $opendate = date_create($_GET['opendate']);
-    $opendate = date_format($opendate, 'd-m-Y');
     $enddate = date_create($_GET['enddate']);
-    $enddate = date_format($enddate, 'd-m-Y');
 
     $sql = "INSERT INTO mission (siret_company, manager_mission, post_mission, current_mission, meeting_mission, endorsed_mission, opendate_mission, enddate_mission, turnover_mission, last_edit_mission) values ('" . $siret . "', '" . $manager . "', '" . $post . "', '" . $current . "', '" . $meeting . "', '" . $endorsed . "', '" . $opendate . "', '" . $enddate . "', '" . $turnover . "', '" . $opendate . "')";
     $resultat = mysqli_query($conn, $sql);
@@ -78,12 +73,9 @@ if ($_GET['action'] == 'afficher') {
     $meeting = htmlspecialchars(addslashes($_GET['meeting']));
     $endorsed = htmlspecialchars(addslashes($_GET['endorsed']));
     $opendate = date_create($_GET['opendate']);
-    $opendate = date_format($opendate, 'd-m-Y');
     $enddate = date_create($_GET['enddate']);
-    $enddate = date_format($enddate, 'd-m-Y');
     $turnover = htmlspecialchars($_GET['turnover']);
     $lastmodif = date_create($_GET['lastmodif']);
-    $lastmodif = date_format($lastmodif, 'd-m-Y');
 
     $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "', last_edit_mission='" . $lastmodif . "' WHERE idmission=" . $idmission;
     $resultat = mysqli_query($conn, $sql);
