@@ -16,8 +16,8 @@ function nouvelleLigneMission(){
     strLigne +=     '<td><input type="text" class="presentes" name="presentes" placeholder="0" value="0"></td>'
     strLigne +=     '<td><input type="text" class="entretiens" name="entretiens" placeholder="0" value="0"></td>'
     strLigne +=     '<td><input type="text" class="signer" name="signer" placeholder="0" value="0"></td>'
-    strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value="0/0/0" disabled></td>'
-    strLigne +=     '<td>0</td>'
+    strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value="0/0/0"></td>'
+    strLigne +=     '<td><input type="text" class="CA" name="CA" placeholder="0" value="0"></td>'
     strLigne +=     '<td>0J</td>'
     strLigne +=     '</tr>'
     let ligne = $(strLigne)
@@ -47,6 +47,7 @@ function calculEtatMission(){
 
             let dateJMA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
             let dateDuJour = new Date()
+            
 
             let nbJours = parseInt((dateDuJour - dateJMA)/(1000 * 3600 * 24))
             
@@ -130,11 +131,12 @@ function updateMissionInfo(siretUrl){
                     strLigne +=     '<td><input type="text" class="entretiens" name="entretiens" placeholder="0" value=' + mission["meeting"] + '></td>'
                     strLigne +=     '<td><input type="text" class="signer" name="signer" placeholder="0" value=' + mission["endorsed"] + '></td>'
                     strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value=' + dateSignature + '></td>'
-                    strLigne +=     '<td>' + mission["turnover"] + '</td>'
-                    strLigne +=     '<td>0J</td>'
+                    strLigne +=     '<td><input type="text" class="CA" name="CA" placeholder="0" value=' + mission["turnover"] + '></td>'
+                    strLigne +=     "<td>0J</td>"
                     strLigne +=     '</tr>'
                     let ligne = $(strLigne)
                     ligne.appendTo($('#tableMission'))
+
                 }
                 //Initialisation du comportement du bouton et appel de quelques fonctions
                 $(".retirerMission").on('click', (e) => {
@@ -171,7 +173,7 @@ function envoyerMissions(){
 
                 elementDate = cases[7].children[0].value.split('/')
                 let dateSignature=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
-
+                console.log(cases[8].children[0].value);
                 if(idMiss == undefined){
                     //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
                     data = {
@@ -183,7 +185,7 @@ function envoyerMissions(){
                         endorsed   : cases[6].children[0].value,
                         opendate   : dateOuverture,
                         enddate    : dateSignature,
-                        turnover   : cases[8].textContent,
+                        turnover   : cases[8].children[0].value,
                         action      : "ajouter",
                     }
                 } else {
@@ -198,7 +200,7 @@ function envoyerMissions(){
                         endorsed   : cases[6].children[0].value,
                         opendate   : dateOuverture,
                         enddate    : dateSignature,
-                        turnover   : cases[8].textContent,
+                        turnover   : cases[8].children[0].value,
                         action : "modifier",
                     }
                 }
@@ -242,6 +244,7 @@ function requeteMission(dataMission){
             if (data.error){
                 alert(data.message)
             }
+            console.log(data);
         },
         error: (error) => {
             alert('Erreur !');

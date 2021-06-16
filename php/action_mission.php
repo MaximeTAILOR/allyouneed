@@ -21,8 +21,8 @@ if ($_GET['action'] == 'afficher') {
             $opendate = date_format($opendate, 'Y-m-d');
             $enddate = date_create($row['enddate_mission']);
             $enddate = date_format($enddate, 'Y-m-d');
-            $lastmodif = date_create($row['last_edit_mission']);
-            $lastmodif = date_format($lastmodif, 'Y-m-d');
+            // $lastmodif = date_create($row['last_edit_mission']);
+            // $lastmodif = date_format($lastmodif, 'Y-m-d');
             array_push($table, array(
                 'idmission' => $row['idmission'],
                 'manager' => $row['manager_mission'],
@@ -33,7 +33,7 @@ if ($_GET['action'] == 'afficher') {
                 'opendate' => $opendate,
                 'enddate' => $enddate,
                 'turnover' => $row['turnover_mission'],
-                'lastmodif' => $lastmodif
+                // 'lastmodif' => $lastmodif
             ));
         }
         echo json_encode($table, JSON_INVALID_UTF8_IGNORE);
@@ -82,10 +82,10 @@ if ($_GET['action'] == 'afficher') {
     $enddate = date_create($_GET['enddate']);
     $enddate = date_format($enddate, 'Y-m-d');
     $turnover = htmlspecialchars($_GET['turnover']);
-    $lastmodif = date_create($_GET['lastmodif']);
-    $lastmodif = date_format($lastmodif, 'Y-m-d');
+    // $lastmodif = date_create($_GET['lastmodif']);
+    // $lastmodif = date_format($lastmodif, 'Y-m-d');
 
-    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . "', last_edit_mission='" . $lastmodif . "' WHERE idmission=" . $idmission;
+    $sql = "UPDATE mission SET manager_mission='" . $manager . "', post_mission='" . $post . "', current_mission='" . $current . "', meeting_mission='" . $meeting . "', endorsed_mission='" . $endorsed . "', opendate_mission='" . $opendate . "', enddate_mission='" . $enddate . "', turnover_mission='" . $turnover . /*"', last_edit_mission='" . $lastmodif . */"' WHERE idmission=" . $idmission;
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         $table = array(
