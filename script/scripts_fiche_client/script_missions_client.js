@@ -45,12 +45,21 @@ function calculEtatMission(){
             let cases = ligne.cells
             let elementsDate = cases[1].children[0].value.split('/')
 
-            let dateMJA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
+            let dateJMA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
             let dateDuJour = new Date()
 
-            let nbJours = parseInt((dateDuJour - dateMJA)/(1000 * 3600 * 24))
+            let nbJours = parseInt((dateDuJour - dateJMA)/(1000 * 3600 * 24))
             
-            cases[9].textContent = nbJours + "J"
+            cases[9].textContent =  nbJours + "J  ";
+            if (nbJours < 7) {
+                $('<i id="green" class="fas fa-circle"></i>').appendTo(cases[9]);
+            } else if (nbJours < 14){
+                $('<i id="yellow" class="fas fa-circle"></i>').appendTo(cases[9]);
+            } else if (nbJours < 21){
+                $('<i id="red" class="fas fa-circle"></i>').appendTo(cases[9]);
+                $('<i class="fas fa-exclamation-triangle"></i>').appendTo(cases[9]);
+            }
+            
         }
     }
 }

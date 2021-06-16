@@ -260,6 +260,21 @@ Disposition des elements sur la page
 
 #ajouterMission{grid-area: ajouterMission;}
 
+#warning {
+  color:white;
+}
+
+#green {
+  color:green;
+}
+
+#yellow {
+  color:yellow;
+}
+
+#red {
+  color:red;
+}
 
 
 
