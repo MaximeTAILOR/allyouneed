@@ -21,7 +21,7 @@ if ($_GET['action'] == 'afficher') {
             $opendate = date_format($opendate, 'd-m-Y');
             $enddate = date_create($row['enddate_mission']);
             $enddate = date_format($enddate, 'd-m-Y');
-            $lastmodif = date_create($row['last_modif_mission']);
+            $lastmodif = date_create($row['last_edit_mission']);
             $lastmodif = date_format($lastmodif, 'd-m-Y');
             array_push($table, array(
                 'idmission' => $row['idmission'],
