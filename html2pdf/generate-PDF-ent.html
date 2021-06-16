@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creation PDF</title>
+  <link href="stylePDFent.css" rel="stylesheet">
+  <link href="./fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="print">
+  <div id="informations">
+    <span id="name">Nom de l'entreprise</span><br>
+    <span id="type">Type d'entreprise</span><br>
+    <span id="etat">Spanco</span>
+  </div>
+  <div id="infoLegales">
+    <span id="siret">Siret</span><br>
+    <span id="siren">Siren</span><br>
+    <span id="ape">Ape</span>
+  </div>
+
+
+  <h1 id="titreContacts">Contacts dans l'entreprise</h1>
+
+  <table id="tableContacts">
+    <tr class="en-tete">
+      <td>Nom</td>
+      <td>Prenom</td>
+      <td>Fonction</td>
+      <td>Mail</td>
+      <td>Telephone</td>
+      <td>Suivit aprécier</td>
+    </tr>
+  </table>
+
+
+
+  <h1 id="titreMission">Missions enregistrées</h1>
+
+  <table id="tableMission">
+    <tr class="en-tete">
+      <td>Date D'ouverture</td>
+      <td>Poste</td>
+      <td>Manager</td>
+      <td>Status</td>
+    </tr>
+  </table>
+
+
+
+  <h1 id="titreChiffreAffaire">Chiffre d'affaire</h1>
+
+  <table id="tableCA">
+    <tr class="en-tete">
+      <td>Poste</td>
+      <td>Salaire</td>
+      <td>Pourcentage</td>
+      <td>CA prévisionnel</td>
+    </tr>
+  </table>
+  <p id="textTotalCA">Total CA : <span id="totalCA">XX</span>€</p>
+
+
+
+  <div id="dateInscription">
+    Inscrit depuis le<br>
+    <span id="dateDuJour">JJ/MM/AAAA</span>
+  </div>
+  <div id="notation">
+    Avis sur le profil<br>
+    <i id="1" class="fas fa-star check"></i>
+    <i id="2" class="fas fa-star check"></i>
+    <i id="3" class="fas fa-star un-check"></i>
+    <i id="4" class="fas fa-star un-check"></i>
+    <i id="5" class="fas fa-star un-check"></i>
+  </div>
+
+  <footer>
+    Générer le <span id="dateDeCreation">JJ/MM/AAAA</span>
+  </footer>
+</div>
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
+<script src="generate-PDF-ent.js"></script>
+</html>

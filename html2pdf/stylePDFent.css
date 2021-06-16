@@ -1,0 +1,128 @@
+body{
+  width: 210mm;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#print{
+  padding: 10px;
+}
+
+
+h1 {
+  border-top: solid black;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+
+
+
+
+
+table{
+  margin: 0px;
+  width: 100%;
+  border-collapse: collapse
+}
+
+td{
+  border: 0px;
+}
+
+tr{
+  background-color: rgb(206, 206, 206);
+}
+
+tr:nth-child(2n){
+  background-color: silver;
+}
+
+#tableMission td{
+  width: 25%;
+}
+
+#tableCA td{
+  width: 25%;
+}
+
+#tableContacts td{
+  width: 16.66%;
+}
+
+.en-tete{
+  background-color: #525252;
+}
+
+
+
+
+
+footer{
+  font-size: 15px;
+  border-top: solid black;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+.defautlValue{
+  background-color: rgb(138, 138, 138);
+}
+
+#infoLegales{
+  text-align: right;
+}
+
+
+
+
+
+/*Couleur des étoiles*/
+.check{
+  color: orange;
+}
+
+.un-check{
+  color: black;
+}
+
+
+
+
+
+
+
+/*grid*/
+#print{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "informations informations infoLegales infoLegales"
+    "titreContacts titreContacts titreContacts titreContacts"
+    "tableContacts tableContacts tableContacts tableContacts"
+    "titreMission titreMission titreMission titreMission"
+    "tableMission tableMission tableMission tableMission"
+    "titreChiffreAffaire titreChiffreAffaire titreChiffreAffaire titreChiffreAffaire"
+    "tableCA tableCA tableCA tableCA"
+    "textTotalCA textTotalCA . ."
+    ". . dateInscription notation"
+    "footer footer footer footer"
+    ;
+}
+
+#informations{grid-area: informations;}
+#infoLegales{grid-area: infoLegales;}
+#dateInscription{grid-area: dateInscription;}
+#notation{grid-area: notation;}
+#titreContacts{grid-area: titreContacts;}
+#tableContacts{grid-area: tableContacts;}
+#titreMission{grid-area: titreMission;}
+#tableMission{grid-area: tableMission;}
+#titreChiffreAffaire{grid-area: titreChiffreAffaire;}
+#tableCA{grid-area: tableCA;}
+#textTotalCA{grid-area: textTotalCA;}
+footer{grid-area: footer;}

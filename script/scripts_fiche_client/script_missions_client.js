@@ -16,7 +16,7 @@ function nouvelleLigneMission(){
     strLigne +=     '<td><input type="text" class="presentes" name="presentes" placeholder="0" value="0"></td>'
     strLigne +=     '<td><input type="text" class="entretiens" name="entretiens" placeholder="0" value="0"></td>'
     strLigne +=     '<td><input type="text" class="signer" name="signer" placeholder="0" value="0"></td>'
-    strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value="0/0/0" disabled></td>'
+    strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value="0/0/0"></td>'
     strLigne +=     '<td>0</td>'
     strLigne +=     '<td>0J</td>'
     strLigne +=     '</tr>'

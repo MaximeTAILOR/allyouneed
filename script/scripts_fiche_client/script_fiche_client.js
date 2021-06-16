@@ -61,6 +61,14 @@ $('#listEnt').on("click", (e) => {
 })
 
 
+//Fonction pour accéder au dl en pdf
+function innitDLLink(){
+    $('.fa-file-download').css('display', 'block')
+    $('.fa-file-download').on('click', ()=>{
+        var w = window.open()
+        w.location.href = '../html2pdf/generate-PDF-ent.html?siret=' + $('#siret').val()
+    })
+}
 
 
 
@@ -244,29 +252,6 @@ function remplissageAutoSiret (siret){
     });
 }
 
-
-/*
-Fonction pour le chargement du formulaire si jamais on trouve le siret
-(dans l'url)
-On envoie alors une requête et on charge les élements trouvés dans les champs
-
-Ici on parle du chargement de la partie du formulaire qui concerne l'entreprise
-
-On en profite pour initialiser la navbar
-*/
-if (queryString){
-    let siretUrl = queryString.split('=')[1];
-    
-    updateEntrepriseInfo(siretUrl);
-    //initProgressBarUpdate()
-}else {
-    //Si on ne modifie pas de formulaires, alorson initialise pour la création
-    let date = new Date();
-    let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
-    $('#dateDuJour').val(dateFormulaire);
-
-    //initProgressBarUpdate()
-}
 
 
 
@@ -511,6 +496,9 @@ function envoyerEntreprise(){
                 alert(data.message);
             } else {
                 alert("Entreprise ajoutée / modifiée !");
+                if(actionSurClient == "ajouter"){
+                    innitDLLink()
+                }
             }
         },
         error: (error) => {
@@ -569,3 +557,25 @@ $('.pop-up').click((e) => {
 
 initEnvoyer();
 initLiens();
+
+
+/*
+Fonction pour le chargement du formulaire si jamais on trouve le siret
+(dans l'url)
+On envoie alors une requête et on charge les élements trouvés dans les champs
+
+Ici on parle du chargement de la partie du formulaire qui concerne l'entreprise
+
+On en profite pour initialiser la navbar
+*/
+if (queryString){
+    let siretUrl = queryString.split('=')[1];
+    
+    updateEntrepriseInfo(siretUrl);
+    innitDLLink()
+}else {
+    //Si on ne modifie pas de formulaires, alorson initialise pour la création
+    let date = new Date();
+    let dateFormulaire = date.getDate() + '/' + parseInt(date.getMonth() + 1) + '/' + date.getFullYear();
+    $('#dateDuJour').val(dateFormulaire);
+}

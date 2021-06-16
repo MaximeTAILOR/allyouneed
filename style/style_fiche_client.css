@@ -118,6 +118,16 @@ tr:hover {
   border-color: rgb(80, 80, 80);
 }
 
+.fa-file-download{
+  color: white;
+  cursor: pointer;
+  font-size: 35px;
+  margin-left: 10px;
+}
+
+.fa-file-download:hover{
+  color: rgb(190, 56, 3);
+}
 
 
 
