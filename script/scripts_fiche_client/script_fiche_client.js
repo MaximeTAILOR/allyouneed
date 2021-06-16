@@ -328,9 +328,7 @@ initFleches()
 
 //Met le SPANCO dans la bonne case
 function initSpanco(data){
-    console.log(data);
     spancoColumn = '#colonne' + data[0]['spanco'];
-    console.log(spancoColumn);
     let spancoCompInit = $('#logo').clone();
     let spancoArrowsInit = $('#arrow').clone();
     $('#logo').remove();
