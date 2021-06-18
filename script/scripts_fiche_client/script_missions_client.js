@@ -19,6 +19,8 @@ function nouvelleLigneMission(){
     strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value="0/0/0"></td>'
     strLigne +=     '<td><input type="text" class="CA" name="CA" placeholder="0" value="0"></td>'
     strLigne +=     '<td>0J</td>'
+    strLigne +=     '<td> <input type="text" class="dateModif" name="dateModif" placeholder="JJ/MM/AAAA" value=' + dateFormulaire + ' disabled></td>'
+    strLigne +=     '<td>0J</td>'
     strLigne +=     '</tr>'
     let ligne = $(strLigne)
     ligne.appendTo($('#tableMission'))
@@ -44,21 +46,27 @@ function calculEtatMission(){
         if(ligne.classList != 'en-tete'){
             let cases = ligne.cells
             let elementsDate = cases[1].children[0].value.split('/')
+            let elementsDateModif = cases[10].children[0].value.split('/')
 
             let dateJMA = new Date(+elementsDate[2], elementsDate[1] - 1, +elementsDate[0])
+            let dateModif = new Date(+elementsDateModif[2], elementsDateModif[1] - 1, +elementsDateModif[0])
             let dateDuJour = new Date()
             
 
             let nbJours = parseInt((dateDuJour - dateJMA)/(1000 * 3600 * 24))
+            let nbJoursModif = parseInt((dateDuJour - dateModif)/(1000 * 3600 * 24))
             
             cases[9].textContent =  nbJours + "J  ";
-            if (nbJours < 7) {
-                $('<i id="green" class="fas fa-circle"></i>').appendTo(cases[9]);
-            } else if (nbJours < 14){
-                $('<i id="yellow" class="fas fa-circle"></i>').appendTo(cases[9]);
-            } else if (nbJours < 21){
-                $('<i id="red" class="fas fa-circle"></i>').appendTo(cases[9]);
-                $('<i class="fas fa-exclamation-triangle"></i>').appendTo(cases[9]);
+            cases[11].textContent =  nbJoursModif + "J  ";
+            if (nbJoursModif < 5) {
+                $('<i id="green" class="fas fa-circle"></i>').appendTo(cases[11]);
+            } else if (nbJoursModif < 9){
+                $('<i id="yellow" class="fas fa-circle"></i>').appendTo(cases[11]);
+            } else if (nbJoursModif < 15){
+                $('<i id="orange" class="fas fa-circle"></i>').appendTo(cases[11]);
+            } else {
+                $('<i id="red" class="fas fa-circle"></i>').appendTo(cases[11]);
+                $('<i class="fas fa-exclamation-triangle"></i>').appendTo(cases[11]);
             }
             
         }
@@ -121,6 +129,12 @@ function updateMissionInfo(siretUrl){
                     }
                     let dateSignature = elementsDate[2] + '/' + elementsDate[1] + '/' + elementsDate[0];
 
+                    //affichage de la date de modification
+                    elementsDate = mission["lastmodif"].split('-')
+                    for (index in elementsDate){
+                        elementsDate[index] = parseInt(elementsDate[index])
+                    }
+                    let dateModif = elementsDate[2] + '/' + elementsDate[1] + '/' + elementsDate[0];
 
                     let strLigne =  '<tr>'
                     strLigne +=     '<td class="remove"><button class="retirerMission ' + mission["idmission"] + ' ">-</button></td>'
@@ -132,7 +146,9 @@ function updateMissionInfo(siretUrl){
                     strLigne +=     '<td><input type="text" class="signer" name="signer" placeholder="0" value=' + mission["endorsed"] + '></td>'
                     strLigne +=     '<td><input type="text" class="dateSignature" name="dateSignature" placeholder="JJ/MM/AAAA" value=' + dateSignature + '></td>'
                     strLigne +=     '<td><input type="text" class="CA" name="CA" placeholder="0" value=' + mission["turnover"] + '></td>'
-                    strLigne +=     "<td>0J</td>"
+                    strLigne +=     "<td>" +  "J</td>"
+                    strLigne +=     '<td><input type="text" class="dateModif" name="dateModif" placeholder="JJ/MM/AAAA" value=' + dateModif + ' disabled></td>'
+                    strLigne +=     "<td>" +  "J</td>"
                     strLigne +=     '</tr>'
                     let ligne = $(strLigne)
                     ligne.appendTo($('#tableMission'))
@@ -149,7 +165,7 @@ function updateMissionInfo(siretUrl){
             }
         },
         error: (error) => {
-            alert('Erreur !');
+            alert(error);
         }
     });
 }
@@ -173,7 +189,10 @@ function envoyerMissions(){
 
                 elementDate = cases[7].children[0].value.split('/')
                 let dateSignature=elementDate[2] + '-' + elementDate[1] + '-' + elementDate[0]
-                console.log(cases[8].children[0].value);
+                
+                let date = new Date();
+                let dateModif = date.getFullYear() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getDate();
+
                 if(idMiss == undefined){
                     //Si on ne trouve pas l'id dans la classe, alors il faut ajouter dans la base
                     data = {
@@ -186,7 +205,8 @@ function envoyerMissions(){
                         opendate   : dateOuverture,
                         enddate    : dateSignature,
                         turnover   : cases[8].children[0].value,
-                        action      : "ajouter",
+                        lastmodif  : dateModif,
+                        action     : "ajouter",
                     }
                 } else {
                     //Si on ne troruve pas le dit id alors, on parle d'un ajout
@@ -201,7 +221,8 @@ function envoyerMissions(){
                         opendate   : dateOuverture,
                         enddate    : dateSignature,
                         turnover   : cases[8].children[0].value,
-                        action : "modifier",
+                        lastmodif  : dateModif,
+                        action     : "modifier",
                     }
                 }
                 
@@ -247,7 +268,8 @@ function requeteMission(dataMission){
             console.log(data);
         },
         error: (error) => {
-            alert('Erreur !');
+            console.log(data);
+            alert(error);
         }
     });
 }
